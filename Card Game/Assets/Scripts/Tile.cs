@@ -6,6 +6,9 @@ public class Tile : MonoBehaviour {
     float halfSec;
 	float totalTime;
 
+	int xPos;
+	int zPos;
+
 	// Use this for initialization
 	void Start () {
 		totalTime = 0;
@@ -16,6 +19,12 @@ public class Tile : MonoBehaviour {
 	void Update () {
 		totalTime += Time.deltaTime;
 	
+	}
+
+	public void setPos(object[] pos)
+	{
+		xPos = (int)pos[0];
+		zPos = (int)pos[1];
 	}
 
     void OnMouseOver()
