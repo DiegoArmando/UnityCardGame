@@ -1092,7 +1092,7 @@ Transform:
   m_LocalScale: {x: 1.09595048, y: 1.09595037, z: 1.10355306}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!114 &410563386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1675,6 +1675,10 @@ Prefab:
       propertyPath: m_Name
       value: Hand1
       objectReference: {fileID: 0}
+    - target: {fileID: 11430188, guid: ac0981b86a6a0f447b021dc2c548ebbe, type: 2}
+      propertyPath: playerDeck
+      value: 
+      objectReference: {fileID: 410563384}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ac0981b86a6a0f447b021dc2c548ebbe, type: 2}
   m_IsPrefabParent: 0
