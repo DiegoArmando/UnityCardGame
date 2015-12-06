@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
     // Check Height at grid position [x,y]
     public int CheckHeight(int x, int y)
     {
+        if (x < 0 || x > gridSize || y < 0 || y > gridSize) { return 0; }
         return gridHeight[x, y];
     }
 
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour {
     // returns false if height goes above 5 or below -5
     public bool ChangeHeight(int x, int y, int d)
     {
+        if (x < 0 || x > gridSize || y < 0 || y > gridSize) { return false; }
         gridHeight[x, y] += d;
         if (gridHeight[x, y] > 5)
         {
@@ -50,4 +52,14 @@ public class GameManager : MonoBehaviour {
         }
         return true;
     }
+
+    // Check Occupancy of grid postion [x,y]
+    public bool CheckOccupy(int x, int y)
+    {
+        if (x < 0 || x > gridSize || y < 0 || y > gridSize) { return false; }
+        return gridOccupided[x, y];
+    }
+
+    // Change Occupancy of grid position [x,y] to value of b
+    //public bool
 }
