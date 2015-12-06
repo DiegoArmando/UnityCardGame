@@ -35,6 +35,8 @@ public class Tile : MonoBehaviour {
             {
                 transform.position = transform.position + new Vector3(0.0f, 0.5f, 0.0f);
                 halfSec = totalTime + 0.5f;
+                //changes height in game manager memory
+                ((GameManager)GameObject.Find("GameManager").GetComponent("GameManager")).ChangeHeight(xPos, zPos, 1);
             }
 			else
 			{
@@ -48,6 +50,8 @@ public class Tile : MonoBehaviour {
             {
                 transform.position = transform.position + new Vector3(0.0f, -0.5f, 0.0f);
                 halfSec = totalTime + 0.5f;
+                //changes height in game manager memory
+                ((GameManager)GameObject.Find("GameManager").GetComponent("GameManager")).ChangeHeight(xPos, zPos, -1);
             }
         }
     }
