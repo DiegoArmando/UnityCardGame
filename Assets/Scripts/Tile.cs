@@ -9,10 +9,15 @@ public class Tile : MonoBehaviour {
 	int xPos;
 	int zPos;
 
+    private GameManager gm;
+
 	// Use this for initialization
 	void Start () {
 		totalTime = 0;
         halfSec = totalTime + 0.5f;
+
+        // Initalize game manger
+        gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
 	}
 	
 	// Update is called once per frame
@@ -35,6 +40,8 @@ public class Tile : MonoBehaviour {
             {
                 transform.position = transform.position + new Vector3(0.0f, 0.5f, 0.0f);
                 halfSec = totalTime + 0.5f;
+                // Increase height at xPos,zPos by 1
+                gm.ChangeHeight(xPos, zPos, 1);
             }
 			else
 			{
@@ -48,6 +55,8 @@ public class Tile : MonoBehaviour {
             {
                 transform.position = transform.position + new Vector3(0.0f, -0.5f, 0.0f);
                 halfSec = totalTime + 0.5f;
+                // Decrease height at xPos,zPos by 1
+                gm.ChangeHeight(xPos, zPos, -1);
             }
         }
     }

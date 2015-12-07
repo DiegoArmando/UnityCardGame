@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour {
     {
         if (x < 0 || x > gridSize || y < 0 || y > gridSize) { return false; }
         gridHeight[x, y] += d;
+        /*
         if (gridHeight[x, y] > 5)
         {
             gridHeight[x, y] = 5;
@@ -49,17 +50,25 @@ public class GameManager : MonoBehaviour {
         {
             gridHeight[x, y] = -5;
             return false;
-        }
+        }*/
         return true;
     }
 
     // Check Occupancy of grid postion [x,y]
     public bool CheckOccupy(int x, int y)
     {
-        if (x < 0 || x > gridSize || y < 0 || y > gridSize) { return false; }
+        if (x < 0 || x > gridSize || y < 0 || y > gridSize) { return true; }
         return gridOccupided[x, y];
     }
 
     // Change Occupancy of grid position [x,y] to value of b
-    //public bool
+    public bool ChangeOccupy(int x, int y, bool b)
+    {
+        if (x < 0 || x > gridSize || y < 0 || y > gridSize) { return false; }
+        gridOccupided[x, y] = b;
+        return true;
+    }
+
+    // Acessor fnction to get board size
+    public int GetBoardSize() { return gridSize; }
 }
