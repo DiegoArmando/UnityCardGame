@@ -27,6 +27,7 @@ public class UnitMovement : MonoBehaviour {
     void OnMouseOver() {
         if (Input.GetMouseButtonDown(0))
         {
+			print ("I AM THE UNIT AND I HAVE BEEN CLICKED");
             if (selected) { selected = false; }
             else if (!selected) {  selected = true;}
         }
