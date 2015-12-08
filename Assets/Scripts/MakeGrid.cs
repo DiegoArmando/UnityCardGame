@@ -9,8 +9,8 @@ public class MakeGrid : MonoBehaviour {
 	GameObject[,] tiles;
 	// Use this for initialization
 	void Start () {
-		print ("I AM BEING CALLED");
-		print ("I AM THING " + uniqueIDNumber);
+		//print ("I AM BEING CALLED");
+		//print ("I AM THING " + uniqueIDNumber);
 		tiles = new GameObject[5, 5];
 
 		for(int i = 0; i < 5; i++)
@@ -28,7 +28,7 @@ public class MakeGrid : MonoBehaviour {
 				pos[0] = i;
 				pos[1] = j;
 				tiles[i,j].SendMessage("setPos", pos);
-				print("Cube " + i + ", " + j + " is at position: " + tiles[i,j].transform.position);
+				//print("Cube " + i + ", " + j + " is at position: " + tiles[i,j].transform.position);
 			}
 		}
 
