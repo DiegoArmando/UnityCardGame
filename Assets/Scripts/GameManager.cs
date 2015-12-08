@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour {
 
     private int[,] gridHeight = new int[gridSize,gridSize];
     private bool[,] gridOccupided = new bool[gridSize, gridSize];
-    private int[,] gridOwner = new int[gridSize, gridSize]; 
+    private int[,] gridOwner = new int[gridSize, gridSize];
+    public int selectionMode = 0; //0 = none; 1 = unitMove; 2 = spellTarget; 
 
 	// Use this for initialization
 	void Start () {

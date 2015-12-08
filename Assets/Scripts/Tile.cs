@@ -56,6 +56,12 @@ public class Tile : MonoBehaviour {
 		zPos = (int)pos[1];
 	}
 
+    // Change tile's height by d
+    public void ChangeTileHeight(int d)
+    {
+        transform.position = transform.position + new Vector3(0.0f, 0.5f*d, 0.0f);
+    }
+
     void OnMouseOver()
     {
         if(Input.GetMouseButton(0))
