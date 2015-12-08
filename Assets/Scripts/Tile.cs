@@ -66,7 +66,7 @@ public class Tile : MonoBehaviour {
     {
         if(Input.GetMouseButton(0))
         {
-            if (totalTime > halfSec)
+            if (totalTime > halfSec && gm.GetSelectMode() == 2)
             {
                 transform.position = transform.position + new Vector3(0.0f, 0.5f, 0.0f);
                 halfSec = totalTime + 0.5f;
@@ -83,7 +83,7 @@ public class Tile : MonoBehaviour {
         }
         else if(Input.GetMouseButton(1))
         {
-            if (totalTime > halfSec)
+            if (totalTime > halfSec && gm.GetSelectMode() == 2)
             {
                 transform.position = transform.position + new Vector3(0.0f, -0.5f, 0.0f);
                 halfSec = totalTime + 0.5f;

@@ -4,11 +4,19 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
     private const int gridSize = 5;
+    
+    private int textboxWidth = 150;
+    private int textboxHeight = 30;
+    private int textboxPosX;
+    private int textboxPosY;
+    private string textboxMessage = "";
+    private bool showTB = false;
+    private float showTimeStart;
 
     private int[,] gridHeight = new int[gridSize,gridSize];
     private bool[,] gridOccupided = new bool[gridSize, gridSize];
     private int[,] gridOwner = new int[gridSize, gridSize];
-    public int selectionMode = 0; //0 = none; 1 = unitMove; 2 = spellTarget; 
+    public int selectionMode = 0; //0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace; 
 
 	// Use this for initialization
 	void Start () {
@@ -26,8 +34,18 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        textboxPosX = (int)(Screen.width / 2.0f - textboxWidth / 2.0f);
+        textboxPosY = (int)(Screen.height - textboxHeight / 2.0f - 30);
+
+        if (Time.time - showTimeStart > 2.0f) { showTB = false; }
 	}
+
+    void OnGUI()
+    {
+        if (showTB)
+        { GUI.Box(new Rect(textboxPosX, textboxPosY, textboxWidth, textboxHeight), textboxMessage); }
+    }
+
     // Acessor fnction to get board size
     public int GetBoardSize() { return gridSize; }
 
@@ -87,5 +105,29 @@ public class GameManager : MonoBehaviour {
         if (o < 0 || o > 2) { return false; }
         gridOwner[x, y] = o;
         return true;
+    }
+
+    // Obtain the current selection mode; 0 = none; 1 = unitMove; 2 = spellTarget
+    public int GetSelectMode()
+    {
+        return selectionMode;
+    }
+
+    // Change the Selection mode to s
+    // s must be either 0, 1, 2, or 3
+    public bool ChangeSelectMode(int s)
+    {
+        if (s < 0 || s > 3) { return false; }
+        selectionMode = s;
+        return true;
+    }
+
+    // Change the message in center textbox
+    public void ShowTBMessage(string message)
+    {
+        textboxWidth = message.Length * 10;
+        textboxMessage = message;
+        showTB = true;
+        showTimeStart = Time.time;
     }
 }
