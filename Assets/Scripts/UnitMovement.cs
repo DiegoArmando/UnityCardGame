@@ -41,7 +41,7 @@ public class UnitMovement : MonoBehaviour {
     }
 
     // Update unit Position to (new_x, new_y)
-    void PositionUpdate(int new_x, int new_y)
+    public void PositionUpdate(int new_x, int new_y)
     {
         unit_X = new_x;
         unit_Y = new_y;

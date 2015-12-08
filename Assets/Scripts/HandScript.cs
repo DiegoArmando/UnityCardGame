@@ -7,6 +7,8 @@ using System.Collections.Generic;
 public class HandScript : MonoBehaviour {
 	public GameObject playerDeck;
 	private DeckScript playerDeckScript;
+	private GameObject selected;
+	public bool hasSelected;
 	Ray ray;
 
 	private List<GameObject> _hand = new List<GameObject> ();
@@ -14,11 +16,12 @@ public class HandScript : MonoBehaviour {
 	void Start(){
 		//grab playerHand's Handscript component
 		playerDeckScript = playerDeck.GetComponent<DeckScript> ();
+		hasSelected = false;
 
 	}
 
 	public GameObject drawCard (GameObject card) {
-		Vector3 offset = new Vector3 (0, 0, _hand.Count*1.25f);
+		Vector3 offset = new Vector3 ( _hand.Count*1.25f, 0, 0);
 		card.transform.position = this.transform.position + offset;
 		_hand.Add (card);
 		return card;
@@ -26,7 +29,7 @@ public class HandScript : MonoBehaviour {
 
 	void manageHand(){
 		for (int i=0; i<_hand.Count; i++) {
-			Vector3 offset = new Vector3(0, 0, i*1.25f);
+			Vector3 offset = new Vector3(i*1.25f, 0, 0);
 			GameObject card = _hand[i];
 			card.transform.position = this.transform.position + offset;
 		}
@@ -37,9 +40,12 @@ public class HandScript : MonoBehaviour {
 			GameObject card = _hand[i];
 			CardScript cardScript = card.GetComponent<CardScript>();
 			if(cardScript.Selected){
-				_hand.RemoveAt(i);
-				playerDeckScript.discard(card);
-				manageHand();
+				selected = cardScript.gameObject;
+				hasSelected = true;
+				print("Selected card");
+				//_hand.RemoveAt(i);
+				//playerDeckScript.discard(card);
+				//manageHand();
 			}
 		}
 	}

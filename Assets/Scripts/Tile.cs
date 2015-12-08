@@ -3,16 +3,24 @@ using System.Collections;
 
 public class Tile : MonoBehaviour {
 
+
+	public GameObject unit;
+
     float halfSec;
 	float totalTime;
 
 	int xPos;
 	int zPos;
 
+    private GameManager gm;
+
 	// Use this for initialization
 	void Start () {
 		totalTime = 0;
         halfSec = totalTime + 0.5f;
+
+        // Initalize game manger
+        gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
 	}
 	
 	// Update is called once per frame
@@ -33,8 +41,21 @@ public class Tile : MonoBehaviour {
         {
             if (totalTime > halfSec)
             {
-                transform.position = transform.position + new Vector3(0.0f, 0.5f, 0.0f);
+				//gm.currentHand.GetComponent("HandScript").
+                //transform.position = transform.position + new Vector3(0.0f, 0.5f, 0.0f);
                 halfSec = totalTime + 0.5f;
+                // Increase height at xPos,zPos by 1
+				if(gm.CheckOccupy(xPos, zPos) == false)
+				{
+					print ("Space " + xPos + ", " + zPos + " is unoccupied.");
+					GameObject newUnit = Instantiate(unit);
+					UnitMovement moveScript = (UnitMovement)newUnit.GetComponent("Capsule").GetComponent("UnitMovement");
+					//moveScript.
+					moveScript.PositionUpdate(xPos, zPos);
+
+					//Set the unit's properties here
+				}
+                //gm.ChangeHeight(xPos, zPos, 1);
             }
 			else
 			{
@@ -46,8 +67,10 @@ public class Tile : MonoBehaviour {
         {
             if (totalTime > halfSec)
             {
-                transform.position = transform.position + new Vector3(0.0f, -0.5f, 0.0f);
-                halfSec = totalTime + 0.5f;
+                //transform.position = transform.position + new Vector3(0.0f, -0.5f, 0.0f);
+                //halfSec = totalTime + 0.5f;
+                // Decrease height at xPos,zPos by 1
+                //gm.ChangeHeight(xPos, zPos, -1);
             }
         }
     }

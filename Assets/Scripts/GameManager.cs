@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
     public int[,] gridHeight = new int[gridSize,gridSize];
     public bool[,] gridOccupided = new bool[gridSize, gridSize];
 
+	public GameObject currentHand;
+
 	// Use this for initialization
 	void Start () {
         // initalize the two grid arrays
