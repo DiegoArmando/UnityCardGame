@@ -33,7 +33,12 @@ public class UnitMovement : MonoBehaviour {
         {
             if (selected) { selected = false; }
             else if (!selected) 
-            {  
+            {
+                GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
+                foreach (GameObject unit in units)
+                {
+                    ((UnitMovement)unit.GetComponent("UnitMovement")).Deselect();
+                }
                 selected = true;
                 menuPosX = (int)Input.mousePosition.x;
                 menuPosY = (int)(Screen.height - Input.mousePosition.y);
