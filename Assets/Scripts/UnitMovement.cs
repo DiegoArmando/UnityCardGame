@@ -75,7 +75,8 @@ public class UnitMovement : MonoBehaviour {
         // Right button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize/2) + buttonSize, (menuPosY - buttonSize/2), buttonSize, buttonSize), "Right"))
         {
-            if (unit_X + 1 > gm.GetBoardSize()) 
+            print("Unit X:" + unit_X + "Unit Y:" + unit_Y);
+            if (unit_X + 1 >= gm.GetBoardSize()) 
             {
                 print("Unit cannot move off the board");
             }
@@ -97,7 +98,7 @@ public class UnitMovement : MonoBehaviour {
         // Up button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize/2), (menuPosY - buttonSize/2) - buttonSize, buttonSize, buttonSize), "Up"))
         {
-            if (unit_Y + 1 > gm.GetBoardSize())
+            if (unit_Y + 1 >= gm.GetBoardSize())
             {
                 print("Unit cannot move off the board");
             }
