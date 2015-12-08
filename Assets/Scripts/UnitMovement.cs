@@ -12,7 +12,8 @@ public class UnitMovement : MonoBehaviour {
     public int unit_X = 0;
     public int unit_Y = 0;
     public int playerID = 0;
-
+    public int unitType = 0;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -22,10 +23,9 @@ public class UnitMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         int height = gm.CheckHeight(unit_X, unit_Y);
-        this.transform.position = new Vector3(unit_X, 1.5f + height/2.0f, unit_Y);
+        this.transform.position = new Vector3(unit_X * 1.05f, 1.5f + height/2.0f, unit_Y * 1.05f);
         if (!gm.CheckOccupy(unit_X, unit_Y)) { gm.ChangeOccupy(unit_X,unit_Y,true); }
         gm.ChangeOwner(unit_X, unit_Y, playerID);
-        print("(" + unit_X + "," + unit_Y + ") " + playerID);
 	}
 
     void OnMouseOver() {

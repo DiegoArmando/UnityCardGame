@@ -36,7 +36,6 @@ public class Tile : MonoBehaviour {
             case 1:
                 //change to player 1's color
                 gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-                print("I'm red");
                 break;
 
             case 2:
