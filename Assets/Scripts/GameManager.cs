@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour {
     public bool ChangeOwner(int x, int y, int o)
     {
         if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) { return false; }
-        if (o < 0 || o < 2) { return false; }
+        if (o < 0 || o > 2) { return false; }
         gridOwner[x, y] = o;
         return true;
     }

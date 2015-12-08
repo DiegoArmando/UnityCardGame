@@ -22,8 +22,10 @@ public class UnitMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         int height = gm.CheckHeight(unit_X, unit_Y);
-        this.transform.position = new Vector3(unit_X, 2 + (float)height/2, unit_Y);
+        this.transform.position = new Vector3(unit_X, 1.5f + height/2.0f, unit_Y);
         if (!gm.CheckOccupy(unit_X, unit_Y)) { gm.ChangeOccupy(unit_X,unit_Y,true); }
+        gm.ChangeOwner(unit_X, unit_Y, playerID);
+        print("(" + unit_X + "," + unit_Y + ") " + playerID);
 	}
 
     void OnMouseOver() {
@@ -35,7 +37,6 @@ public class UnitMovement : MonoBehaviour {
                 selected = true;
                 menuPosX = (int)Input.mousePosition.x;
                 menuPosY = (int)(Screen.height - Input.mousePosition.y);
-                print(menuPosX + "," + menuPosY);
             }
         }
     }
@@ -81,7 +82,6 @@ public class UnitMovement : MonoBehaviour {
                 gm.ChangeOccupy(unit_X, unit_Y, false);
                 unit_X--;
                 gm.ChangeOccupy(unit_X, unit_Y, true);
-                gm.ChangeOwner(unit_X, unit_Y, playerID);
             }
 
         }
@@ -109,7 +109,6 @@ public class UnitMovement : MonoBehaviour {
                 gm.ChangeOccupy(unit_X, unit_Y, false);
                 unit_X++;
                 gm.ChangeOccupy(unit_X, unit_Y, true);
-                gm.ChangeOwner(unit_X, unit_Y, playerID);
             }
         }
         // Up button
@@ -136,7 +135,6 @@ public class UnitMovement : MonoBehaviour {
                 gm.ChangeOccupy(unit_X, unit_Y, false);
                 unit_Y++;
                 gm.ChangeOccupy(unit_X, unit_Y, true);
-                gm.ChangeOwner(unit_X, unit_Y, playerID);
             }
         }
         // Down button
@@ -163,7 +161,6 @@ public class UnitMovement : MonoBehaviour {
                 gm.ChangeOccupy(unit_X, unit_Y, false);
                 unit_Y--;
                 gm.ChangeOccupy(unit_X, unit_Y, true);
-                gm.ChangeOwner(unit_X, unit_Y, playerID);
             }
         }
     }
