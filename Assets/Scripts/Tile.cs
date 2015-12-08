@@ -23,6 +23,27 @@ public class Tile : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		totalTime += Time.deltaTime;
+
+        // check who owns the tile and adds tint depending on owner
+        int owner = gm.CheckOwner(xPos, zPos);
+        switch (owner)
+        {
+            case 0:
+                //change to white
+                break;
+            
+            case 1:
+                //change to player 1's color
+                break;
+
+            case 2:
+                //change to player 2's color
+                break;
+
+            default:
+                print("Owner invalid");
+                break;
+        }
 	
 	}
 
@@ -43,10 +64,12 @@ public class Tile : MonoBehaviour {
                 // Increase height at xPos,zPos by 1
                 gm.ChangeHeight(xPos, zPos, 1);
             }
+            /*
 			else
 			{
 				print(Time.deltaTime.ToString() + " " + halfSec.ToString());
 			}
+            */
 
         }
         else if(Input.GetMouseButton(1))
