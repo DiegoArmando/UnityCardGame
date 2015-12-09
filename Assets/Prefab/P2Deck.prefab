@@ -41,6 +41,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardObject: {fileID: 135154, guid: c563d8d4d8a7b6f4c9a40d3d813e8b7c, type: 2}
   playerHand: {fileID: 121546, guid: b0daf518e37c6e64ebe40a585933cb26, type: 2}
+  playerID: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -52,6 +53,10 @@ Prefab:
       propertyPath: playerHand
       value: 
       objectReference: {fileID: 121546, guid: b0daf518e37c6e64ebe40a585933cb26, type: 2}
+    - target: {fileID: 0}
+      propertyPath: playerID
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 127308}

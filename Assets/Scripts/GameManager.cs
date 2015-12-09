@@ -87,8 +87,8 @@ public class GameManager : MonoBehaviour {
                         GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
                         playerTurn = 2;
                         GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw");
-                        GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("hideHand");
-                        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("hideDeck");
+                        /*GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("hideHand");
+                        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("hideDeck");*/
                         playerTurn = 1;
 
                         hiddenCards = false;
