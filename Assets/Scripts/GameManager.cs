@@ -54,8 +54,10 @@ public class GameManager : MonoBehaviour {
                 gridOwner[i, j] = 0;
             }
         }
+        gridOwner[0, 0] = 1;
+        gridOwner[gridSize-1, gridSize-1] = 2;
+        playerTurn = 1;
 		currentHand = GameObject.Find ("P1Hand");
-		playerTurn = 1;
         GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("hideHand");
         GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("hideDeck");
 	}
