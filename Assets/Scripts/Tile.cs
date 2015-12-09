@@ -90,79 +90,72 @@ public class Tile : MonoBehaviour {
 					//print ("Champion type: " + CardScript.typeEnum.Champion);
 					//print ("Is type equal to champion type? : " + card.Type.CompareTo(CardScript.typeEnum.Champion));
 
-                    if (gm.CheckOccupy(xPos, zPos) == false && card.Type == 0)
-                    {
-                        if (gm.CheckOwner(xPos - 1, zPos) == gm.GetWhoseTurn() ||
-                            gm.CheckOwner(xPos + 1, zPos) == gm.GetWhoseTurn() ||
-                            gm.CheckOwner(xPos, zPos + 1) == gm.GetWhoseTurn() ||
-                            gm.CheckOwner(xPos, zPos - 1) == gm.GetWhoseTurn() ||
-                            gm.CheckOwner(xPos,zPos) == gm.GetWhoseTurn())
-                        {
-                            print("Space " + xPos + ", " + zPos + " is unoccupied.");
-                            GameObject newUnit = Instantiate(unit);
-                            //newUnit.SetActive(true);
+					if( card.Type == 0)
+					{
+						if(gm.CheckOccupy(xPos, zPos) == false)
+						{
+							if(((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).checkValid(xPos, zPos, gm.GetWhoseTurn()) == false)
+							{
+								gm.ShowTBMessage("You must place a unit adjacent to controlled territory");
+							}
+							else
+							{
+								print ("Space " + xPos + ", " + zPos + " is unoccupied.");
+								GameObject newUnit = Instantiate(unit);
 
-                            UnitMovement moveScript = (UnitMovement)newUnit.GetComponent("UnitMovement");
+								UnitMovement moveScript = (UnitMovement)newUnit.GetComponent("UnitMovement");
 
-                            moveScript.PositionUpdate(xPos, zPos);
-                            print("Setting the unit's position to " + xPos + ", " + zPos);
+								moveScript.PositionUpdate(xPos, zPos);
+								print ("Setting the unit's position to " + xPos + ", " + zPos);
 
-                            //Set the unit's properties here
-                            //moveScript.setUnitType(card.
+	                   	 		moveScript.setPlayerID(gm.GetWhoseTurn());
+								moveScript.unitType = card.unitType;
 
-                            moveScript.setPlayerID(gm.GetWhoseTurn());
-                            ((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
-                        }
-                        else
-                        {
-                            gm.ShowTBMessage("Place units adjacent to a tile you own");
-                        }
-                    }
-                    else if (gm.CheckOccupy(xPos, zPos) == true && card.Type == 1)
-                    {
-                        ((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(card.spellType, xPos, zPos);
-                        ((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
-                        //GetComponentInParent(MakeGrid).doSpell(card.spellType, xPos, zPos);
-                    }
-                    else
-                    {
-                        print("Invalid move");
-                    }
+								//If our unit goes up one, bump that tile up one
+								if(card.unitType == 2)
+								{
+									((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(0, xPos, zPos);
+								}
+								//If our unit goes down one, bump that tile down one
+								else if(card.unitType == 4)
+								{
+									((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(1, xPos, zPos);
+								}
+								((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
+							}
+						}
+						else
+						{
+							gm.ShowTBMessage("You can only place units on unoccupied tiles");
+						}
+					}
+					else if( card.Type == 1)
+					{
+						if(gm.CheckOccupy(xPos, zPos) == true)
+						{
+							((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(card.spellType, xPos, zPos);
+							((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
+							gm.useAction();
+						}
+						else
+						{
+							gm.ShowTBMessage("Spells can only be played on occupied tiles");
+						}
+					}
+					else
+					{
+						print ("Invalid move");
+					}
 
 				}
 				else
 				{
 					print ("Space " + xPos + ", " + zPos + " is occupied or a card is not selected.");
 				}
-                //gm.ChangeHeight(xPos, zPos, 1);
 
             }
-            /*
-			else
-			{
-				print(Time.deltaTime.ToString() + " " + halfSec.ToString());
-			}
-            */
 
-        }
-        else if(Input.GetMouseButton(1))
-        {
-            if (totalTime > halfSec && gm.GetSelectMode() == 2)
-            {
-                //transform.position = transform.position + new Vector3(0.0f, -0.5f, 0.0f);
-                //halfSec = totalTime + 0.5f;
-                // Decrease height at xPos,zPos by 1
-                //gm.ChangeHeight(xPos, zPos, -1);
-
-            }
         }
     }
 
-
-    //void OnMouseDown()
-    //{
-      //  print(transform.position.y);
-       // transform.position = transform.position + new Vector3(0.0f, 1.0f, 0.0f);
-        
-    //}
 }

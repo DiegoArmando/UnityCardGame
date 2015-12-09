@@ -12,7 +12,7 @@ public class UnitMovement : MonoBehaviour {
     private int unit_X = 0;
     private int unit_Y = 0;
     private int playerID = 0; // 0 = neither; 1 = player1; 2 = player2
-    private int unitType = 0; // 0 = Dummy; 1 = Brute; 2 = Miner; 3 = Scout
+    public int unitType = 0; // 0 = Dummy; 1 = Brute; 2 = Miner; 3 = Scout
     
 
 	// Use this for initialization
