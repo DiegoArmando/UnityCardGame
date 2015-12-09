@@ -62,10 +62,10 @@ public class CardScript : MonoBehaviour {
 		//	sets card as selected; will be picked up by the hand script
 		if (in_hand) {
 			is_selected = true;
-			GameObject temp;
+			/*GameObject temp;
 			temp = (GameObject)Instantiate(highlight);
 			Vector3 offset = new Vector3(0, 0.01f, 0);
-			temp.transform.position = gameObject.transform.position + offset;
+			temp.transform.position = gameObject.transform.position + offset;*/
 		}
 	}
 }

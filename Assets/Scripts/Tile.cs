@@ -65,7 +65,7 @@ public class Tile : MonoBehaviour {
     public void ChangeTileHeight(int d)
     {
         transform.position = transform.position + new Vector3(0.0f, 0.5f*d, 0.0f);
-		height = d;
+		height += d;
     }
 
     void OnMouseOver()

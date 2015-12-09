@@ -24,18 +24,12 @@ public class HandScript : MonoBehaviour {
     void Awake()
     {
         oldPos = this.transform.position;
-
-        if (this.name.Equals("P1Hand")) { playerID = 1; }
-        else if (this.name.Equals("P2Hand")) { playerID = 2; }
     
 		//grab playerHand's Handscript component
 		playerDeckScript = playerDeck.GetComponent<DeckScript> ();
 		hasSelected = false;
 	
 		setArt();
-        
-        if (this.name.Equals("P1Hand")) { playerID = 1; }
-        else if (this.name.Equals("P2Hand")) { playerID = 2; }
 	}
 
 
@@ -44,7 +38,7 @@ public class HandScript : MonoBehaviour {
     }
 
 	public GameObject drawCard (GameObject card) {
-		Vector3 offset = new Vector3 ( _hand.Count*2.5f, 0, 0);
+		Vector3 offset = new Vector3 ( _hand.Count*2.5f, _hand.Count*-0.05f, 0);
 		card.transform.position = this.transform.position + offset;
 		_hand.Add (card);
 		
@@ -63,7 +57,7 @@ public class HandScript : MonoBehaviour {
 
 	void manageHand(){
 		for (int i=0; i<_hand.Count; i++) {
-			Vector3 offset = new Vector3(i*2.5f, 0, 0);
+			Vector3 offset = new Vector3(i*2.5f, i*0.05f, 0);
 			GameObject card = _hand[i];
 			card.transform.position = this.transform.position + offset;
 		}
@@ -96,34 +90,34 @@ public class HandScript : MonoBehaviour {
 		cardArt[0] = new string[2][];
 		//StarOre Units
 		cardArt [0] [0] = new string[5];
-		cardArt [0] [0] [0] = "starorescoutcard";
+        cardArt[0][0][0] = "staroreguardcard"; 
 		cardArt [0] [0] [1] = "starorebrutecard";
-		cardArt [0] [0] [2] = "staroreelevatorcard";
-		cardArt [0] [0] [3] = "staroreexcavatorcard";
-		cardArt [0] [0] [4] = "staroreguardcard";
+        cardArt[0][0][2] = "staroreexcavatorcard"; 
+        cardArt[0][0][3] = "starorescoutcard";
+        cardArt[0][0][4] = "staroreelevatorcard";
 
 		//StarOre Spells
 		cardArt [0] [1] = new string[4];
-		cardArt [0] [1] [0] = "starorefistcard";
-		cardArt [0] [1] [1] = "starorelevelcard";
-		cardArt [0] [1] [2] = "staroresinkholecard";
-		cardArt [0] [1] [3] = "staroreevelatecard";
+        cardArt[0][1][0] = "staroreevelatecard";
+        cardArt[0][1][1] = "staroresinkholecard";
+        cardArt[0][1][2] = "starorelevelcard"; 
+        cardArt[0][1][3] = "starorefistcard";
 
 		cardArt [1] = new string[2][];
 		//Toris Units
 		cardArt [1] [0] = new string[5];
-		cardArt [1] [0] [0] = "torisscoutcard";
+        cardArt[1][0][0] = "torisguardcard"; 
 		cardArt [1] [0] [1] = "torisbrutecard";
-		cardArt [1] [0] [2] = "toriselevatorcard";
-		cardArt [1] [0] [3] = "torisexcavatorcard";
-		cardArt [1] [0] [4] = "torisguardcard";
+        cardArt[1][0][2] = "torisexcavatorcard"; 
+        cardArt[1][0][3] = "torisscoutcard";
+        cardArt[1][0][4] = "toriselevatorcard";
 
 		//Toris Spells
 		cardArt [1] [1] = new string[4];
-		cardArt [1] [1] [0] = "torisfistcard";
-		cardArt [1] [1] [1] = "torislevelcard";
-		cardArt [1] [1] [2] = "torissinkholecard";
-		cardArt [1] [1] [3] = "torisevelatecard";
+		cardArt [1] [1] [0] = "torisevelatecard";
+        cardArt[1][1][1] = "torissinkholecard";
+        cardArt[1][1][2] = "torislevelcard";
+        cardArt[1][1][3] = "torisfistcard";
 	}
 
     // hides the hand
@@ -132,7 +126,7 @@ public class HandScript : MonoBehaviour {
         this.transform.position += new Vector3(-100, 0, 0);
         for (int i = 0; i < _hand.Count; i++)
         {
-            Vector3 offset = new Vector3(i * 2.5f, 0, 0);
+            Vector3 offset = new Vector3(i * 2.5f, i*-0.05f, 0);
             GameObject card = _hand[i];
             card.transform.position = this.transform.position + offset;
         }
@@ -144,7 +138,7 @@ public class HandScript : MonoBehaviour {
         this.transform.position = oldPos;
         for (int i = 0; i < _hand.Count; i++)
         {
-            Vector3 offset = new Vector3(i * 2.5f, 0, 0);
+            Vector3 offset = new Vector3(i * 2.5f, i*-0.05f, 0);
             GameObject card = _hand[i];
             card.transform.position = this.transform.position + offset;
         }
