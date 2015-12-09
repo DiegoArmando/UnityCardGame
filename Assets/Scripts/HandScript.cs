@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class HandScript : MonoBehaviour {
 	public GameObject playerDeck;
 	private DeckScript playerDeckScript;
-	private GameObject selected;
+	public GameObject selected;
 	public bool hasSelected;
 	Ray ray;
 	public int playerID;

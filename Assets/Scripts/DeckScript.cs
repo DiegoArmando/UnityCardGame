@@ -33,6 +33,14 @@ public class DeckScript : MonoBehaviour {
 			Texture img;
 			if(i<10){
 				img = (Texture)Resources.Load("starorescoutcard");
+				((CardScript)temp.GetComponent("CardScript")).Type = 0;
+				((CardScript)temp.GetComponent("CardScript")).unitType = 0;
+			}
+			else if(i == 18)
+			{
+				img = (Texture)Resources.Load("elevate");
+				((CardScript)temp.GetComponent("CardScript")).Type = 1;
+				((CardScript)temp.GetComponent("CardScript")).spellType = 0;
 			}
 			else img = (Texture)Resources.Load("starorebrutecard");
 			temp.GetComponent<Renderer>().material.mainTexture = img;

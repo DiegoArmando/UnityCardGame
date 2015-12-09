@@ -38,4 +38,45 @@ public class MakeGrid : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public void doSpell(int spell, int x, int y)
+	{
+		switch (spell) {
+		case 0:
+			raise (x, y);
+			break;
+		case 1:
+			lower (x,y);
+			break;
+		case 2:
+			level (x,y);
+			break;
+		case 3:
+			fist (x,y);
+			break;
+		}
+	}
+
+	public void raise(int x, int y)
+	{
+		//CHANGE THIS TO THE GM
+		((GameManager)GetComponent ("GameManager")).ChangeHeight (x, y, 1);
+		((Tile)tiles [x, y].GetComponent ("Tile")).ChangeTileHeight (((Tile)tiles [x, y].GetComponent ("Tile")).height + 1);
+	}
+
+	public void lower(int x, int y)
+	{
+		((GameManager)GetComponent ("GameManager")).ChangeHeight (x, y, -1);
+		((Tile)tiles [x, y].GetComponent ("Tile")).ChangeTileHeight (((Tile)tiles [x, y].GetComponent ("Tile")).height - 1);
+	}
+
+	public void level(int x, int y)
+	{
+
+	}
+
+	public void fist(int x, int y)
+	{
+
+	}
 }

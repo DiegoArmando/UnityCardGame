@@ -3,9 +3,6 @@
 using UnityEngine;
 using System.Collections;
 
-
-
-
 public class CardScript : MonoBehaviour {
 	//material information for selection highlight
 	Renderer rend;
@@ -16,13 +13,22 @@ public class CardScript : MonoBehaviour {
 		Champion=1,
 		Spell=2
 	}
-	private typeEnum cardType;
+
+	//public enum 
+
+
+	public int unitType; // 0 = Dummy; 1 = Brute; 2 = Miner; 3 = Scout
+	public int spellType;
+
+	//public typeEnum cardType;
+
 
 	//bool determines if card is selected
 	private bool is_selected;
 
 	//return functions
-	public typeEnum Type { get { return cardType; } }
+	public int Type;
+
 	public bool Selected { get { return is_selected; } }	
 
 
@@ -34,14 +40,24 @@ public class CardScript : MonoBehaviour {
 		//	Debug.LogError("Asset '" + assetName + "' could not be found.");
 		//} else {
 		//	_card = Instantiate(asset, position, rotation);
-			cardType = typeEnum.Champion;
+		//cardType = typeEnum.Champion;
+		//unitType = 0;
 		//}
 		rend = GetComponent<Renderer>();
 		mat = rend.material;
 		is_selected = false;
 	}
 
-	void setCard(){
+	void setCard(int sentType, int which){
+		Type = sentType;
+		if (Type == 0)
+		{
+			unitType = which;
+		} 
+		else
+		{
+			spellType = which;
+		}
 		//this is called when the deck is instantiated to give this card its properties
 
 	}
