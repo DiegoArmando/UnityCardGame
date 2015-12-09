@@ -53,6 +53,8 @@ public class CardScript : MonoBehaviour {
 
 	void OnMouseDown(){
 	//	sets card as selected; will be picked up by the hand script
+		GameManager gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
+		((HandScript)gm.currentHand.GetComponent ("HandScript")).deselect();
 		is_selected = true;
 	}
 }

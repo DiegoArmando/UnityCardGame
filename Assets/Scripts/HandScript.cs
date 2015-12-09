@@ -38,7 +38,7 @@ public class HandScript : MonoBehaviour {
 	}
 
 	public GameObject drawCard (GameObject card) {
-		Vector3 offset = new Vector3 ( _hand.Count*1.25f, 0, 0);
+		Vector3 offset = new Vector3 ( _hand.Count*2.5f, 0, 0);
 		card.transform.position = this.transform.position + offset;
 		_hand.Add (card);
 		
@@ -57,7 +57,7 @@ public class HandScript : MonoBehaviour {
 
 	void manageHand(){
 		for (int i=0; i<_hand.Count; i++) {
-			Vector3 offset = new Vector3(i*1.25f, 0, 0);
+			Vector3 offset = new Vector3(i*2.5f, 0, 0);
 			GameObject card = _hand[i];
 			card.transform.position = this.transform.position + offset;
 		}
@@ -69,6 +69,7 @@ public class HandScript : MonoBehaviour {
 			CardScript cardScript = card.GetComponent<CardScript>();
 			if(cardScript.is_selected){
 				selected = cardScript.gameObject;
+				if(hasSelected == false) print ("has selected is now true for player " + playerID);
 				hasSelected = true;
 				removeIndex = i;
 				//print("Selected card");
@@ -100,7 +101,7 @@ public class HandScript : MonoBehaviour {
         this.transform.position += new Vector3(-100, 0, 0);
         for (int i = 0; i < _hand.Count; i++)
         {
-            Vector3 offset = new Vector3(i * 1.25f, 0, 0);
+            Vector3 offset = new Vector3(i * 2.5f, 0, 0);
             GameObject card = _hand[i];
             card.transform.position = this.transform.position + offset;
         }
@@ -112,10 +113,21 @@ public class HandScript : MonoBehaviour {
         this.transform.position = oldPos;
         for (int i = 0; i < _hand.Count; i++)
         {
-            Vector3 offset = new Vector3(i * 1.25f, 0, 0);
+            Vector3 offset = new Vector3(i * 2.5f, 0, 0);
             GameObject card = _hand[i];
             card.transform.position = this.transform.position + offset;
         }
     }
+
+	public void deselect()
+	{
+		hasSelected = false;
+		for (int i = 0; i < _hand.Count; i++)
+		{
+			GameObject card = _hand[i];
+			CardScript cardScript = card.GetComponent<CardScript>();
+			cardScript.is_selected = false;
+		}
+	}
 
 }
