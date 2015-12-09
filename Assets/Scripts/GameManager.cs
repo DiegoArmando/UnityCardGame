@@ -44,6 +44,24 @@ public class GameManager : MonoBehaviour {
         textboxPosY = (int)(Screen.height - textboxHeight / 2.0f - 30);
 
         if (Time.time - showTimeStart > 2.0f) { showTB = false; }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            switch (playerTurn) {
+                case 0:
+                    SwitchTurns(1);
+                    break;
+                case 1:
+                    SwitchTurns(2);
+                    break;
+                case 2:
+                    SwitchTurns(1);
+                    break;
+                default:
+                    print("Invalid turn ID");
+                    break;
+            }
+        }
 	}
 
     void OnGUI()
@@ -72,17 +90,6 @@ public class GameManager : MonoBehaviour {
         if (x < 0 || x > gridSize || y < 0 || y > gridSize) { return false; }
         if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) { return false; }
         gridHeight[x, y] += d;
-        /*
-        if (gridHeight[x, y] > 5)
-        {
-            gridHeight[x, y] = 5;
-            return false;
-        }
-        else if (gridHeight[x, y] < -5)
-        {
-            gridHeight[x, y] = -5;
-            return false;
-        }*/
         return true;
     }
 
@@ -137,13 +144,6 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    // Get the which player's turn it is
-    // 0 = neither; 1 = player1; 2 = player2
-    public int GetWhoseTurn()
-    {
-        return playerTurn;
-    }
-
     // Change the message in center textbox
     public void ShowTBMessage(string message)
     {
@@ -151,6 +151,23 @@ public class GameManager : MonoBehaviour {
         textboxMessage = message;
         showTB = true;
         showTimeStart = Time.time;
+    }
+
+    // Get the which player's turn it is
+    // 0 = neither; 1 = player1; 2 = player2
+    public int GetWhoseTurn()
+    {
+        return playerTurn;
+    }
+
+    // Switches the player's turn; t = whose turn it is
+    // 0 = neither(Start/End Game); 1 = player1; 2 = player2;
+    public void SwitchTurns(int t)
+    {
+        if (t >= 0 && t <= 2) { 
+            playerTurn = t;
+            ShowTBMessage("It is Player " + t + "'s turn.");
+        }
     }
 
 }

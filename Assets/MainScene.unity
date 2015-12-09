@@ -244,6 +244,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!1 &307706070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 1504529308}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 307706071}
+  m_Layer: 0
+  m_Name: Missing Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &307706071
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 1504529308}
+  m_GameObject: {fileID: 307706070}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
 --- !u!1 &358599129
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +344,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
 --- !u!1001 &490810432
 Prefab:
   m_ObjectHideFlags: 0
@@ -403,7 +430,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!1 &994658682
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +471,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!1001 &1083943404
 Prefab:
   m_ObjectHideFlags: 0
@@ -651,6 +678,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDeck: {fileID: 846398581}
   hasSelected: 0
+  playerID: 1
 --- !u!4 &1697182768
 Transform:
   m_ObjectHideFlags: 0
@@ -662,7 +690,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1 &1793140509
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,6 +747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDeck: {fileID: 994658682}
   hasSelected: 0
+  playerID: 2
 --- !u!4 &1881189104
 Transform:
   m_ObjectHideFlags: 0
@@ -730,7 +759,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!1 &2015062634
 GameObject:
   m_ObjectHideFlags: 0
