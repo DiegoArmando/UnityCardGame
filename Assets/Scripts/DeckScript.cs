@@ -18,31 +18,25 @@ public class DeckScript : MonoBehaviour {
 	
 	//initialize deck
 	void Start(){
+		//grab cardObject's cardScript component
+		cardScript = cardObject.GetComponent<CardScript> ();
 		//grab playerHand's Handscript component
 		playerScript = playerHand.GetComponent<HandScript> ();
 		
 		GameObject temp;
-		Vector3 pos;
-		float offset;
 
 		//create a deck of 20 cards
 		for (int i=0; i<20; i++) {
-			offset = (float)i * 0.025f;
-			pos = new Vector3(0, offset , 0);
 			//instantiate a card object and give it its unique properties
 			temp = (GameObject)Instantiate(cardObject);
 			//set cardObject's texture
-			Texture img;
-			if(i<10){
-				img = (Texture)Resources.Load("starorescoutcard");
-			}
-			else img = (Texture)Resources.Load("starorebrutecard");
+			Texture img = (Texture)Resources.Load("CardBack");
 			temp.GetComponent<Renderer>().material.mainTexture = img;
-			temp.transform.position = this.transform.position + pos;
+			cardScript.setCard(0, Random.Range(0, 5));
 			_deck.Add (temp);
 		}
 		//shuffle the deck
-		//Shuffle ();
+		Shuffle ();
 	}
 	
 	void Update() {
@@ -71,11 +65,19 @@ public class DeckScript : MonoBehaviour {
 	private void Shuffle(){
 		//called during initialization, shuffles the cardObjects in decklist
 		List<GameObject> temp = new List<GameObject> ();
+		int i = 0;
 		while (_deck.Count != 0) {
-			int i = Random.Range (0, _deck.Count);
-			GameObject card = _deck[i];
-			_deck.RemoveAt(i);
+			int rand = Random.Range (0, _deck.Count);
+			GameObject card = _deck[rand];
+			_deck.RemoveAt(rand);
 			temp.Add(card);
+
+			Vector3 pos;
+			float offset;
+			offset = (float)i * 0.025f;
+			pos = new Vector3(0, offset , 0);
+			card.transform.position = this.transform.position + pos;
+			i++;
 		}
 		_deck = temp;
 	}

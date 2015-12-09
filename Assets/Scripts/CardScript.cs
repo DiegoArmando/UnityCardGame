@@ -4,32 +4,27 @@ using UnityEngine;
 using System.Collections;
 
 
-
-
 public class CardScript : MonoBehaviour {
-	//identity of the card is either a Champion or a Spell
-	public enum typeEnum {
-		Champion=1,
-		Spell=2
-	}
-	private typeEnum cardType;
+	//identity of the card determined by integers
+	public int cardType;
+	public int unitType;
+	public int spellType;
 	
 	//bool determines if card is selected
 	public bool is_selected;
 
-	//return functions
-	public typeEnum Type { get { return cardType; } }
-	public bool Selected { get { return is_selected; } }	
-	
 	
 	void Start() {
-		//receiving card art info ****TO DO****
-		//mat = gameObject.GetComponent<Renderer> ().material;
 		is_selected = false;
 	}
 	
-	public void setCard(int index){
+	public void setCard(int type, int unitorspell){
 		//this is called when the deck is instantiated to give this card its properties
+		cardType = type;
+		if (cardType == 0)
+			unitType = unitorspell;
+		else
+			spellType = unitorspell;
 	}
 	
 	void OnMouseEnter(){
