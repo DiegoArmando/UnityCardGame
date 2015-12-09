@@ -5,25 +5,35 @@ public class GameManager : MonoBehaviour {
 
     private const int gridSize = 5;
     
-    private int textboxWidth = 150;
-    private int textboxHeight = 30;
-    private int textboxPosX;
-    private int textboxPosY;
+    private static int textboxWidth = 150;
+    private const int textboxHeight = 30;
+    private int textboxPosX = (int)(Screen.width / 2.0f - textboxWidth / 2.0f);
+    private int textboxPosY = (int)(textboxHeight / 2.0f + 25);
     private string textboxMessage = "";
     private bool showTB = false;
     private float showTimeStart;
 
-    private int scoreboxWidth = 210;
-    private int scoreboxHeight = 30;
-    private int scoreboxPosX;
-    private int scoreboxPosY;
+    private const int scoreboxWidth = 225;
+    private const int scoreboxHeight = 25;
+    private int scoreboxPosX = Screen.width / 2 - scoreboxWidth / 2;
+    private int scoreboxPosY = scoreboxHeight / 2;
+
+    private const int turnboxWidth = 125;
+    private const int turnboxHeight = 25;
+    private const int turnboxPosX = 20;
+    private const int turnboxPosY = 12;
+
+    private const int actionboxWidth = 125;
+    private const int actionboxHeight = 25;
+    private const int actionboxPosX = 20;
+    private const int actionboxPosY = 38;
 
     public int[,] gridHeight = new int[gridSize,gridSize];
     public bool[,] gridOccupided = new bool[gridSize, gridSize];
     private int[,] gridOwner = new int[gridSize, gridSize];
+
     public int selectionMode = 0; //0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace; 
     public int playerTurn = 0; // 0 = neither; 1 = player1; 2 = player2
-
     private int actions = 2;
     private int p1Score = 0;
     private int p2Score = 0;
@@ -50,10 +60,6 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 	
         textboxPosX = (int)(Screen.width / 2.0f - textboxWidth / 2.0f);
-        textboxPosY = (int)(Screen.height - textboxHeight / 2.0f - 30);
-
-        scoreboxPosX = Screen.width / 2 - scoreboxWidth / 2;
-        scoreboxPosY = scoreboxHeight / 2 + 5;
 
         calcScore();
 
@@ -84,6 +90,10 @@ public class GameManager : MonoBehaviour {
         { GUI.Box(new Rect(textboxPosX, textboxPosY, textboxWidth, textboxHeight), textboxMessage); }
 
         GUI.Box(new Rect(scoreboxPosX, scoreboxPosY, scoreboxWidth, scoreboxHeight), "Player 1: " + p1Score + " \t Player 2: " + p2Score);
+
+        GUI.Box(new Rect(turnboxPosX, turnboxPosY, turnboxWidth, turnboxHeight), "Turn: Player " + playerTurn);
+
+        GUI.Box(new Rect(actionboxPosX, actionboxPosY, actionboxWidth, actionboxHeight), "Action Points: " + actions);
     }
 
     // Acessor fnction to get board size
@@ -112,7 +122,6 @@ public class GameManager : MonoBehaviour {
     // Check Occupancy of grid postion [x,y]
     public bool CheckOccupy(int x, int y)
     {
-
         if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) { return true; }
         return gridOccupided[x, y];
     }
@@ -145,10 +154,7 @@ public class GameManager : MonoBehaviour {
     }
 
     // Obtain the current selection mode; 0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace
-    public int GetSelectMode()
-    {
-        return selectionMode;
-    }
+    public int GetSelectMode() { return selectionMode; }
 
     // Change the Selection mode to s
     // s must be either 0, 1, 2, or 3
@@ -171,10 +177,7 @@ public class GameManager : MonoBehaviour {
 
     // Get the which player's turn it is
     // 0 = neither; 1 = player1; 2 = player2
-    public int GetWhoseTurn()
-    {
-        return playerTurn;
-    }
+    public int GetWhoseTurn() { return playerTurn; }
 
     // Switches the player's turn; t = whose turn it is
     // 0 = neither(Start/End Game); 1 = player1; 2 = player2;
