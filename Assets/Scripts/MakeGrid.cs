@@ -131,6 +131,10 @@ public class MakeGrid : MonoBehaviour {
 		{
 			return true;
 		}
+        if (((GameManager)GetComponent("GameManager")).CheckOwner(x, y) == owner)
+        {
+            return true;
+        }
 
 		return false;
 	}

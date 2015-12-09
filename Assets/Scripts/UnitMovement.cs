@@ -31,6 +31,56 @@ public class UnitMovement : MonoBehaviour {
         this.transform.position = new Vector3(unit_X * 1.05f, 1.5f + height/2.0f, unit_Y * 1.05f);
         if (!gm.CheckOccupy(unit_X, unit_Y)) { gm.ChangeOccupy(unit_X,unit_Y,true); }
         gm.ChangeOwner(unit_X, unit_Y, playerID);
+        
+        string mat = "";
+        if (playerID == 1)
+        {
+            switch (unitType)
+            {
+                case 0:
+                    mat = "StaroreGuardMat";
+                    break;
+                case 1:
+                    mat = "StaroreBruteMat";
+                    break;
+                case 2:
+                    mat = "StaroreExcavatorMat";
+                    break;
+                case 3:
+                    mat = "StaroreScoutMat";
+                    break;
+                case 4:
+                    mat = "StaroreElevatorMat";
+                    break;
+                default:
+                    break;
+            }
+        }
+        else if (playerID == 2)
+        {
+                switch (unitType)
+            {
+                case 0:
+                    mat = "ToriGuardMat";
+                    break;
+                case 1:
+                    mat = "ToriBruteMat";
+                    break;
+                case 2:
+                    mat = "ToriExcavatorMat";
+                    break;
+                case 3:
+                    mat = "ToriScoutMat";
+                    break;
+                case 4:
+                    mat = "ToriElevatorMat";
+                    break;
+                default:
+                    break;
+            }
+        }
+        Material img = (Material)Resources.Load(mat);
+        gameObject.GetComponent<MeshRenderer>().material = img;
 	}
 
     void OnMouseOver() {
@@ -56,8 +106,11 @@ public class UnitMovement : MonoBehaviour {
             else
             {
                 CardScript card = ((CardScript)hand.selected.GetComponent("CardScript"));
-                ((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(card.spellType, unit_X, unit_Y);
-                ((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
+                if (card.Type == 1)
+                {
+                    ((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(card.spellType, unit_X, unit_Y);
+                    ((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
+                }
             }
         }
     }

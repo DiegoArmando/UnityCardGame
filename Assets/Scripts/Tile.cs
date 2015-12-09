@@ -41,14 +41,15 @@ public class Tile : MonoBehaviour {
             case 1:
                 //change to player 1's color
                 gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-				//Texture img = (Texture)Resources.Load ("StaroreTerrainMat");
-				//card.GetComponent<Renderer> ().material.mainTexture = img;
-				//gameObject.GetComponent<MeshRenderer>().material.mainTexture = img;// .materialmainTexture = img;
+                Material img1 = (Material)Resources.Load("StaroreTerrainMat");
+                gameObject.GetComponent<MeshRenderer>().material = img1;
                 break;
 
             case 2:
                 //change to player 2's color
-                gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+                Material img2 = (Material)Resources.Load("ToriTerrainMat");
+                gameObject.GetComponent<MeshRenderer>().material = img2;
+                gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
                 break;
 
             default:
@@ -99,7 +100,7 @@ public class Tile : MonoBehaviour {
 						{
 							if(((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).checkValid(xPos, zPos, gm.GetWhoseTurn()) == false)
 							{
-								gm.ShowTBMessage("You must place a unit adjacent to controlled territory");
+								gm.ShowTBMessage("You must place a unit\nadjacent to controlled territory");
 							}
 							else
 							{
@@ -130,7 +131,7 @@ public class Tile : MonoBehaviour {
 						}
 						else
 						{
-							gm.ShowTBMessage("You can only place units on unoccupied tiles");
+							gm.ShowTBMessage("You can only place units\non unoccupied tiles");
 						}
 					}
                     else if (card.Type == 1)
@@ -142,7 +143,7 @@ public class Tile : MonoBehaviour {
                         }
                         else
                         {
-                            gm.ShowTBMessage("Spells can only be played on occupied tiles");
+                            gm.ShowTBMessage("Spells can only be\nplayed on occupied tiles");
                         }
                     }
                     else

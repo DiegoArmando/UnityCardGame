@@ -26,8 +26,7 @@ public class GameManager : MonoBehaviour {
     private int[,] gridHeight = new int[gridSize,gridSize];
     private bool[,] gridOccupided = new bool[gridSize, gridSize];
     private int[,] gridOwner = new int[gridSize, gridSize];
-
-    public int selectionMode = 0; //0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace; 
+ 
     private int playerTurn = 0; // 0 = neither; 1 = player1; 2 = player2
     private int actions = 2;
     private int p1Score = 0;
@@ -115,7 +114,7 @@ public class GameManager : MonoBehaviour {
     void OnGUI()
     {
         if (showTB)
-        { GUI.Box(new Rect(textboxPosX, textboxPosY, textboxWidth, textboxHeight), textboxMessage); }
+        { GUI.Box(new Rect(20, Screen.height/2, 200, 50), textboxMessage); }
 
         GUI.Box(new Rect(scoreboxPosX, scoreboxPosY, scoreboxWidth, scoreboxHeight), "Player 1: " + p1Score + " \t Player 2: " + p2Score);
 
@@ -194,19 +193,6 @@ public class GameManager : MonoBehaviour {
         if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) { return false; }
         if (o < 0 || o > 2) { return false; }
         gridOwner[x, y] = o;
-        return true;
-    }
-
-    // Obtain the current selection mode; 0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace
-    public int GetSelectMode() { return selectionMode; }
-
-    // Change the Selection mode to s
-    // s must be either 0, 1, 2, or 3
-    // 0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace
-    public bool ChangeSelectMode(int s)
-    {
-        if (s < 0 || s > 3) { return false; }
-        selectionMode = s;
         return true;
     }
 
