@@ -39,7 +39,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9539269c238f3fd479dccefdd9936192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDeck: {fileID: 113614, guid: e710d9ae475eedb4ba21a02adbe29a3d, type: 2}
+  playerDeck: {fileID: 111902, guid: e710d9ae475eedb4ba21a02adbe29a3d, type: 2}
   selected: {fileID: 0}
   hasSelected: 0
   playerID: 1
@@ -53,7 +53,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: playerDeck
       value: 
-      objectReference: {fileID: 113614, guid: e710d9ae475eedb4ba21a02adbe29a3d, type: 2}
+      objectReference: {fileID: 111902, guid: e710d9ae475eedb4ba21a02adbe29a3d, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 137962}

@@ -30,6 +30,9 @@ public class HandScript : MonoBehaviour {
 		hasSelected = false;
 	
 		setArt();
+
+        if (this.name.Equals("P1Hand")) { playerID = 1; }
+        else if (this.name.Equals("P2Hand")) { playerID = 2; }
 	}
 
 
@@ -46,9 +49,9 @@ public class HandScript : MonoBehaviour {
 		int j;
 		if (i == 0)
 			j = card.GetComponent<CardScript> ().unitType;
-		else
+		else 
 			j = card.GetComponent<CardScript> ().spellType;
-		string file = cardArt [playerID-1] [i] [j];
+		string file = cardArt[playerID-1][i][j];
 		Texture img = (Texture)Resources.Load (file);
 		card.GetComponent<Renderer> ().material.mainTexture = img;
 		card.GetComponent<CardScript> ().in_hand = true;

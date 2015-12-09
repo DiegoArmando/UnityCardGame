@@ -127,7 +127,7 @@ Prefab:
     - target: {fileID: 11416774, guid: 12ab345a0873a6144a365c69f4ed1146, type: 2}
       propertyPath: playerDeck
       value: 
-      objectReference: {fileID: 802411519}
+      objectReference: {fileID: 1251624883}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12ab345a0873a6144a365c69f4ed1146, type: 2}
   m_IsPrefabParent: 0
@@ -185,10 +185,6 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 127308, guid: 8a0329a84f3670d47b668d4c6e3ba134, type: 2}
   m_PrefabInternal: {fileID: 673399122}
---- !u!1 &802411519 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 113614, guid: e710d9ae475eedb4ba21a02adbe29a3d, type: 2}
-  m_PrefabInternal: {fileID: 1008043358}
 --- !u!1 &885883672
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +330,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e710d9ae475eedb4ba21a02adbe29a3d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1251624883 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 111902, guid: e710d9ae475eedb4ba21a02adbe29a3d, type: 2}
+  m_PrefabInternal: {fileID: 1008043358}
 --- !u!1 &1515922535 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 121546, guid: b0daf518e37c6e64ebe40a585933cb26, type: 2}

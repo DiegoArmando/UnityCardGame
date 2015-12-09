@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour {
     private int p1Score = 0;
     private int p2Score = 0;
     private int winner = 0;
-    private bool hiddenCards = true;
+    private bool hiddenCards = false;
     private int turnCounter = 20;
 
 	public GameObject currentHand;
@@ -83,26 +83,23 @@ public class GameManager : MonoBehaviour {
                         GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("showHand");
                         GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("showDeck");
 
-                        GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
-                        GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
-                        playerTurn = 2;
-                        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw");
-<<<<<<< HEAD
-                        //GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("hideHand");
-                        //GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("hideDeck");
-=======
-                        /*GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("hideHand");
-                        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("hideDeck");*/
->>>>>>> 78383f6f3422edb9e1be4f0ca89c0b169cb94671
-                        playerTurn = 1;
-
+                        if (turnCounter == 20)
+                        {
+                            GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
+                            GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
+                        }
                         hiddenCards = false;
                         break;
                     case 1:
                         SwitchTurns(2);
                         GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("showHand");
                         GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("showDeck");
-                        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw");
+                        if (turnCounter == 20)
+                        {
+                            GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw");
+                            GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw");
+                        }
+                        else { GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw"); }
                         hiddenCards = false;
                         break;
                     case 2:

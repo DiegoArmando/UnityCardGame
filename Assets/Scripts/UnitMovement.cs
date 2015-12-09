@@ -31,6 +31,63 @@ public class UnitMovement : MonoBehaviour {
         this.transform.position = new Vector3(unit_X * 1.05f, 1.5f + height/2.0f, unit_Y * 1.05f);
         if (!gm.CheckOccupy(unit_X, unit_Y)) { gm.ChangeOccupy(unit_X,unit_Y,true); }
         gm.ChangeOwner(unit_X, unit_Y, playerID);
+
+        if (playerID == 1)
+        {
+            switch (unitType)
+            {
+                case 0:
+                    Material img0 = (Material)Resources.Load("StaroreGuardMat");
+                    gameObject.GetComponent<Renderer>().material = img0;
+                    break;
+                case 1:
+                    Material img1 = (Material)Resources.Load("StaroreBruteMat");
+                    gameObject.GetComponent<Renderer>().material = img1;
+                    break;
+                case 2:
+                    Material img2 = (Material)Resources.Load("StaroreExcavatorMat");
+                    gameObject.GetComponent<Renderer>().material = img2;
+                    break;
+                case 3:
+                    Material img3 = (Material)Resources.Load("StaroreScoutMat");
+                    gameObject.GetComponent<Renderer>().material = img3;
+                    break;
+                case 4:
+                    Material img4 = (Material)Resources.Load("StaroreElevatorMat");
+                    gameObject.GetComponent<Renderer>().material = img4;
+                    break;
+                default:
+                    break;
+            }
+        }
+        else if (playerID == 2)
+        {
+            switch (unitType)
+            {
+                case 0:
+                    Material img0 = (Material)Resources.Load("ToriGuardMat");
+                    gameObject.GetComponent<Renderer>().material = img0;
+                    break;
+                case 1:
+                    Material img1 = (Material)Resources.Load("ToriBruteMat");
+                    gameObject.GetComponent<Renderer>().material = img1;
+                    break;
+                case 2:
+                    Material img2 = (Material)Resources.Load("ToriExcavatorMat");
+                    gameObject.GetComponent<Renderer>().material = img2;
+                    break;
+                case 3:
+                    Material img3 = (Material)Resources.Load("ToriScoutMat");
+                    gameObject.GetComponent<Renderer>().material = img3;
+                    break;
+                case 4:
+                    Material img4 = (Material)Resources.Load("ToriElevatorMat");
+                    gameObject.GetComponent<Renderer>().material = img4;
+                    break;
+                default:
+                    break;
+            }
+        }
 	}
 
     void OnMouseOver() {
