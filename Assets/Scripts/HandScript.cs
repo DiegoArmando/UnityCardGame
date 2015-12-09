@@ -21,22 +21,27 @@ public class HandScript : MonoBehaviour {
 
     private Vector3 oldPos;
 
-	void Awake()
-	{
-		oldPos = this.transform.position;
-	}
-
-	void Start(){
-		//grab playerHand's Handscript component
-		playerDeckScript = playerDeck.GetComponent<DeckScript> ();
-		print ("Has selected has been set to false in player " + playerID);
-		hasSelected = false;
-	
-		setArt();
+    void Awake()
+    {
+        oldPos = this.transform.position;
 
         if (this.name.Equals("P1Hand")) { playerID = 1; }
         else if (this.name.Equals("P2Hand")) { playerID = 2; }
+    
+		//grab playerHand's Handscript component
+		playerDeckScript = playerDeck.GetComponent<DeckScript> ();
+		hasSelected = false;
+	
+		setArt();
+        
+        if (this.name.Equals("P1Hand")) { playerID = 1; }
+        else if (this.name.Equals("P2Hand")) { playerID = 2; }
 	}
+
+
+    void Start()
+    {
+    }
 
 	public GameObject drawCard (GameObject card) {
 		Vector3 offset = new Vector3 ( _hand.Count*2.5f, 0, 0);
@@ -49,8 +54,7 @@ public class HandScript : MonoBehaviour {
 			j = card.GetComponent<CardScript> ().unitType;
 		else
 			j = card.GetComponent<CardScript> ().spellType;
-		//Debug.Log (j);
-		string file = cardArt [playerID] [i] [j];
+		string file = cardArt [playerID-1] [i] [j];
 		Texture img = (Texture)Resources.Load (file);
 		card.GetComponent<Renderer> ().material.mainTexture = img;
 		card.GetComponent<CardScript> ().in_hand = true;
@@ -66,33 +70,26 @@ public class HandScript : MonoBehaviour {
 	}
 
 	void Update(){
-		//print ("HAND IS BEING UPDATED: " + playerID);
 		for (int i=0; i<_hand.Count; i++) {
 			GameObject card = _hand[i];
 			CardScript cardScript = card.GetComponent<CardScript>();
-			if(cardScript.is_selected)
-			{
+			if(cardScript.is_selected){
 				selected = cardScript.gameObject;
 				if(hasSelected == false) print ("has selected is now true for player " + playerID);
 				hasSelected = true;
 				removeIndex = i;
-
-			}
-			else
-			{
-				Debug.Log ("Card " + i + " is not flagged for selection");
-				//cardScript.
+				//print("Selected card");
 			}
 		}
 	}
 
 	public void Discard()
 	{
+
 		_hand.RemoveAt(removeIndex);
 		playerDeckScript.discard(selected);
 		manageHand();
 		hasSelected = false;
-		print ("has selected is now false for player " + playerID);
 	}
 
 	void setArt(){

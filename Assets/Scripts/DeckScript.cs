@@ -23,7 +23,9 @@ public class DeckScript : MonoBehaviour {
     private GameManager gm;
 
 	//initialize deck
-	void Start(){
+    void Awake()
+    {
+        gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
 		//grab playerHand's Handscript component
 		cardScript = cardObject.GetComponent<CardScript> ();
 		playerScript = playerHand.GetComponent<HandScript> ();
@@ -47,13 +49,16 @@ public class DeckScript : MonoBehaviour {
 
         if (this.name.Equals("P1Deck")) { playerID = 1; }
         else if (this.name.Equals("P2Deck")) { playerID = 2; }
+    }
 
-        gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
+    void Start(){
 	}
 
-	void Update() {
-		if (Input.GetKeyDown (KeyCode.Space) && gm.playerTurn == playerID) {
-			//Debug.Log("space");
+    void Update() {
+    }
+
+	public void Draw() {
+		if (playerID == gm.GetWhoseTurn()) {
 			int i = _deck.Count-1;
 			GameObject card = _deck[i];
 			_deck.RemoveAt(i);

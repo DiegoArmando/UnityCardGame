@@ -80,19 +80,10 @@ public class Tile : MonoBehaviour {
                 // Increase height at xPos,zPos by 1
 
 				HandScript hand = ((HandScript)gm.currentHand.GetComponent("HandScript"));
-				print ("Hand facts:");
-				print ("Hand hasSelected: "  + hand.hasSelected);
-				print ("Hand playerID: " + hand.playerID);
 
 				if(hand.hasSelected)
 				{
 					CardScript card = ((CardScript)hand.selected.GetComponent("CardScript"));
-
-					if( gm.CheckActions() <= 0)
-					{
-						gm.ShowTBMessage("You are out of actions and cannot play a card");
-						return;
-					}
 
 					print ("type: " + card.Type);
 					//print ("public type: " + card.cardType);
@@ -103,7 +94,7 @@ public class Tile : MonoBehaviour {
 					{
 						if(gm.CheckOccupy(xPos, zPos) == false)
 						{
-							if(((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).checkValid(xPos, zPos, gm.playerTurn) == false)
+							if(((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).checkValid(xPos, zPos, gm.GetWhoseTurn()) == false)
 							{
 								gm.ShowTBMessage("You must place a unit adjacent to controlled territory");
 							}
@@ -145,7 +136,6 @@ public class Tile : MonoBehaviour {
 							((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(card.spellType, xPos, zPos);
 							((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
 							gm.useAction();
-						//GetComponentInParent(MakeGrid).doSpell(card.spellType, xPos, zPos);
 						}
 						else
 						{
@@ -160,37 +150,12 @@ public class Tile : MonoBehaviour {
 				}
 				else
 				{
-					print ("A card is not selected.");
+					print ("Space " + xPos + ", " + zPos + " is occupied or a card is not selected.");
 				}
-                //gm.ChangeHeight(xPos, zPos, 1);
 
             }
-            /*
-			else
-			{
-				print(Time.deltaTime.ToString() + " " + halfSec.ToString());
-			}
-            */
 
-        }
-        else if(Input.GetMouseButton(1))
-        {
-            if (totalTime > halfSec && gm.GetSelectMode() == 2)
-            {
-                //transform.position = transform.position + new Vector3(0.0f, -0.5f, 0.0f);
-                //halfSec = totalTime + 0.5f;
-                // Decrease height at xPos,zPos by 1
-                //gm.ChangeHeight(xPos, zPos, -1);
-
-            }
         }
     }
 
-
-    //void OnMouseDown()
-    //{
-      //  print(transform.position.y);
-       // transform.position = transform.position + new Vector3(0.0f, 1.0f, 0.0f);
-        
-    //}
 }

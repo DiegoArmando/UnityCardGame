@@ -18,27 +18,23 @@ public class GameManager : MonoBehaviour {
     private int scoreboxPosX = Screen.width / 2 - scoreboxWidth / 2;
     private int scoreboxPosY = scoreboxHeight / 2;
 
-    private const int turnboxWidth = 125;
-    private const int turnboxHeight = 25;
-    private const int turnboxPosX = 20;
-    private const int turnboxPosY = 12;
+    private const int uiboxWidth = 125;
+    private const int uiboxHeight = 25;
+    private const int uiboxPosX = 20;
+    private const int uiboxPosY = 12;
 
-    private const int actionboxWidth = 125;
-    private const int actionboxHeight = 25;
-    private const int actionboxPosX = 20;
-    private const int actionboxPosY = 38;
-
-    public int[,] gridHeight = new int[gridSize,gridSize];
-    public bool[,] gridOccupided = new bool[gridSize, gridSize];
+    private int[,] gridHeight = new int[gridSize,gridSize];
+    private bool[,] gridOccupided = new bool[gridSize, gridSize];
     private int[,] gridOwner = new int[gridSize, gridSize];
 
     public int selectionMode = 0; //0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace; 
-    public int playerTurn = 0; // 0 = neither; 1 = player1; 2 = player2
+    private int playerTurn = 0; // 0 = neither; 1 = player1; 2 = player2
     private int actions = 2;
     private int p1Score = 0;
     private int p2Score = 0;
     private int winner = 0;
-    private bool hiddenCards = false;
+    private bool hiddenCards = true;
+    private int turnCounter = 20;
 
 	public GameObject currentHand;
 
@@ -54,10 +50,9 @@ public class GameManager : MonoBehaviour {
                 gridOwner[i, j] = 0;
             }
         }
-		currentHand = GameObject.Find ("P1Hand");
-		playerTurn = 1;
-        GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("hideHand");
-        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("hideDeck");
+        gridOwner[0, 0] = 1;
+        gridOwner[gridSize-1, gridSize-1] = 2;
+        currentHand = GameObject.Find("P1Hand");
 	}
 	
 	// Update is called once per frame
@@ -87,19 +82,31 @@ public class GameManager : MonoBehaviour {
                         SwitchTurns(1);
                         GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("showHand");
                         GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("showDeck");
+
+                        GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
+                        GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
+                        playerTurn = 2;
+                        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw");
+                        GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("hideHand");
+                        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("hideDeck");
+                        playerTurn = 1;
+
                         hiddenCards = false;
                         break;
                     case 1:
                         SwitchTurns(2);
                         GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("showHand");
                         GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("showDeck");
+                        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw");
                         hiddenCards = false;
                         break;
                     case 2:
                         SwitchTurns(1);
                         GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("showHand");
                         GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("showDeck");
+                        GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
                         hiddenCards = false;
+                        if (turnCounter > 0) { turnCounter--; }
                         break;
                     default:
                         print("Invalid turn ID");
@@ -107,6 +114,8 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
+
+        if (turnCounter <= 0) { winner = getWinner(); }
 	}
 
     void OnGUI()
@@ -116,12 +125,25 @@ public class GameManager : MonoBehaviour {
 
         GUI.Box(new Rect(scoreboxPosX, scoreboxPosY, scoreboxWidth, scoreboxHeight), "Player 1: " + p1Score + " \t Player 2: " + p2Score);
 
-        GUI.Box(new Rect(turnboxPosX, turnboxPosY, turnboxWidth, turnboxHeight), "Turn: Player " + playerTurn);
+        GUI.Box(new Rect(uiboxPosX, uiboxPosY, uiboxWidth, uiboxHeight), "Player " + playerTurn);
 
-        GUI.Box(new Rect(actionboxPosX, actionboxPosY, actionboxWidth, actionboxHeight), "Action Points: " + actions);
+        GUI.Box(new Rect(uiboxPosX, uiboxPosY + 25, uiboxWidth, uiboxHeight), "Action Points: " + actions);
 
-        if(hiddenCards)
+        GUI.Box(new Rect(uiboxPosX, uiboxPosY + 50, uiboxWidth, uiboxHeight), "Turns Left: " + turnCounter);
+
+        if(hiddenCards && playerTurn != 0)
         { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight), "Press T to continue to the next player's turn"); }
+        else if (playerTurn == 0) { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight), "Press T to start the game!"); }
+        else if (actions <= 0) { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight + 10), "Press T\nto end your turn"); }
+        if (turnCounter <= 0)
+        {
+            if (winner > 0)
+            { GUI.Box(new Rect(15, uiboxPosY + 100, 200, textboxHeight + 10), "The winner is Player " + winner + "!\nCONGRADULATIONS!"); }
+            else
+            { GUI.Box(new Rect(15, uiboxPosY + 100, 200, textboxHeight + 10), "DRAW!\nThere is no winner."); }
+            
+        }
+        
     }
 
     // Acessor fnction to get board size
@@ -197,7 +219,7 @@ public class GameManager : MonoBehaviour {
     // Change the message in center textbox
     public void ShowTBMessage(string message)
     {
-        textboxWidth = message.Length * 10;
+        textboxWidth = message.Length * 7;
         textboxMessage = message;
         showTB = true;
         showTimeStart = Time.time;
@@ -211,10 +233,12 @@ public class GameManager : MonoBehaviour {
     // 0 = neither(Start/End Game); 1 = player1; 2 = player2;
     public void SwitchTurns(int t)
     {
-        if (t >= 0 && t <= 2) { 
+        if (turnCounter > 0 && t >= 0 && t <= 2) { 
             playerTurn = t;
             ShowTBMessage("It is Player " + t + "'s turn");
             actions = 2;
+            if (t == 1) { currentHand = GameObject.Find("P1Hand"); }
+            else if (t == 2) { currentHand = GameObject.Find("P2Hand"); }
         }
     }
 

@@ -68,5 +68,4 @@ public class CardScript : MonoBehaviour {
 			temp.transform.position = gameObject.transform.position + offset;
 		}
 	}
-
 }
