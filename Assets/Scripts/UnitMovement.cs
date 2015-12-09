@@ -198,7 +198,7 @@ public class UnitMovement : MonoBehaviour {
             {
                 if (gm.CheckActions() < 2) { 
                     selected = false;
-                    gm.ShowTBMessage("You do not have enough action points to climb up terrain");
+                    gm.ShowTBMessage("You do not have enough action\npoints to climb up terrain");
                 }
                 else
                 {
@@ -244,4 +244,10 @@ public class UnitMovement : MonoBehaviour {
         return true;
     }
 
+    // Update unit Position to (new_x, new_y)
+    public void SetPosition(int new_x, int new_y)
+    {
+        unit_X = new_x;
+        unit_Y = new_y;
+    }
 }

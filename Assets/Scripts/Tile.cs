@@ -109,7 +109,7 @@ public class Tile : MonoBehaviour {
 
 								UnitMovement moveScript = (UnitMovement)newUnit.GetComponent("UnitMovement");
 
-								moveScript.PositionUpdate(xPos, zPos);
+								moveScript.SetPosition(xPos, zPos);
 								print ("Setting the unit's position to " + xPos + ", " + zPos);
 
 	                   	 		moveScript.setPlayerID(gm.GetWhoseTurn());
@@ -125,6 +125,10 @@ public class Tile : MonoBehaviour {
 								{
 									((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(1, xPos, zPos);
 								}
+                                else
+                                {
+                                    gm.useAction();
+                                }
 								((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
                                 
 							}

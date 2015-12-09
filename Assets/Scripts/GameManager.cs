@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
     
     private static int textboxWidth = 150;
     private const int textboxHeight = 30;
-    private int textboxPosX = (int)(Screen.width / 2.0f - textboxWidth / 2.0f);
+    private int textboxPosX = (int)(Screen.width / 2.0f - 150);
     private int textboxPosY = (int)(textboxHeight / 2.0f + 25);
     private string textboxMessage = "";
     private bool showTB = false;
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
     private int p1Score = 0;
     private int p2Score = 0;
     private int winner = 0;
-    private bool hiddenCards = true;
+    public bool hiddenCards = true;
     private int turnCounter = 20;
 
 	public GameObject currentHand;
@@ -61,15 +61,17 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-        textboxPosX = (int)(Screen.width / 2.0f - textboxWidth / 2.0f);
+        textboxPosX = (int)(Screen.width / 2.0f - 150);
 
         calcScore();
 
         if (Time.time - showTimeStart > 2.0f) { showTB = false; }
-        if (Time.time - showTimeStart > 1.0f) { showTB = false; }
+        if (Time.time - showDBTimeStart > 1.0f) { showDB = false; }
 
         if (Input.GetKeyDown(KeyCode.T))
         {
+            GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("deselect");
+            GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("deselect");
             if (!hiddenCards)
             {
                 GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("hideHand");
@@ -133,9 +135,9 @@ public class GameManager : MonoBehaviour {
         {GUI.Box(new Rect(uiboxPosX, uiboxPosY + 230, 200, textboxHeight*4), description);}
 
         if(hiddenCards && playerTurn != 0)
-        { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight), "Press T to continue to the next player's turn"); }
-        else if (playerTurn == 0) { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight), "Press T to start the game!"); }
-        else if (actions <= 0) { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight + 10), "Press T\nto end your turn"); }
+        { GUI.Box(new Rect(textboxPosX, textboxPosY, 300, textboxHeight), "Press T to continue to the next player's turn"); }
+        else if (playerTurn == 0) { GUI.Box(new Rect(textboxPosX, textboxPosY, 300, textboxHeight), "Press T to start the game!"); }
+        else if (actions <= 0) { GUI.Box(new Rect(textboxPosX, textboxPosY, 300, textboxHeight), "Press T to end your turn"); }
         if (turnCounter <= 0)
         {
             if (winner > 0)
