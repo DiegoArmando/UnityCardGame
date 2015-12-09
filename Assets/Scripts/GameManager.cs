@@ -18,15 +18,10 @@ public class GameManager : MonoBehaviour {
     private int scoreboxPosX = Screen.width / 2 - scoreboxWidth / 2;
     private int scoreboxPosY = scoreboxHeight / 2;
 
-    private const int turnboxWidth = 125;
-    private const int turnboxHeight = 25;
-    private const int turnboxPosX = 20;
-    private const int turnboxPosY = 12;
-
-    private const int actionboxWidth = 125;
-    private const int actionboxHeight = 25;
-    private const int actionboxPosX = 20;
-    private const int actionboxPosY = 38;
+    private const int uiboxWidth = 125;
+    private const int uiboxHeight = 25;
+    private const int uiboxPosX = 20;
+    private const int uiboxPosY = 12;
 
     private int[,] gridHeight = new int[gridSize,gridSize];
     private bool[,] gridOccupided = new bool[gridSize, gridSize];
@@ -39,6 +34,7 @@ public class GameManager : MonoBehaviour {
     private int p2Score = 0;
     private int winner = 0;
     private bool hiddenCards = false;
+    private int turnCounter = 5;
 
 	public GameObject currentHand;
 
@@ -102,6 +98,7 @@ public class GameManager : MonoBehaviour {
                         GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("showHand");
                         GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("showDeck");
                         hiddenCards = false;
+                        if (turnCounter > 0) { turnCounter--; }
                         break;
                     default:
                         print("Invalid turn ID");
@@ -109,6 +106,8 @@ public class GameManager : MonoBehaviour {
                 }
             }
         }
+
+        if (turnCounter <= 0) { winner = getWinner(); }
 	}
 
     void OnGUI()
@@ -118,12 +117,17 @@ public class GameManager : MonoBehaviour {
 
         GUI.Box(new Rect(scoreboxPosX, scoreboxPosY, scoreboxWidth, scoreboxHeight), "Player 1: " + p1Score + " \t Player 2: " + p2Score);
 
-        GUI.Box(new Rect(turnboxPosX, turnboxPosY, turnboxWidth, turnboxHeight), "Turn: Player " + playerTurn);
+        GUI.Box(new Rect(uiboxPosX, uiboxPosY, uiboxWidth, uiboxHeight), "Player " + playerTurn);
 
-        GUI.Box(new Rect(actionboxPosX, actionboxPosY, actionboxWidth, actionboxHeight), "Action Points: " + actions);
+        GUI.Box(new Rect(uiboxPosX, uiboxPosY + 25, uiboxWidth, uiboxHeight), "Action Points: " + actions);
+
+        GUI.Box(new Rect(uiboxPosX, uiboxPosY + 50, uiboxWidth, uiboxHeight), "Turns Left: " + turnCounter);
 
         if(hiddenCards)
         { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight), "Press T to continue to the next player's turn"); }
+
+        if (turnCounter <= 0)
+        { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight+10), "The winner is Player " + winner + "!\nCONGRADULATIONS!"); }
     }
 
     // Acessor fnction to get board size
@@ -213,7 +217,7 @@ public class GameManager : MonoBehaviour {
     // 0 = neither(Start/End Game); 1 = player1; 2 = player2;
     public void SwitchTurns(int t)
     {
-        if (t >= 0 && t <= 2) { 
+        if (turnCounter > 0 && t >= 0 && t <= 2) { 
             playerTurn = t;
             ShowTBMessage("It is Player " + t + "'s turn");
             actions = 2;
