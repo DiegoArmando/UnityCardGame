@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 		currentHand = GameObject.Find ("P1Hand");
+		playerTurn = 1;
 	}
 	
 	// Update is called once per frame

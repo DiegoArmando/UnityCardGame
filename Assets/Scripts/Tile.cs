@@ -12,6 +12,8 @@ public class Tile : MonoBehaviour {
 	int xPos;
 	int zPos;
 
+	public int height = 0;
+
     private GameManager gm;
 
 	// Use this for initialization
@@ -63,6 +65,7 @@ public class Tile : MonoBehaviour {
     public void ChangeTileHeight(int d)
     {
         transform.position = transform.position + new Vector3(0.0f, 0.5f*d, 0.0f);
+		height = d;
     }
 
     void OnMouseOver()
@@ -76,26 +79,45 @@ public class Tile : MonoBehaviour {
                 halfSec = totalTime + 0.5f;
                 // Increase height at xPos,zPos by 1
 
-				if(gm.CheckOccupy(xPos, zPos) == false && ((HandScript)gm.currentHand.GetComponent("HandScript")).hasSelected)
+				HandScript hand = ((HandScript)gm.currentHand.GetComponent("HandScript"));
+
+				if(hand.hasSelected)
 				{
+					CardScript card = ((CardScript)hand.selected.GetComponent("CardScript"));
+
+					print ("type: " + card.Type);
+					//print ("public type: " + card.cardType);
+					//print ("Champion type: " + CardScript.typeEnum.Champion);
+					//print ("Is type equal to champion type? : " + card.Type.CompareTo(CardScript.typeEnum.Champion));
+
+					if(gm.CheckOccupy(xPos, zPos) == false && card.Type == 0)
+					{
 					print ("Space " + xPos + ", " + zPos + " is unoccupied.");
 					GameObject newUnit = Instantiate(unit);
 					//newUnit.SetActive(true);
 
 					UnitMovement moveScript = (UnitMovement)newUnit.GetComponent("UnitMovement");
-					if(moveScript == null)
+
+					moveScript.PositionUpdate(xPos, zPos);
+					print ("Setting the unit's position to " + xPos + ", " + zPos);
+
+					//Set the unit's properties here
+					//moveScript.setUnitType(card.
+
+                    moveScript.setPlayerID(gm.GetWhoseTurn());
+					((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
+					}
+					else if(gm.CheckOccupy(xPos, zPos) == true && card.Type == 1)
 					{
-						print ("The unit doesn't exist yet");
+						((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(card.spellType, xPos, zPos);
+						((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
+						//GetComponentInParent(MakeGrid).doSpell(card.spellType, xPos, zPos);
 					}
 					else
 					{
-						moveScript.PositionUpdate(xPos, zPos);
-						print ("Setting the unit's position to " + xPos + ", " + zPos);
+						print ("Invalid move");
 					}
 
-
-					//Set the unit's properties here
-                    moveScript.setPlayerID(gm.GetWhoseTurn());
 				}
 				else
 				{
