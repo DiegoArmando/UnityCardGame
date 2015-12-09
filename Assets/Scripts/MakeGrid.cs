@@ -62,23 +62,28 @@ public class MakeGrid : MonoBehaviour {
 	{
 		//CHANGE THIS TO THE GM
 		((GameManager)GetComponent ("GameManager")).ChangeHeight (x, y, 1);
-		((Tile)tiles [x, y].GetComponent ("Tile")).ChangeTileHeight (((Tile)tiles [x, y].GetComponent ("Tile")).height + 1);
+		((Tile)tiles [x, y].GetComponent ("Tile")).ChangeTileHeight (1);
 	}
 
 	public void lower(int x, int y)
 	{
 		((GameManager)GetComponent ("GameManager")).ChangeHeight (x, y, -1);
-		((Tile)tiles [x, y].GetComponent ("Tile")).ChangeTileHeight (((Tile)tiles [x, y].GetComponent ("Tile")).height - 1);
+		((Tile)tiles [x, y].GetComponent ("Tile")).ChangeTileHeight (-1);
 	}
 
 	public void level(int x, int y)
 	{
+        int height = gm.CheckHeight(x, y);
 		for (int i = -1; i < 2; i++)
 		{
 			for(int j = -1; j < 2; j++)
 			{
-				int heightDif = ( ((Tile)tiles [x, y].GetComponent ("Tile")).height - ((Tile)tiles [x + i, y + j].GetComponent ("Tile")).height) * 2;
-				((GameManager)GetComponent ("GameManager")).ChangeHeight (x, y, heightDif);
+                if (x + i == x && y + j == y) { continue; }
+                if (x + i >= 0 && x + i < gm.GetBoardSize() && y + j >= 0 && y + j < gm.GetBoardSize())
+                {
+                    ((Tile)tiles[x + i, y + j].GetComponent("Tile")).ChangeTileHeight(height-gm.CheckHeight(x+i,y+j));
+                    ((GameManager)GetComponent("GameManager")).ChangeHeight(x + i, y + j, height-gm.CheckHeight(x+i,y+j));
+                }
 			}
 		}
 	}
@@ -89,10 +94,18 @@ public class MakeGrid : MonoBehaviour {
 		{
 			for(int j = -1; j < 2; j++)
 			{
-				((GameManager)GetComponent ("GameManager")).ChangeHeight (x, y, 1);
-				if(x == 0 && y == 0) ((GameManager)GetComponent ("GameManager")).ChangeHeight (x, y, 1);
+                if (x+i >= 0 && x+i < gm.GetBoardSize() && y+j >= 0 && y+j < gm.GetBoardSize())
+                {
+                    ((Tile)tiles[x+i, y+j].GetComponent("Tile")).ChangeTileHeight(1);
+                    ((GameManager)GetComponent("GameManager")).ChangeHeight(x+i, y+j, 1);
+                }
 			}
 		}
+        if (x >= 0 && x < gm.GetBoardSize() && y >= 0 && y < gm.GetBoardSize())
+        {
+            ((Tile)tiles[x, y].GetComponent("Tile")).ChangeTileHeight(1);
+            ((GameManager)GetComponent("GameManager")).ChangeHeight(x, y, 1);
+        }
 	}
 
 	public bool checkValid(int x, int y, int owner)

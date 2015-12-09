@@ -82,21 +82,15 @@ public class GameManager : MonoBehaviour {
                         SwitchTurns(1);
                         GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("showHand");
                         GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("showDeck");
-
                         GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
                         GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
-                        playerTurn = 2;
-                        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw");
-                        GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("hideHand");
-                        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("hideDeck");
-                        playerTurn = 1;
-
                         hiddenCards = false;
                         break;
                     case 1:
                         SwitchTurns(2);
                         GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("showHand");
                         GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("showDeck");
+                        if (turnCounter == 20) { GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw"); }
                         GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw");
                         hiddenCards = false;
                         break;
