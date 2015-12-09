@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
     private int[,] gridOwner = new int[gridSize, gridSize];
     public int selectionMode = 0; //0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace; 
     public int playerTurn = 0; // 0 = neither; 1 = player1; 2 = player2
+
+    private int actions = 2;
 	//public bool hasSelection = false;
 
 	public GameObject currentHand;
@@ -167,8 +169,23 @@ public class GameManager : MonoBehaviour {
     {
         if (t >= 0 && t <= 2) { 
             playerTurn = t;
-            ShowTBMessage("It is Player " + t + "'s turn.");
+            ShowTBMessage("It is Player " + t + "'s turn");
+            actions = 2;
         }
     }
 
+    // check the number of actions remaining for player
+    public int CheckActions()
+    {
+        if (actions <= 0) { ShowTBMessage("You've ran out of actions"); }
+        return actions;
+    }
+
+    // deducts an action 
+    public bool useAction()
+    {
+        if (actions <= 0) { return false; }
+        actions--;
+        return true;
+    }
 }
