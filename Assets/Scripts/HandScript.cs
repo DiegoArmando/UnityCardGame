@@ -27,15 +27,18 @@ public class HandScript : MonoBehaviour {
 
         if (this.name.Equals("P1Hand")) { playerID = 1; }
         else if (this.name.Equals("P2Hand")) { playerID = 2; }
-    }
-
-	void Start(){
+    
 		//grab playerHand's Handscript component
 		playerDeckScript = playerDeck.GetComponent<DeckScript> ();
 		hasSelected = false;
 	
 		setArt();
 	}
+
+
+    void Start()
+    {
+    }
 
 	public GameObject drawCard (GameObject card) {
 		Vector3 offset = new Vector3 ( _hand.Count*2.5f, 0, 0);

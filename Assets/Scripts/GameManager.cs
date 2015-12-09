@@ -54,8 +54,13 @@ public class GameManager : MonoBehaviour {
         gridOwner[gridSize-1, gridSize-1] = 2;
         playerTurn = 1;
 		currentHand = GameObject.Find ("P1Hand");
+        GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
+        GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
+        playerTurn = 2;
+        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw");
         GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("hideHand");
         GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("hideDeck");
+        playerTurn = 1;
 	}
 	
 	// Update is called once per frame
@@ -85,18 +90,21 @@ public class GameManager : MonoBehaviour {
                         SwitchTurns(1);
                         GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("showHand");
                         GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("showDeck");
+                        GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
                         hiddenCards = false;
                         break;
                     case 1:
                         SwitchTurns(2);
                         GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("showHand");
                         GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("showDeck");
+                        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("Draw");
                         hiddenCards = false;
                         break;
                     case 2:
                         SwitchTurns(1);
                         GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("showHand");
                         GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("showDeck");
+                        GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("Draw");
                         hiddenCards = false;
                         if (turnCounter > 0) { turnCounter--; }
                         break;
@@ -127,7 +135,15 @@ public class GameManager : MonoBehaviour {
         { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight), "Press T to continue to the next player's turn"); }
 
         if (turnCounter <= 0)
-        { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight+10), "The winner is Player " + winner + "!\nCONGRADULATIONS!"); }
+        {
+            if (winner > 0)
+            { GUI.Box(new Rect(15, uiboxPosY + 100, 200, textboxHeight + 10), "The winner is Player " + winner + "!\nCONGRADULATIONS!"); }
+            else
+            { GUI.Box(new Rect(15, uiboxPosY + 100, 200, textboxHeight + 10), "DRAW!\nThere is no winner."); }
+            
+        }
+
+        if (actions <= 0 && !hiddenCards) { GUI.Box(new Rect(Screen.width - 215, uiboxPosY, 175, textboxHeight + 10), "Press T\nto end your turn"); }
     }
 
     // Acessor fnction to get board size

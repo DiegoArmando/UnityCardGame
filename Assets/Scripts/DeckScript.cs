@@ -21,37 +21,41 @@ public class DeckScript : MonoBehaviour {
 	//initialize deck
     void Awake()
     {
+        gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
+
         oldPos = this.transform.position;
 
         if (this.name.Equals("P1Deck")) { playerID = 1; }
         else if (this.name.Equals("P2Deck")) { playerID = 2; }
+
+        //grab playerHand's Handscript component
+        cardScript = cardObject.GetComponent<CardScript>();
+        playerScript = playerHand.GetComponent<HandScript>();
+
+        GameObject temp;
+
+        for (int i = 0; i < 20; i++)
+        {
+            //instantiate a card object and give it its unique properties
+            temp = (GameObject)Instantiate(cardObject);
+            //set cardObject's texture
+            Texture img = (Texture)Resources.Load("CardBack");
+            temp.GetComponent<Renderer>().material.mainTexture = img;
+            cardScript.setCard(0, Random.Range(0, 5));
+            _deck.Add(temp);
+        }
+        //shuffle the deck
+        Shuffle();
     }
 
-	void Start(){
-		//grab playerHand's Handscript component
-		cardScript = cardObject.GetComponent<CardScript> ();
-		playerScript = playerHand.GetComponent<HandScript> ();
-
-		GameObject temp;
-
-		for (int i=0; i<20; i++) {
-			//instantiate a card object and give it its unique properties
-			temp = (GameObject)Instantiate(cardObject);
-			//set cardObject's texture
-			Texture img = (Texture)Resources.Load("CardBack");
-			temp.GetComponent<Renderer>().material.mainTexture = img;
-			cardScript.setCard(0, Random.Range(0, 5));
-			_deck.Add (temp);
-		}
-		//shuffle the deck
-		Shuffle ();
-
-        gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
+    void Start(){
 	}
 
-	void Update() {
-		if (Input.GetKeyDown (KeyCode.Space) && playerID == gm.GetWhoseTurn()) {
-			//Debug.Log("space");
+    void Update() {
+    }
+
+	public void Draw() {
+		if (playerID == gm.GetWhoseTurn()) {
 			int i = _deck.Count-1;
 			GameObject card = _deck[i];
 			_deck.RemoveAt(i);
