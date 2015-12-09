@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
     public bool[,] gridOccupided = new bool[gridSize, gridSize];
     private int[,] gridOwner = new int[gridSize, gridSize];
     public int selectionMode = 0; //0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace; 
+    public int playerTurn = 0; // 0 = neither; 1 = player1; 2 = player2
 	//public bool hasSelection = false;
 
 	public GameObject currentHand;
@@ -111,6 +112,7 @@ public class GameManager : MonoBehaviour {
 
     // Change the Owner of block at grid position [x,y] to o
     // o must be either 0, 1, or 2
+    // 0 = neither; 1 = player1; 2 = player2
     public bool ChangeOwner(int x, int y, int o)
     {
         if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) { return false; }
@@ -119,7 +121,7 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    // Obtain the current selection mode; 0 = none; 1 = unitMove; 2 = spellTarget
+    // Obtain the current selection mode; 0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace
     public int GetSelectMode()
     {
         return selectionMode;
@@ -127,11 +129,19 @@ public class GameManager : MonoBehaviour {
 
     // Change the Selection mode to s
     // s must be either 0, 1, 2, or 3
+    // 0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace
     public bool ChangeSelectMode(int s)
     {
         if (s < 0 || s > 3) { return false; }
         selectionMode = s;
         return true;
+    }
+
+    // Get the which player's turn it is
+    // 0 = neither; 1 = player1; 2 = player2
+    public int GetWhoseTurn()
+    {
+        return playerTurn;
     }
 
     // Change the message in center textbox
