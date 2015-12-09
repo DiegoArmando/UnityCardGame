@@ -34,6 +34,7 @@ public class UnitMovement : MonoBehaviour {
         this.transform.position = new Vector3(unit_X * 1.05f, 1.5f + height/2.0f, unit_Y * 1.05f);
         if (!gm.CheckOccupy(unit_X, unit_Y)) { gm.ChangeOccupy(unit_X,unit_Y,true); }
         gm.ChangeOwner(unit_X, unit_Y, playerID);
+        print("(" + unit_X + "," + unit_Y + "):" + gm.CheckOwner(unit_X, unit_Y));
 	}
 
     void OnMouseOver() {

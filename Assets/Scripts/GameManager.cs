@@ -13,6 +13,11 @@ public class GameManager : MonoBehaviour {
     private bool showTB = false;
     private float showTimeStart;
 
+    private int scoreboxWidth = 210;
+    private int scoreboxHeight = 30;
+    private int scoreboxPosX;
+    private int scoreboxPosY;
+
     public int[,] gridHeight = new int[gridSize,gridSize];
     public bool[,] gridOccupided = new bool[gridSize, gridSize];
     private int[,] gridOwner = new int[gridSize, gridSize];
@@ -20,7 +25,9 @@ public class GameManager : MonoBehaviour {
     public int playerTurn = 0; // 0 = neither; 1 = player1; 2 = player2
 
     private int actions = 2;
-	//public bool hasSelection = false;
+    private int p1Score = 0;
+    private int p2Score = 0;
+    private int winner = 0;
 
 	public GameObject currentHand;
 
@@ -44,6 +51,11 @@ public class GameManager : MonoBehaviour {
 	
         textboxPosX = (int)(Screen.width / 2.0f - textboxWidth / 2.0f);
         textboxPosY = (int)(Screen.height - textboxHeight / 2.0f - 30);
+
+        scoreboxPosX = Screen.width / 2 - scoreboxWidth / 2;
+        scoreboxPosY = scoreboxHeight / 2 + 5;
+
+        calcScore();
 
         if (Time.time - showTimeStart > 2.0f) { showTB = false; }
 
@@ -70,6 +82,8 @@ public class GameManager : MonoBehaviour {
     {
         if (showTB)
         { GUI.Box(new Rect(textboxPosX, textboxPosY, textboxWidth, textboxHeight), textboxMessage); }
+
+        GUI.Box(new Rect(scoreboxPosX, scoreboxPosY, scoreboxWidth, scoreboxHeight), "Player 1: " + p1Score + " \t Player 2: " + p2Score);
     }
 
     // Acessor fnction to get board size
@@ -186,5 +200,35 @@ public class GameManager : MonoBehaviour {
         if (actions <= 0) { return false; }
         actions--;
         return true;
+    }
+
+    // calculate score
+    public void calcScore()
+    {
+        int p1calc = 0;
+        int p2calc = 0;
+        for (int i = 0; i < gridSize; i++){
+            for (int j = 0; j < gridSize; j++) {
+                if (gridOwner[i, j] == 1) {
+                    if (gridHeight[i,j] <= 0) 
+                    { p1calc += -(gridHeight[i, j]) + 1; }
+                }
+                else if (gridOwner[i, j] == 2){
+                    if (gridHeight[i, j] <= 0) 
+                    { p2calc += -(gridHeight[i, j]) + 1; }
+                }
+            }
+        }
+        p1Score = p1calc;
+        p2Score = p2calc;
+    }
+    
+    // get the winner
+    // 0 = draw; 1 = player1; 2 = player2
+    public int getWinner()
+    {
+        if (p1Score > p2Score) { return 1; }
+        else if (p1Score < p2Score) { return 2; }
+        else { return 0; }
     }
 }
