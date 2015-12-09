@@ -115,11 +115,11 @@ public class HandScript : MonoBehaviour {
 		cardArt [1] = new string[2][];
 		//Toris Units
 		cardArt [1] [0] = new string[5];
-		cardArt [1] [0] [0] = "torisscoutcard";
+        cardArt[1][0][0] = "torisguardcard"; 
 		cardArt [1] [0] [1] = "torisbrutecard";
-		cardArt [1] [0] [2] = "toriselevatorcard";
-		cardArt [1] [0] [3] = "torisexcavatorcard";
-		cardArt [1] [0] [4] = "torisguardcard";
+        cardArt[1][0][2] = "torisexcavatorcard"; 
+        cardArt[1][0][3] = "torisscoutcard";
+        cardArt[1][0][4] = "toriselevatorcard";
 
 		//Toris Spells
 		cardArt [1] [1] = new string[4];
