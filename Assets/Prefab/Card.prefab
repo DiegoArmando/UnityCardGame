@@ -87,12 +87,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24620aee6c0b6814bb7e34169124b5ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
-  unitType: 4
-  spellType: 3
-  in_hand: 0
-  is_selected: 0
-  highlight: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -111,18 +105,6 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalScale.z
       value: .300000012
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: spellType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: unitType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: Type
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
