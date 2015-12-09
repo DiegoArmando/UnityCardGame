@@ -118,6 +118,18 @@ public class Tile : MonoBehaviour {
 								print ("Setting the unit's position to " + xPos + ", " + zPos);
 
 	                   	 		moveScript.setPlayerID(gm.GetWhoseTurn());
+								moveScript.unitType = card.unitType;
+
+								//If our unit goes up one, bump that tile up one
+								if(card.unitType == 2)
+								{
+									((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(0, xPos, zPos);
+								}
+								//If our unit goes down one, bump that tile down one
+								else if(card.unitType == 4)
+								{
+									((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(1, xPos, zPos);
+								}
 								((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
 							}
 						}

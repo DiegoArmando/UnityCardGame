@@ -73,12 +73,26 @@ public class MakeGrid : MonoBehaviour {
 
 	public void level(int x, int y)
 	{
-
+		for (int i = -1; i < 2; i++)
+		{
+			for(int j = -1; j < 2; j++)
+			{
+				int heightDif = ( ((Tile)tiles [x, y].GetComponent ("Tile")).height - ((Tile)tiles [x + i, y + j].GetComponent ("Tile")).height) * 2;
+				((GameManager)GetComponent ("GameManager")).ChangeHeight (x, y, heightDif);
+			}
+		}
 	}
 
 	public void fist(int x, int y)
 	{
-
+		for (int i = -1; i < 2; i++)
+		{
+			for(int j = -1; j < 2; j++)
+			{
+				((GameManager)GetComponent ("GameManager")).ChangeHeight (x, y, 1);
+				if(x == 0 && y == 0) ((GameManager)GetComponent ("GameManager")).ChangeHeight (x, y, 1);
+			}
+		}
 	}
 
 	public bool checkValid(int x, int y, int owner)

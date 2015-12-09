@@ -9,7 +9,7 @@ public class CardScript : MonoBehaviour {
 	Material mat;
 	
 	public int Type;
-	public int unitType; // 0 = Dummy; 1 = Brute; 2 = Miner; 3 = Scout
+	public int unitType; // 0 = Dummy; 1 = Brute; 2 = Miner; 3 = Scout; 4 = Go Up Unit
 	public int spellType;
 
 	//bool determines if card is selected
