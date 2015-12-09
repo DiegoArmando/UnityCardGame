@@ -21,6 +21,11 @@ public class HandScript : MonoBehaviour {
 
     private Vector3 oldPos;
 
+	void Awake()
+	{
+		oldPos = this.transform.position;
+	}
+
 	void Start(){
 		//grab playerHand's Handscript component
 		playerDeckScript = playerDeck.GetComponent<DeckScript> ();
@@ -29,14 +34,14 @@ public class HandScript : MonoBehaviour {
 	
 		setArt();
 
-        oldPos = this.transform.position;
+        
 
         if (this.name.Equals("P1Hand")) { playerID = 1; }
         else if (this.name.Equals("P2Hand")) { playerID = 2; }
 	}
 
 	public GameObject drawCard (GameObject card) {
-		Vector3 offset = new Vector3 ( _hand.Count*1.25f, 0, 0);
+		Vector3 offset = new Vector3 ( _hand.Count*2.5f, 0, 0);
 		card.transform.position = this.transform.position + offset;
 		_hand.Add (card);
 		
@@ -55,7 +60,7 @@ public class HandScript : MonoBehaviour {
 
 	void manageHand(){
 		for (int i=0; i<_hand.Count; i++) {
-			Vector3 offset = new Vector3(i*1.25f, 0, 0);
+			Vector3 offset = new Vector3(i*2.5f, 0, 0);
 			GameObject card = _hand[i];
 			card.transform.position = this.transform.position + offset;
 		}
@@ -69,7 +74,7 @@ public class HandScript : MonoBehaviour {
 			if(cardScript.is_selected)
 			{
 				selected = cardScript.gameObject;
-				if(hasSelected = false) print ("has selected is now true for player " + playerID);
+				if(hasSelected == false) print ("has selected is now true for player " + playerID);
 				hasSelected = true;
 				removeIndex = i;
 
@@ -106,7 +111,7 @@ public class HandScript : MonoBehaviour {
         this.transform.position += new Vector3(-100, 0, 0);
         for (int i = 0; i < _hand.Count; i++)
         {
-            Vector3 offset = new Vector3(i * 1.25f, 0, 0);
+            Vector3 offset = new Vector3(i * 2.5f, 0, 0);
             GameObject card = _hand[i];
             card.transform.position = this.transform.position + offset;
         }
@@ -118,10 +123,21 @@ public class HandScript : MonoBehaviour {
         this.transform.position = oldPos;
         for (int i = 0; i < _hand.Count; i++)
         {
-            Vector3 offset = new Vector3(i * 1.25f, 0, 0);
+            Vector3 offset = new Vector3(i * 2.5f, 0, 0);
             GameObject card = _hand[i];
             card.transform.position = this.transform.position + offset;
         }
     }
+
+	public void deselect()
+	{
+		hasSelected = false;
+		for (int i = 0; i < _hand.Count; i++)
+		{
+			GameObject card = _hand[i];
+			CardScript cardScript = card.GetComponent<CardScript>();
+			cardScript.is_selected = false;
+		}
+	}
 
 }

@@ -83,46 +83,24 @@ public class MakeGrid : MonoBehaviour {
 
 	public bool checkValid(int x, int y, int owner)
 	{
-		if (x < gridSize)
+
+		if(((GameManager)GetComponent ("GameManager")).CheckOwner(x, y + 1) == owner)
 		{
-			if(y < gridSize)
-			{
-				if(((GameManager)GetComponent ("GameManager")).CheckOwner(x + 1, y + 1) == owner)
-				{
-					return true;
-				}
-			}
-			else
-			{
-				if(y > 0)
-				{
-					if(((GameManager)GetComponent ("GameManager")).CheckOwner(x + 1, y - 1) == owner)
-					{
-						return true;
-					}
-				}
-			}
+			return true;
 		}
-		else if(x > 0)
+		if(((GameManager)GetComponent ("GameManager")).CheckOwner(x, y - 1) == owner)
 		{
-			if(y < gridSize)
-			{
-				if(((GameManager)GetComponent ("GameManager")).CheckOwner(x - 1, y + 1) == owner)
-				{
-					return true;
-				}
-			}
-			else
-			{
-				if(y > 0)
-				{
-					if(((GameManager)GetComponent ("GameManager")).CheckOwner(x - 1, y - 1) == owner)
-					{
-						return true;
-					}
-				}
-			}
+			return true;
 		}
+		if(((GameManager)GetComponent ("GameManager")).CheckOwner(x + 1, y) == owner)
+		{
+			return true;
+		}
+		if(((GameManager)GetComponent ("GameManager")).CheckOwner(x - 1, y) == owner)
+		{
+			return true;
+		}
+
 		return false;
 	}
 }

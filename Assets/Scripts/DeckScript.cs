@@ -47,13 +47,8 @@ public class DeckScript : MonoBehaviour {
 	}
 
 	void Update() {
-<<<<<<< HEAD
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (Input.GetKeyDown (KeyCode.Space) && gm.playerTurn == playerID) {
 			//Debug.Log("space");
-=======
-		if (Input.GetKeyDown (KeyCode.Space) && playerID == gm.GetWhoseTurn()) {
-			Debug.Log("space");
->>>>>>> origin/developJC
 			int i = _deck.Count-1;
 			GameObject card = _deck[i];
 			_deck.RemoveAt(i);
