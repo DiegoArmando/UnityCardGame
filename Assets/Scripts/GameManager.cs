@@ -28,12 +28,12 @@ public class GameManager : MonoBehaviour {
     private const int actionboxPosX = 20;
     private const int actionboxPosY = 38;
 
-    public int[,] gridHeight = new int[gridSize,gridSize];
-    public bool[,] gridOccupided = new bool[gridSize, gridSize];
+    private int[,] gridHeight = new int[gridSize,gridSize];
+    private bool[,] gridOccupided = new bool[gridSize, gridSize];
     private int[,] gridOwner = new int[gridSize, gridSize];
 
     public int selectionMode = 0; //0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace; 
-    public int playerTurn = 0; // 0 = neither; 1 = player1; 2 = player2
+    private int playerTurn = 0; // 0 = neither; 1 = player1; 2 = player2
     private int actions = 2;
     private int p1Score = 0;
     private int p2Score = 0;
@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour {
     // Change the message in center textbox
     public void ShowTBMessage(string message)
     {
-        textboxWidth = message.Length * 10;
+        textboxWidth = message.Length * 7;
         textboxMessage = message;
         showTB = true;
         showTimeStart = Time.time;
@@ -215,6 +215,8 @@ public class GameManager : MonoBehaviour {
             playerTurn = t;
             ShowTBMessage("It is Player " + t + "'s turn");
             actions = 2;
+            if (t == 1) { currentHand = GameObject.Find("P1Hand"); }
+            else if (t == 2) { currentHand = GameObject.Find("P2Hand"); }
         }
     }
 

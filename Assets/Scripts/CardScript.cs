@@ -55,5 +55,4 @@ public class CardScript : MonoBehaviour {
 	//	sets card as selected; will be picked up by the hand script
 		is_selected = true;
 	}
-
 }
