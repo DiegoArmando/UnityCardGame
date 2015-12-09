@@ -25,18 +25,15 @@ public class HandScript : MonoBehaviour {
     {
         oldPos = this.transform.position;
 
-        if (this.name.Equals("P1Hand")) { playerID = 1; }
-        else if (this.name.Equals("P2Hand")) { playerID = 2; }
+        
     
 		//grab playerHand's Handscript component
 		playerDeckScript = playerDeck.GetComponent<DeckScript> ();
 		hasSelected = false;
 	
 		setArt();
-        
-        if (this.name.Equals("P1Hand")) { playerID = 1; }
-        else if (this.name.Equals("P2Hand")) { playerID = 2; }
 	}
+
 
 
     void Start()
@@ -54,6 +51,8 @@ public class HandScript : MonoBehaviour {
 			j = card.GetComponent<CardScript> ().unitType;
 		else
 			j = card.GetComponent<CardScript> ().spellType;
+		print ("values: " + (playerID - 1) + ", " + i + " " + j);
+		print ("Card art value: " + cardArt [playerID - 1] [i] [j]);
 		string file = cardArt [playerID-1] [i] [j];
 		Texture img = (Texture)Resources.Load (file);
 		card.GetComponent<Renderer> ().material.mainTexture = img;
@@ -70,6 +69,9 @@ public class HandScript : MonoBehaviour {
 	}
 
 	void Update(){
+		if (this.name.Equals("P1Hand")) { playerID = 1; }
+		else if (this.name.Equals("P2Hand")) { playerID = 2; }
+
 		for (int i=0; i<_hand.Count; i++) {
 			GameObject card = _hand[i];
 			CardScript cardScript = card.GetComponent<CardScript>();
@@ -95,19 +97,20 @@ public class HandScript : MonoBehaviour {
 	void setArt(){
 		cardArt[0] = new string[2][];
 		//StarOre Units
+		// 0 = Dummy; 1 = Brute; 2 = Miner; 3 = Scout; 4 = Go Up Unit
 		cardArt [0] [0] = new string[5];
-		cardArt [0] [0] [0] = "starorescoutcard";
+		cardArt [0] [0] [0] = "staroreguardcard";
 		cardArt [0] [0] [1] = "starorebrutecard";
-		cardArt [0] [0] [2] = "staroreelevatorcard";
-		cardArt [0] [0] [3] = "staroreexcavatorcard";
-		cardArt [0] [0] [4] = "staroreguardcard";
+		cardArt [0] [0] [2] = "staroreexcavatorcard";
+		cardArt [0] [0] [3] = "starorescoutcard";
+		cardArt [0] [0] [4] = "staroreelevatorcard";
 
 		//StarOre Spells
 		cardArt [0] [1] = new string[4];
-		cardArt [0] [1] [0] = "starorefistcard";
-		cardArt [0] [1] [1] = "starorelevelcard";
-		cardArt [0] [1] [2] = "staroresinkholecard";
-		cardArt [0] [1] [3] = "staroreevelatecard";
+		cardArt [0] [1] [0] =  "staroreevelatecard";
+		cardArt [0] [1] [1] = "staroresinkholecard";
+		cardArt [0] [1] [2] = "starorelevelcard";
+		cardArt [0] [1] [3] = "starorefistcard";
 
 		cardArt [1] = new string[2][];
 		//Toris Units
@@ -120,10 +123,10 @@ public class HandScript : MonoBehaviour {
 
 		//Toris Spells
 		cardArt [1] [1] = new string[4];
-		cardArt [1] [1] [0] = "torisfistcard";
-		cardArt [1] [1] [1] = "torislevelcard";
-		cardArt [1] [1] [2] = "torissinkholecard";
-		cardArt [1] [1] [3] = "torisevelatecard";
+		cardArt [1] [1] [0] = "torisevelatecard";
+		cardArt [1] [1] [1] = "torissinkholecard";
+		cardArt [1] [1] [2] = "torislevelcard";
+		cardArt [1] [1] [3] = "torisfistcard";
 	}
 
     // hides the hand

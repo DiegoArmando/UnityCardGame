@@ -19,7 +19,7 @@ public class DeckScript : MonoBehaviour {
 	private List<GameObject> _discard = new List<GameObject> ();
 
     private Vector3 oldPos;
-    private int playerID;
+    public int playerID;
     private GameManager gm;
 
 	//initialize deck

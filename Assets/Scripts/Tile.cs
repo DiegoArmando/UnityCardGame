@@ -41,6 +41,9 @@ public class Tile : MonoBehaviour {
             case 1:
                 //change to player 1's color
                 gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+				//Texture img = (Texture)Resources.Load ("StaroreTerrainMat");
+				//card.GetComponent<Renderer> ().material.mainTexture = img;
+				//gameObject.GetComponent<MeshRenderer>().material.mainTexture = img;// .materialmainTexture = img;
                 break;
 
             case 2:

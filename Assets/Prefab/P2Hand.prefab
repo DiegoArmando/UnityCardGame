@@ -42,7 +42,7 @@ MonoBehaviour:
   playerDeck: {fileID: 127308, guid: 8a0329a84f3670d47b668d4c6e3ba134, type: 2}
   selected: {fileID: 0}
   hasSelected: 0
-  playerID: 1
+  playerID: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -54,6 +54,10 @@ Prefab:
       propertyPath: playerDeck
       value: 
       objectReference: {fileID: 127308, guid: 8a0329a84f3670d47b668d4c6e3ba134, type: 2}
+    - target: {fileID: 0}
+      propertyPath: playerID
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 121546}
