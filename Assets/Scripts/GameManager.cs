@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-    private const int gridSize = 5;
+    private const int gridSize = 6;
     
     private static int textboxWidth = 150;
     private const int textboxHeight = 30;

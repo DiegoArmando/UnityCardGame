@@ -5,17 +5,18 @@ public class MakeGrid : MonoBehaviour {
 
 	public GameObject gridComponent;
 	public int uniqueIDNumber = 0;
+    public GameManager gm;
 
 	GameObject[,] tiles;
 	// Use this for initialization
 	void Start () {
-		//print ("I AM BEING CALLED");
-		//print ("I AM THING " + uniqueIDNumber);
-		tiles = new GameObject[5, 5];
+		gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
 
-		for(int i = 0; i < 5; i++)
+		tiles = new GameObject[gm.GetBoardSize(), gm.GetBoardSize()];
+
+		for(int i = 0; i < gm.GetBoardSize(); i++)
 		{
-			for(int j = 0; j < 5; j++)
+			for(int j = 0; j < gm.GetBoardSize(); j++)
 			{
 
 				GameObject temp = Instantiate(gridComponent);
