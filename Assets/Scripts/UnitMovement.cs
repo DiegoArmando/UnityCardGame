@@ -61,12 +61,7 @@ public class UnitMovement : MonoBehaviour {
         // Left button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) - buttonSize, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Left"))
         {
-            if (gm.CheckActions() > 0)
-            { 
-                PositionUpdate(unit_X - 1, unit_Y);
-                gm.useAction();
-            }
-            else { selected = false; }
+            PositionUpdate(unit_X - 1, unit_Y);
         }
         // Left x2 button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) - buttonSize * 2, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Left\nx2"))
@@ -81,12 +76,7 @@ public class UnitMovement : MonoBehaviour {
         // Right button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) + buttonSize, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Right"))
         {
-            if (gm.CheckActions() > 0)
-            {
-                PositionUpdate(unit_X + 1, unit_Y);
-                gm.useAction();
-            }
-            else { selected = false; }
+            PositionUpdate(unit_X + 1, unit_Y);
         }
         // Right x2 button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) + buttonSize * 2, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Right\nx2"))
@@ -101,83 +91,42 @@ public class UnitMovement : MonoBehaviour {
         // Up button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2), (menuPosY - buttonSize / 2) - buttonSize, buttonSize, buttonSize), "Up"))
         {
-            if (gm.CheckActions() > 0)
-            {
-                PositionUpdate(unit_X, unit_Y + 1);
-                gm.useAction();
-            }
-            else { selected = false; }
+            PositionUpdate(unit_X, unit_Y + 1);
         }
         // Up x2 button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2), (menuPosY - buttonSize / 2) - buttonSize * 2, buttonSize, buttonSize), "Up\nx2"))
         {
-            if (gm.CheckActions() > 0)
-            {
-                PositionUpdate(unit_X, unit_Y + 2);
-                gm.useAction();
-            }
-            else { selected = false; }
-
+            PositionUpdate(unit_X, unit_Y + 2);
         }
         // Down button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2), (menuPosY - buttonSize / 2) + buttonSize, buttonSize, buttonSize), "Down"))
         {
-            if (gm.CheckActions() > 0)
-            {
-                PositionUpdate(unit_X, unit_Y - 1);
-                gm.useAction();
-            }
-            else { selected = false; }
+            PositionUpdate(unit_X, unit_Y - 1);
         }
         // Down x2 button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2), (menuPosY - buttonSize / 2) + buttonSize * 2, buttonSize, buttonSize), "Down\nx2"))
         {
-            if (gm.CheckActions() > 0)
-            {
-                PositionUpdate(unit_X, unit_Y - 2);
-                gm.useAction();
-            }
-            else { selected = false; }
+            PositionUpdate(unit_X, unit_Y - 2);
         }
         // UpLeft button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) - buttonSize, (menuPosY - buttonSize / 2) - buttonSize, buttonSize, buttonSize), "Up\nLeft"))
         {
-            if (gm.CheckActions() > 0)
-            {
-                PositionUpdate(unit_X - 1, unit_Y + 1);
-                gm.useAction();
-            }
-            else { selected = false; }
+            PositionUpdate(unit_X - 1, unit_Y + 1);
         }
         // UpRight button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) + buttonSize, (menuPosY - buttonSize / 2) - buttonSize, buttonSize, buttonSize), "Up\nRight"))
         {
-            if (gm.CheckActions() > 0)
-            {
-                PositionUpdate(unit_X + 1, unit_Y + 1);
-                gm.useAction();
-            }
-            else { selected = false; }
+            PositionUpdate(unit_X + 1, unit_Y + 1);
         }
         // DownLeft button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) - buttonSize, (menuPosY - buttonSize / 2) + buttonSize, buttonSize, buttonSize), "Down\nLeft"))
         {
-            if (gm.CheckActions() > 0)
-            {
-                PositionUpdate(unit_X - 1, unit_Y - 1);
-                gm.useAction();
-            }
-            else { selected = false; }
+            PositionUpdate(unit_X - 1, unit_Y - 1);
         }
         // DownRight button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) + buttonSize, (menuPosY - buttonSize / 2) + buttonSize, buttonSize, buttonSize), "Down\nRight"))
         {
-            if (gm.CheckActions() > 0)
-            {
-                PositionUpdate(unit_X + 1, unit_Y - 1);
-                gm.useAction();
-            }
-            else { selected = false; }
+            PositionUpdate(unit_X + 1, unit_Y - 1);
         }
     }
 
@@ -190,23 +139,23 @@ public class UnitMovement : MonoBehaviour {
     // Update unit Position to (new_x, new_y)
     public void PositionUpdate(int new_x, int new_y)
     {
-		/*if (gm == null)
-		{
-			print ("Game Manager doesn't exist yet");
-			gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
-		}*/
-        if (new_x < 0 || new_x >= gm.GetBoardSize() || new_y < 0 || new_y >= gm.GetBoardSize())
-        { gm.ShowTBMessage("Unit cannot move off the board"); }
-        else if (gm.CheckOccupy(new_x, new_y))
-        { gm.ShowTBMessage("Unit cannot move to an occupied space"); }
-        else
+        if (gm.CheckActions() > 0)
         {
-            selected = false;
-            gm.ChangeOccupy(unit_X, unit_Y, false);
-            unit_X = new_x;
-            unit_Y = new_y;
-            gm.ChangeOccupy(unit_X, unit_Y, true);
+            if (new_x < 0 || new_x >= gm.GetBoardSize() || new_y < 0 || new_y >= gm.GetBoardSize())
+            { gm.ShowTBMessage("Unit cannot move off the board"); }
+            else if (gm.CheckOccupy(new_x, new_y))
+            { gm.ShowTBMessage("Unit cannot move to an occupied space"); }
+            else
+            {
+                selected = false;
+                gm.ChangeOccupy(unit_X, unit_Y, false);
+                unit_X = new_x;
+                unit_Y = new_y;
+                gm.ChangeOccupy(unit_X, unit_Y, true);
+            }
+            gm.useAction();
         }
+        else { selected = false; }
     }
 
     // set the unit type to u
