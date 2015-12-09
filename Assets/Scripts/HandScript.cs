@@ -21,17 +21,20 @@ public class HandScript : MonoBehaviour {
 
     private Vector3 oldPos;
 
+    void Awake()
+    {
+        oldPos = this.transform.position;
+
+        if (this.name.Equals("P1Hand")) { playerID = 1; }
+        else if (this.name.Equals("P2Hand")) { playerID = 2; }
+    }
+
 	void Start(){
 		//grab playerHand's Handscript component
 		playerDeckScript = playerDeck.GetComponent<DeckScript> ();
 		hasSelected = false;
 	
 		setArt();
-
-        oldPos = this.transform.position;
-
-        if (this.name.Equals("P1Hand")) { playerID = 1; }
-        else if (this.name.Equals("P2Hand")) { playerID = 2; }
 	}
 
 	public GameObject drawCard (GameObject card) {

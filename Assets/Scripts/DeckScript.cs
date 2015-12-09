@@ -19,6 +19,14 @@ public class DeckScript : MonoBehaviour {
     private GameManager gm;
 
 	//initialize deck
+    void Awake()
+    {
+        oldPos = this.transform.position;
+
+        if (this.name.Equals("P1Deck")) { playerID = 1; }
+        else if (this.name.Equals("P2Deck")) { playerID = 2; }
+    }
+
 	void Start(){
 		//grab playerHand's Handscript component
 		cardScript = cardObject.GetComponent<CardScript> ();
@@ -37,11 +45,6 @@ public class DeckScript : MonoBehaviour {
 		}
 		//shuffle the deck
 		Shuffle ();
-
-        oldPos = this.transform.position;
-
-        if (this.name.Equals("P1Deck")) { playerID = 1; }
-        else if (this.name.Equals("P2Deck")) { playerID = 2; }
 
         gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
 	}
