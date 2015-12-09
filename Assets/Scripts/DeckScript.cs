@@ -26,15 +26,82 @@ public class DeckScript : MonoBehaviour {
 
 		GameObject temp;
 
-		for (int i=0; i<20; i++) {
+		for (int i=0; i<8; i++) {
 			//instantiate a card object and give it its unique properties
 			temp = (GameObject)Instantiate(cardObject);
 			//set cardObject's texture
 			Texture img = (Texture)Resources.Load("CardBack");
 			temp.GetComponent<Renderer>().material.mainTexture = img;
-			cardScript.setCard(0, Random.Range(0, 5));
+			cardScript.setCard(0, 0);
 			_deck.Add (temp);
 		}
+		for (int i=8; i<10; i++) {
+			//instantiate a card object and give it its unique properties
+			temp = (GameObject)Instantiate(cardObject);
+			//set cardObject's texture
+			Texture img = (Texture)Resources.Load("CardBack");
+			temp.GetComponent<Renderer>().material.mainTexture = img;
+			cardScript.setCard(0, 2);
+			_deck.Add (temp);
+		}
+
+		for (int i=10; i<12; i++) {
+			//instantiate a card object and give it its unique properties
+			temp = (GameObject)Instantiate(cardObject);
+			//set cardObject's texture
+			Texture img = (Texture)Resources.Load("CardBack");
+			temp.GetComponent<Renderer>().material.mainTexture = img;
+			cardScript.setCard(0, 3);
+			_deck.Add (temp);
+		}
+		for (int i=12; i<14; i++) {
+			//instantiate a card object and give it its unique properties
+			temp = (GameObject)Instantiate(cardObject);
+			//set cardObject's texture
+			Texture img = (Texture)Resources.Load("CardBack");
+			temp.GetComponent<Renderer>().material.mainTexture = img;
+			cardScript.setCard(0, 4);
+			_deck.Add (temp);
+		}
+		for (int i=14; i<16; i++) {
+			//instantiate a card object and give it its unique properties
+			temp = (GameObject)Instantiate(cardObject);
+			//set cardObject's texture
+			Texture img = (Texture)Resources.Load("CardBack");
+			temp.GetComponent<Renderer>().material.mainTexture = img;
+			cardScript.setCard(1, 0);
+			_deck.Add (temp);
+		}
+		for (int i=16; i<18; i++) {
+			//instantiate a card object and give it its unique properties
+			temp = (GameObject)Instantiate(cardObject);
+			//set cardObject's texture
+			Texture img = (Texture)Resources.Load("CardBack");
+			temp.GetComponent<Renderer>().material.mainTexture = img;
+			cardScript.setCard(1, 1);
+			_deck.Add (temp);
+		}
+		
+		for (int i=18; i<19; i++) {
+			//instantiate a card object and give it its unique properties
+			temp = (GameObject)Instantiate(cardObject);
+			//set cardObject's texture
+			Texture img = (Texture)Resources.Load("CardBack");
+			temp.GetComponent<Renderer>().material.mainTexture = img;
+			cardScript.setCard(1, 2);
+			_deck.Add (temp);
+		}
+		
+		for (int i=19; i<20; i++) {
+			//instantiate a card object and give it its unique properties
+			temp = (GameObject)Instantiate(cardObject);
+			//set cardObject's texture
+			Texture img = (Texture)Resources.Load("CardBack");
+			temp.GetComponent<Renderer>().material.mainTexture = img;
+			cardScript.setCard(1, 3);
+			_deck.Add (temp);
+		}
+
 		//shuffle the deck
 		Shuffle ();
 
