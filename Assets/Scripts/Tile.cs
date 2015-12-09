@@ -95,7 +95,8 @@ public class Tile : MonoBehaviour {
                         if (gm.CheckOwner(xPos - 1, zPos) == gm.GetWhoseTurn() ||
                             gm.CheckOwner(xPos + 1, zPos) == gm.GetWhoseTurn() ||
                             gm.CheckOwner(xPos, zPos + 1) == gm.GetWhoseTurn() ||
-                            gm.CheckOwner(xPos, zPos - 1) == gm.GetWhoseTurn())
+                            gm.CheckOwner(xPos, zPos - 1) == gm.GetWhoseTurn() ||
+                            gm.CheckOwner(xPos,zPos) == gm.GetWhoseTurn())
                         {
                             print("Space " + xPos + ", " + zPos + " is unoccupied.");
                             GameObject newUnit = Instantiate(unit);
