@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour {
     private int p1Score = 0;
     private int p2Score = 0;
     private int winner = 0;
+    private bool hiddenCards = false;
 
 	public GameObject currentHand;
 
@@ -55,6 +56,8 @@ public class GameManager : MonoBehaviour {
         }
 		currentHand = GameObject.Find ("P1Hand");
 		playerTurn = 1;
+        GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("hideHand");
+        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("hideDeck");
 	}
 	
 	// Update is called once per frame
@@ -68,19 +71,40 @@ public class GameManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            switch (playerTurn) {
-                case 0:
-                    SwitchTurns(1);
-                    break;
-                case 1:
-                    SwitchTurns(2);
-                    break;
-                case 2:
-                    SwitchTurns(1);
-                    break;
-                default:
-                    print("Invalid turn ID");
-                    break;
+            if (!hiddenCards)
+            {
+                GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("hideHand");
+                GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("hideDeck");
+                GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("hideHand");
+                GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("hideDeck");
+                hiddenCards = true;
+            }
+            else
+            {
+                switch (playerTurn)
+                {
+                    case 0:
+                        SwitchTurns(1);
+                        GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("showHand");
+                        GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("showDeck");
+                        hiddenCards = false;
+                        break;
+                    case 1:
+                        SwitchTurns(2);
+                        GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("showHand");
+                        GameObject.Find("P2Deck").GetComponent("DeckScript").SendMessage("showDeck");
+                        hiddenCards = false;
+                        break;
+                    case 2:
+                        SwitchTurns(1);
+                        GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("showHand");
+                        GameObject.Find("P1Deck").GetComponent("DeckScript").SendMessage("showDeck");
+                        hiddenCards = false;
+                        break;
+                    default:
+                        print("Invalid turn ID");
+                        break;
+                }
             }
         }
 	}
@@ -95,6 +119,9 @@ public class GameManager : MonoBehaviour {
         GUI.Box(new Rect(turnboxPosX, turnboxPosY, turnboxWidth, turnboxHeight), "Turn: Player " + playerTurn);
 
         GUI.Box(new Rect(actionboxPosX, actionboxPosY, actionboxWidth, actionboxHeight), "Action Points: " + actions);
+
+        if(hiddenCards)
+        { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight), "Press T to continue to the next player's turn"); }
     }
 
     // Acessor fnction to get board size

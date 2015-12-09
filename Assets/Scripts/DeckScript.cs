@@ -14,6 +14,7 @@ public class DeckScript : MonoBehaviour {
 	private List<GameObject> _deck = new List<GameObject> ();
 	private List<GameObject> _discard = new List<GameObject> ();
 
+    public Vector3 oldPos;
 
 	//initialize deck
 	void Start(){
@@ -34,6 +35,8 @@ public class DeckScript : MonoBehaviour {
 		}
 		//shuffle the deck
 		Shuffle ();
+
+        oldPos = this.transform.position;
 	}
 
 	void Update() {
@@ -77,5 +80,19 @@ public class DeckScript : MonoBehaviour {
 		}
 		_deck = temp;
 	}
+
+    // hides the deck
+    public void hideDeck()
+    {
+        this.transform.position += new Vector3(-100, 0, 0);
+        Shuffle();
+    }
+
+    // shows the deck
+    public void showDeck()
+    {
+        this.transform.position = oldPos;
+        Shuffle();
+    }
 	
 }
