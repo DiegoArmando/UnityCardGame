@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour {
     private bool showTB = false;
     private float showTimeStart;
 
+    private string description = "";
+    private bool showDB = false;
+    private float showDBTimeStart;
+
     private const int scoreboxWidth = 225;
     private const int scoreboxHeight = 25;
     private int scoreboxPosX = Screen.width / 2 - scoreboxWidth / 2;
@@ -62,6 +66,7 @@ public class GameManager : MonoBehaviour {
         calcScore();
 
         if (Time.time - showTimeStart > 2.0f) { showTB = false; }
+        if (Time.time - showTimeStart > 1.0f) { showTB = false; }
 
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -114,7 +119,7 @@ public class GameManager : MonoBehaviour {
     void OnGUI()
     {
         if (showTB)
-        { GUI.Box(new Rect(20, Screen.height/2, 200, 50), textboxMessage); }
+        { GUI.Box(new Rect(20, uiboxPosY + 175, 200, 50), textboxMessage); }
 
         GUI.Box(new Rect(scoreboxPosX, scoreboxPosY, scoreboxWidth, scoreboxHeight), "Player 1: " + p1Score + " \t Player 2: " + p2Score);
 
@@ -124,6 +129,9 @@ public class GameManager : MonoBehaviour {
 
         GUI.Box(new Rect(uiboxPosX, uiboxPosY + 50, uiboxWidth, uiboxHeight), "Turns Left: " + turnCounter);
 
+        if (showDB)
+        {GUI.Box(new Rect(uiboxPosX, uiboxPosY + 230, 200, textboxHeight*4), description);}
+
         if(hiddenCards && playerTurn != 0)
         { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight), "Press T to continue to the next player's turn"); }
         else if (playerTurn == 0) { GUI.Box(new Rect((Screen.width / 2.0f - 150), textboxPosY, 300, textboxHeight), "Press T to start the game!"); }
@@ -131,9 +139,9 @@ public class GameManager : MonoBehaviour {
         if (turnCounter <= 0)
         {
             if (winner > 0)
-            { GUI.Box(new Rect(15, uiboxPosY + 100, 200, textboxHeight + 10), "The winner is Player " + winner + "!\nCONGRADULATIONS!"); }
+            { GUI.Box(new Rect(uiboxPosX, uiboxPosY + 100, 200, textboxHeight + 10), "The winner is Player " + winner + "!\nCONGRADULATIONS!"); }
             else
-            { GUI.Box(new Rect(15, uiboxPosY + 100, 200, textboxHeight + 10), "DRAW!\nThere is no winner."); }
+            { GUI.Box(new Rect(uiboxPosX, uiboxPosY + 100, 200, textboxHeight + 10), "DRAW!\nThere is no winner."); }
             
         }
         
@@ -265,5 +273,76 @@ public class GameManager : MonoBehaviour {
         if (p1Score > p2Score) { return 1; }
         else if (p1Score < p2Score) { return 2; }
         else { return 0; }
+    }
+
+    // Change the message in description box
+    public void ShowDBMessage(int type, int unitType, int spellType)
+    {
+        if (type == 0) {
+            if (playerTurn == 1) {
+                switch (unitType) {
+                    case 0:
+                        description = "StarOre Guard\n-UNIT-\n-Regular unit\n-Master Buford Beauregarde\nthe 2nd, son of former member\nof the Royal Guard Master\nBuford Beauregarde the 1st.";
+                        break;
+                    case 1:
+                        description = "StarOre Brute\n-UNIT-\n-Regular unit\n-Master Buford Beauregarde\nthe first, former member of\nthe Royal Guard.";
+                        break;
+                    case 2:
+                        description = "StarOre Excavator\n-UNIT-\n-Descends the tile he's\nstanding on\n-The Honorable Quincy James\nMatthews the fourth.\nAn expert in excavation magic.";
+                        break;
+                    case 3:
+                        description = "StareOre Scout\n-UNIT-\n-Can move farther\n-Sir Horace Pennyweather.\nMiss Meredith’s\npersonal bodyguard.";
+                        break;
+                    case 4:
+                        description = "StarOre Elevator\n-UNIT-\n-Ascends the tile she's\nstanding on\n-Lady Elizabeth Hillridge.\nAn expert in elevation magic.";
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else if (playerTurn == 2) {
+                switch (unitType)
+                {
+                    case 0:
+                        description = "Tori's Guard\n-UNIT-\n-Regular unit\n\n-Jackie Porter.\nTori’s old college roommate.";
+                        break;
+                    case 1:
+                        description = "Tori's Brute\n-Regular unit\n\n-Jason McHenry. Jackie’s rich neighbor.";
+                        break;
+                    case 2:
+                        description = "Tori's Excavator\n-UNIT-\n-Descends the tile she's\nstanding on\n\n-Rebecca Jordan.\nTori’s college best friend.";
+                        break;
+                    case 3:
+                        description = "Tori's Scout\n-UNIT-\n-Can move farther\n\n-Harrison Bennett.\nTori’s neighbor.";
+                        break;
+                    case 4:
+                        description = "Tori's Elevator\n-UNIT-\n-Ascends the tile he's\nstanding on\n\n-Lenny Brotelli.\nRebecca’s boyfriend.";
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        else if (type == 1) {
+            switch (spellType)
+            {
+                case 0:
+                    description = "Sinkhole\n-SPELL-\n-Descends the tile targeted.";
+                    break;
+                case 1:
+                    description = "Elevate\n-SPELL-\n-Ascends the tile targeted.";
+                    break;
+                case 2:
+                    description = "Level\n-SPELL-\n-Change all surrounding tiles\nto targeted tile's height.";
+                    break;
+                case 3:
+                    description = "Fist From Below\n-SPELL-\n-Ascends the target tile and\nall tiles surrounding the targeted\ntile.";
+                    break;
+                default:
+                    break;
+            }
+        }
+        showDB = true;
+        showDBTimeStart = Time.time;
     }
 }

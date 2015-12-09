@@ -19,7 +19,7 @@ public class CardScript : MonoBehaviour {
 	//this gameObject's position in hand
 	private Vector3 handPos;
 
-	public GameObject highlight;
+    private GameManager gm;
 
 
 	void Start() {
@@ -27,6 +27,7 @@ public class CardScript : MonoBehaviour {
 		//rend = GetComponent<Renderer>();
 		//mat = rend.material;
 		is_selected = false;
+        gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
 	}
 
 	public void setCard(int sentType, int which){
@@ -48,6 +49,7 @@ public class CardScript : MonoBehaviour {
 		if (in_hand) {
 			handPos = gameObject.transform.position;
 			gameObject.transform.position = gameObject.transform.position + (Camera.main.transform.forward * -2) + new Vector3(0,0,1.5f);
+            gm.ShowDBMessage(Type, unitType, spellType);
 		}
 	}
 	
