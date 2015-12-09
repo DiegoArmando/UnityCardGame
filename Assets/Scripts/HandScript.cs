@@ -10,8 +10,10 @@ public class HandScript : MonoBehaviour {
 	private GameObject selected;
 	public bool hasSelected;
 	Ray ray;
+	public int playerID;
 
 	private List<GameObject> _hand = new List<GameObject> ();
+	int removeIndex;
 
 	void Start(){
 		//grab playerHand's Handscript component
@@ -42,12 +44,19 @@ public class HandScript : MonoBehaviour {
 			if(cardScript.Selected){
 				selected = cardScript.gameObject;
 				hasSelected = true;
+				removeIndex = i;
 				//print("Selected card");
-				//_hand.RemoveAt(i);
-				//playerDeckScript.discard(card);
-				//manageHand();
 			}
 		}
+	}
+
+	public void Discard()
+	{
+
+		_hand.RemoveAt(removeIndex);
+		playerDeckScript.discard(selected);
+		manageHand();
+		hasSelected = false;
 	}
 
 

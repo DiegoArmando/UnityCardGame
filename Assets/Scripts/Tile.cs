@@ -83,18 +83,16 @@ public class Tile : MonoBehaviour {
 					//newUnit.SetActive(true);
 
 					UnitMovement moveScript = (UnitMovement)newUnit.GetComponent("UnitMovement");
-					if(moveScript == null)
-					{
-						print ("The unit doesn't exist yet");
-					}
-					else
-					{
-						moveScript.PositionUpdate(xPos, zPos);
-						print ("Setting the unit's position to " + xPos + ", " + zPos);
-					}
 
+					moveScript.PositionUpdate(xPos, zPos);
+					print ("Setting the unit's position to " + xPos + ", " + zPos);
 
 					//Set the unit's properties here
+
+					moveScript.playerID = ((HandScript)gm.currentHand.GetComponent("HandScript")).playerID;
+
+
+					((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
 				}
 				else
 				{
