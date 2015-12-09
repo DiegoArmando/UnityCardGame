@@ -53,7 +53,9 @@ public class CardScript : MonoBehaviour {
 
 	void OnMouseDown(){
 	//	sets card as selected; will be picked up by the hand script
+		if(is_selected == false) print ("I AM TRIGGERED FOR SELECTION ***********************************************");
 		is_selected = true;
+
 	}
 
 }

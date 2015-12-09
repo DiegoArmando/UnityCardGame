@@ -5,17 +5,18 @@ public class MakeGrid : MonoBehaviour {
 
 	public GameObject gridComponent;
 	public int uniqueIDNumber = 0;
+	public int gridSize;
 
 	GameObject[,] tiles;
 	// Use this for initialization
 	void Start () {
 		//print ("I AM BEING CALLED");
 		//print ("I AM THING " + uniqueIDNumber);
-		tiles = new GameObject[5, 5];
+		tiles = new GameObject[gridSize, gridSize];
 
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < gridSize; i++)
 		{
-			for(int j = 0; j < 5; j++)
+			for(int j = 0; j < gridSize; j++)
 			{
 
 				GameObject temp = Instantiate(gridComponent);
@@ -78,5 +79,50 @@ public class MakeGrid : MonoBehaviour {
 	public void fist(int x, int y)
 	{
 
+	}
+
+	public bool checkValid(int x, int y, int owner)
+	{
+		if (x < gridSize)
+		{
+			if(y < gridSize)
+			{
+				if(((GameManager)GetComponent ("GameManager")).CheckOwner(x + 1, y + 1) == owner)
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if(y > 0)
+				{
+					if(((GameManager)GetComponent ("GameManager")).CheckOwner(x + 1, y - 1) == owner)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		else if(x > 0)
+		{
+			if(y < gridSize)
+			{
+				if(((GameManager)GetComponent ("GameManager")).CheckOwner(x - 1, y + 1) == owner)
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if(y > 0)
+				{
+					if(((GameManager)GetComponent ("GameManager")).CheckOwner(x - 1, y - 1) == owner)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 }

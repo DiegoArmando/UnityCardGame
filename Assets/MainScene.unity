@@ -392,6 +392,10 @@ Prefab:
       propertyPath: playerDeck
       value: 
       objectReference: {fileID: 1064259542}
+    - target: {fileID: 11492972, guid: ad763cb78f45ca0468ab44c64dfb241e, type: 2}
+      propertyPath: playerID
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad763cb78f45ca0468ab44c64dfb241e, type: 2}
   m_IsPrefabParent: 0
@@ -433,6 +437,10 @@ Prefab:
     - target: {fileID: 462378, guid: 5f56ffedc4e6243459bbcd9d62f749d9, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11470556, guid: 5f56ffedc4e6243459bbcd9d62f749d9, type: 2}
+      propertyPath: playerID
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11412148, guid: 5f56ffedc4e6243459bbcd9d62f749d9, type: 2}
@@ -491,6 +499,10 @@ Prefab:
       propertyPath: currentHand
       value: 
       objectReference: {fileID: 1697182766}
+    - target: {fileID: 11432868, guid: c8168c3a95346e64998a970a80303da9, type: 2}
+      propertyPath: gridSize
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c8168c3a95346e64998a970a80303da9, type: 2}
   m_IsPrefabParent: 0
@@ -725,7 +737,7 @@ Prefab:
     - target: {fileID: 11473082, guid: 230ce6a42fe1b044aa7ca036f7eac24f, type: 2}
       propertyPath: playerHand
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1986207354}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 230ce6a42fe1b044aa7ca036f7eac24f, type: 2}
   m_IsPrefabParent: 0
@@ -806,6 +818,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad763cb78f45ca0468ab44c64dfb241e, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1986207354 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 131156, guid: ad763cb78f45ca0468ab44c64dfb241e, type: 2}
+  m_PrefabInternal: {fileID: 483227901}
 --- !u!1 &2015062634
 GameObject:
   m_ObjectHideFlags: 0

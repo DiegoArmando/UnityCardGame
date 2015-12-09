@@ -22,6 +22,7 @@ public class HandScript : MonoBehaviour {
 	void Start(){
 		//grab playerHand's Handscript component
 		playerDeckScript = playerDeck.GetComponent<DeckScript> ();
+		print ("Has selected has been set to false in player " + playerID);
 		hasSelected = false;
 	
 		setArt();
@@ -38,7 +39,7 @@ public class HandScript : MonoBehaviour {
 			j = card.GetComponent<CardScript> ().unitType;
 		else
 			j = card.GetComponent<CardScript> ().spellType;
-		Debug.Log (j);
+		//Debug.Log (j);
 		string file = cardArt [i] [j];
 		Texture img = (Texture)Resources.Load (file);
 		card.GetComponent<Renderer> ().material.mainTexture = img;
@@ -54,25 +55,33 @@ public class HandScript : MonoBehaviour {
 	}
 
 	void Update(){
+		//print ("HAND IS BEING UPDATED: " + playerID);
 		for (int i=0; i<_hand.Count; i++) {
 			GameObject card = _hand[i];
 			CardScript cardScript = card.GetComponent<CardScript>();
-			if(cardScript.is_selected){
+			if(cardScript.is_selected)
+			{
 				selected = cardScript.gameObject;
+				if(hasSelected = false) print ("has selected is now true for player " + playerID);
 				hasSelected = true;
 				removeIndex = i;
-				//print("Selected card");
+
+			}
+			else
+			{
+				Debug.Log ("Card " + i + " is not flagged for selection");
+				//cardScript.
 			}
 		}
 	}
 
 	public void Discard()
 	{
-
 		_hand.RemoveAt(removeIndex);
 		playerDeckScript.discard(selected);
 		manageHand();
 		hasSelected = false;
+		print ("has selected is now false for player " + playerID);
 	}
 
 	void setArt(){
