@@ -53,7 +53,7 @@ public class DeckScript : MonoBehaviour {
 
 	public GameObject discard(GameObject card){
 		float voffset = _discard.Count * 0.025f;
-		Vector3 offset = new Vector3 (0, voffset, 2.0f);
+		Vector3 offset = new Vector3 (0, voffset, 4.0f);
 		card.transform.position = this.transform.position + offset;
 		card.transform.rotation = this.transform.rotation;
 		_discard.Add (card);
@@ -85,14 +85,44 @@ public class DeckScript : MonoBehaviour {
     public void hideDeck()
     {
         this.transform.position += new Vector3(-100, 0, 0);
-        Shuffle();
+        for (int i = 0; i < _discard.Count; i++)
+        {
+            GameObject card = _discard[i];
+            float voffset = _discard.Count * 0.025f;
+            Vector3 offset = new Vector3(0, voffset, 4.0f);
+            card.transform.position = this.transform.position + offset;
+            card.transform.rotation = this.transform.rotation;
+        }
+        for (int i = 0; i < _deck.Count; i++)
+        {
+            GameObject card = _deck[i];
+            float offset = (float)i * 0.025f;
+            Vector3 pos = new Vector3(0, offset, 0);
+            card.transform.position = this.transform.position + pos;
+            card.transform.rotation = this.transform.rotation;
+        }
     }
 
     // shows the deck
     public void showDeck()
     {
         this.transform.position = oldPos;
-        Shuffle();
+        for (int i = 0; i < _discard.Count; i++)
+        {
+            GameObject card = _discard[i];
+            float voffset = _discard.Count * 0.025f;
+            Vector3 offset = new Vector3(0, voffset, 4.0f);
+            card.transform.position = this.transform.position + offset;
+            card.transform.rotation = this.transform.rotation;
+        }
+        for (int i = 0; i < _deck.Count; i++)
+        {
+            GameObject card = _deck[i];
+            float offset = (float)i * 0.025f;
+            Vector3 pos = new Vector3(0, offset, 0);
+            card.transform.position = this.transform.position + pos;
+            card.transform.rotation = this.transform.rotation;
+        }
     }
 	
 }
