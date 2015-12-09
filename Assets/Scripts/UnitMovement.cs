@@ -66,12 +66,7 @@ public class UnitMovement : MonoBehaviour {
         // Left x2 button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) - buttonSize * 2, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Left\nx2"))
         {
-            if (gm.CheckActions() > 0)
-            {
-                PositionUpdate(unit_X - 2, unit_Y);
-                gm.useAction();
-            }
-            else { selected = false; }
+            PositionUpdate(unit_X - 2, unit_Y);
         }
         // Right button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) + buttonSize, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Right"))
@@ -81,12 +76,7 @@ public class UnitMovement : MonoBehaviour {
         // Right x2 button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) + buttonSize * 2, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Right\nx2"))
         {
-            if (gm.CheckActions() > 0)
-            {
-                PositionUpdate(unit_X + 2, unit_Y);
-                gm.useAction();
-            }
-            else { selected = false; }
+            PositionUpdate(unit_X + 2, unit_Y);
         }
         // Up button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2), (menuPosY - buttonSize / 2) - buttonSize, buttonSize, buttonSize), "Up"))
