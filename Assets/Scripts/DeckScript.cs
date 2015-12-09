@@ -14,7 +14,9 @@ public class DeckScript : MonoBehaviour {
 	private List<GameObject> _deck = new List<GameObject> ();
 	private List<GameObject> _discard = new List<GameObject> ();
 
-    public Vector3 oldPos;
+    private Vector3 oldPos;
+    private int playerID;
+    private GameManager gm;
 
 	//initialize deck
 	void Start(){
@@ -37,10 +39,15 @@ public class DeckScript : MonoBehaviour {
 		Shuffle ();
 
         oldPos = this.transform.position;
+
+        if (this.name.Equals("P1Deck")) { playerID = 1; }
+        else if (this.name.Equals("P2Deck")) { playerID = 2; }
+
+        gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
 	}
 
 	void Update() {
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (Input.GetKeyDown (KeyCode.Space) && playerID == gm.GetWhoseTurn()) {
 			Debug.Log("space");
 			int i = _deck.Count-1;
 			GameObject card = _deck[i];

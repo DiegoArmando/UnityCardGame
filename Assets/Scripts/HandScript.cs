@@ -19,7 +19,7 @@ public class HandScript : MonoBehaviour {
 	private List<GameObject> _hand = new List<GameObject> ();
 	int removeIndex;
 
-    public Vector3 oldPos;
+    private Vector3 oldPos;
 
 	void Start(){
 		//grab playerHand's Handscript component
@@ -29,6 +29,9 @@ public class HandScript : MonoBehaviour {
 		setArt();
 
         oldPos = this.transform.position;
+
+        if (this.name.Equals("P1Hand")) { playerID = 1; }
+        else if (this.name.Equals("P2Hand")) { playerID = 2; }
 	}
 
 	public GameObject drawCard (GameObject card) {
