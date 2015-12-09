@@ -75,9 +75,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c59da45420da34a8da0805b27cf261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit_X: 0
-  unit_Y: 0
-  playerID: 0
   unitType: 0
 --- !u!136 &13661058
 CapsuleCollider:
@@ -106,6 +103,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Unit
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

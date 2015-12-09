@@ -54,7 +54,7 @@ public class HandScript : MonoBehaviour {
 			j = card.GetComponent<CardScript> ().unitType;
 		else
 			j = card.GetComponent<CardScript> ().spellType;
-		string file = cardArt [playerID] [i] [j];
+		string file = cardArt [playerID-1] [i] [j];
 		Texture img = (Texture)Resources.Load (file);
 		card.GetComponent<Renderer> ().material.mainTexture = img;
 		card.GetComponent<CardScript> ().in_hand = true;
