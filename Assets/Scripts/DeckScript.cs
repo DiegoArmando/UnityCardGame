@@ -14,6 +14,9 @@ public class DeckScript : MonoBehaviour {
 	private List<GameObject> _deck = new List<GameObject> ();
 	private List<GameObject> _discard = new List<GameObject> ();
 
+    private Vector3 oldPos;
+    private int playerID;
+    private GameManager gm;
 
 	//initialize deck
 	void Start(){
@@ -34,11 +37,23 @@ public class DeckScript : MonoBehaviour {
 		}
 		//shuffle the deck
 		Shuffle ();
+
+        oldPos = this.transform.position;
+
+        if (this.name.Equals("P1Deck")) { playerID = 1; }
+        else if (this.name.Equals("P2Deck")) { playerID = 2; }
+
+        gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
 	}
 
 	void Update() {
+<<<<<<< HEAD
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			//Debug.Log("space");
+=======
+		if (Input.GetKeyDown (KeyCode.Space) && playerID == gm.GetWhoseTurn()) {
+			Debug.Log("space");
+>>>>>>> origin/developJC
 			int i = _deck.Count-1;
 			GameObject card = _deck[i];
 			_deck.RemoveAt(i);
@@ -50,7 +65,7 @@ public class DeckScript : MonoBehaviour {
 
 	public GameObject discard(GameObject card){
 		float voffset = _discard.Count * 0.025f;
-		Vector3 offset = new Vector3 (0, voffset, 2.0f);
+		Vector3 offset = new Vector3 (0, voffset, 4.0f);
 		card.transform.position = this.transform.position + offset;
 		card.transform.rotation = this.transform.rotation;
 		_discard.Add (card);
@@ -77,5 +92,49 @@ public class DeckScript : MonoBehaviour {
 		}
 		_deck = temp;
 	}
+
+    // hides the deck
+    public void hideDeck()
+    {
+        this.transform.position += new Vector3(-100, 0, 0);
+        for (int i = 0; i < _discard.Count; i++)
+        {
+            GameObject card = _discard[i];
+            float voffset = _discard.Count * 0.025f;
+            Vector3 offset = new Vector3(0, voffset, 4.0f);
+            card.transform.position = this.transform.position + offset;
+            card.transform.rotation = this.transform.rotation;
+        }
+        for (int i = 0; i < _deck.Count; i++)
+        {
+            GameObject card = _deck[i];
+            float offset = (float)i * 0.025f;
+            Vector3 pos = new Vector3(0, offset, 0);
+            card.transform.position = this.transform.position + pos;
+            card.transform.rotation = this.transform.rotation;
+        }
+    }
+
+    // shows the deck
+    public void showDeck()
+    {
+        this.transform.position = oldPos;
+        for (int i = 0; i < _discard.Count; i++)
+        {
+            GameObject card = _discard[i];
+            float voffset = _discard.Count * 0.025f;
+            Vector3 offset = new Vector3(0, voffset, 4.0f);
+            card.transform.position = this.transform.position + offset;
+            card.transform.rotation = this.transform.rotation;
+        }
+        for (int i = 0; i < _deck.Count; i++)
+        {
+            GameObject card = _deck[i];
+            float offset = (float)i * 0.025f;
+            Vector3 pos = new Vector3(0, offset, 0);
+            card.transform.position = this.transform.position + pos;
+            card.transform.rotation = this.transform.rotation;
+        }
+    }
 	
 }

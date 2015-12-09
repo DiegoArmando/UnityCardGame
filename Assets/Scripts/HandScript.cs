@@ -19,6 +19,8 @@ public class HandScript : MonoBehaviour {
 	private List<GameObject> _hand = new List<GameObject> ();
 	int removeIndex;
 
+    private Vector3 oldPos;
+
 	void Start(){
 		//grab playerHand's Handscript component
 		playerDeckScript = playerDeck.GetComponent<DeckScript> ();
@@ -26,6 +28,11 @@ public class HandScript : MonoBehaviour {
 		hasSelected = false;
 	
 		setArt();
+
+        oldPos = this.transform.position;
+
+        if (this.name.Equals("P1Hand")) { playerID = 1; }
+        else if (this.name.Equals("P2Hand")) { playerID = 2; }
 	}
 
 	public GameObject drawCard (GameObject card) {
@@ -92,5 +99,29 @@ public class HandScript : MonoBehaviour {
 		cardArt [0] [3] = "staroreexcavatorcard";
 		cardArt [0] [4] = "staroreguardcard";
 	}
+
+    // hides the hand
+    public void hideHand()
+    {
+        this.transform.position += new Vector3(-100, 0, 0);
+        for (int i = 0; i < _hand.Count; i++)
+        {
+            Vector3 offset = new Vector3(i * 1.25f, 0, 0);
+            GameObject card = _hand[i];
+            card.transform.position = this.transform.position + offset;
+        }
+    }
+
+    // shows the hand
+    public void showHand()
+    {
+        this.transform.position = oldPos;
+        for (int i = 0; i < _hand.Count; i++)
+        {
+            Vector3 offset = new Vector3(i * 1.25f, 0, 0);
+            GameObject card = _hand[i];
+            card.transform.position = this.transform.position + offset;
+        }
+    }
 
 }
