@@ -10,7 +10,7 @@ public class HandScript : MonoBehaviour {
 	private DeckScript playerDeckScript;
 
 	//int denotes player number
-	int player = 0;
+	int player = 1;
 
 	//array of arrays of card artwork
 	private string[][][] cardArt = new string[2][][];
@@ -79,29 +79,27 @@ public class HandScript : MonoBehaviour {
 		cardArt [0] [0] [3] = "staroreexcavatorcard";
 		cardArt [0] [0] [4] = "staroreguardcard";
 
-		//waiting for art for StarOre Spells
-		cardArt [0] [1] = new string[5];
-		cardArt [0] [1] [0] = "CardBack";
-		cardArt [0] [1] [1] = "CardBack";
-		cardArt [0] [1] [2] = "CardBack";
-		cardArt [0] [1] [3] = "CardBack";
-		cardArt [0] [1] [4] = "CardBack";
+		//StarOre Spells
+		cardArt [0] [1] = new string[4];
+		cardArt [0] [1] [0] = "starorefistcard";
+		cardArt [0] [1] [1] = "starorelevelcard";
+		cardArt [0] [1] [2] = "staroresinkholecard";
+		cardArt [0] [1] [3] = "staroreevelatecard";
 
 		cardArt [1] = new string[2][];
-		//and Units
+		//Toris Units
 		cardArt [1] [0] = new string[5];
-		cardArt [1] [0] [0] = "CardBack";
-		cardArt [1] [0] [1] = "CardBack";
-		cardArt [1] [0] [2] = "CardBack";
-		cardArt [1] [0] [3] = "CardBack";
-		cardArt [1] [0] [4] = "CardBack";
+		cardArt [1] [0] [0] = "torisscoutcard";
+		cardArt [1] [0] [1] = "torisbrutecard";
+		cardArt [1] [0] [2] = "toriselevatorcard";
+		cardArt [1] [0] [3] = "torisexcavatorcard";
+		cardArt [1] [0] [4] = "torisguardcard";
 
-		//and spells
-		cardArt [1] [1] = new string[5];
-		cardArt [1] [1] [0] = "CardBack";
-		cardArt [1] [1] [1] = "CardBack";
-		cardArt [1] [1] [2] = "CardBack";
-		cardArt [1] [1] [3] = "CardBack";
-		cardArt [1] [1] [4] = "CardBack";
+		//Toris Spells
+		cardArt [1] [1] = new string[4];
+		cardArt [1] [1] [0] = "torisfistcard";
+		cardArt [1] [1] [1] = "torislevelcard";
+		cardArt [1] [1] [2] = "torissinkholecard";
+		cardArt [1] [1] [3] = "torisevelatecard";
 	}
 }

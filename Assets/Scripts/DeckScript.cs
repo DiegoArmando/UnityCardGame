@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class DeckScript : MonoBehaviour {
 	//information about the card object prefab
 	public GameObject cardObject;
@@ -13,7 +14,8 @@ public class DeckScript : MonoBehaviour {
 	private HandScript playerScript;
 
 	//array of inputs to create deck
-	int[] cards = {0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4};
+	int[] cardCategories = {0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1};
+	int[] cardTypes = {0,0,1,1,2,2,3,3,4,4,0,0,0,1,1,2,2,2,3,3};
 	
 	private List<GameObject> _deck = new List<GameObject> ();
 	private List<GameObject> _discard = new List<GameObject> ();
@@ -33,9 +35,9 @@ public class DeckScript : MonoBehaviour {
 			//instantiate a card object and give it its unique properties
 			temp = (GameObject)Instantiate(cardObject);
 			//set cardObject's texture
-			Texture img = (Texture)Resources.Load("CardBack");
+			Texture img = (Texture)Resources.Load("cardback");
 			temp.GetComponent<Renderer>().material.mainTexture = img;
-			cardScript.setCard(0, cards[i]);
+			cardScript.setCard(cardCategories[i], cardTypes[i]);
 			_deck.Add (temp);
 		}
 		//shuffle the deck
