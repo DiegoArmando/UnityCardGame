@@ -45,15 +45,19 @@ public class MakeGrid : MonoBehaviour {
 		switch (spell) {
 		case 0:
 			raise (x, y);
+            gm.useAction();
 			break;
 		case 1:
 			lower (x,y);
+            gm.useAction();
 			break;
 		case 2:
 			level (x,y);
+            gm.useAction();
 			break;
 		case 3:
 			fist (x,y);
+            gm.useAction();
 			break;
 		}
 	}

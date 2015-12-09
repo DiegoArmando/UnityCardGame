@@ -84,7 +84,7 @@ public class Tile : MonoBehaviour {
 
 				HandScript hand = ((HandScript)gm.currentHand.GetComponent("HandScript"));
 
-				if(hand.hasSelected)
+				if(hand.hasSelected && gm.CheckActions() > 0)
 				{
 					CardScript card = ((CardScript)hand.selected.GetComponent("CardScript"));
 
@@ -125,6 +125,7 @@ public class Tile : MonoBehaviour {
 									((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(1, xPos, zPos);
 								}
 								((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
+                                
 							}
 						}
 						else
@@ -132,33 +133,29 @@ public class Tile : MonoBehaviour {
 							gm.ShowTBMessage("You can only place units on unoccupied tiles");
 						}
 					}
-					else if( card.Type == 1)
-					{
-						if(gm.CheckOccupy(xPos, zPos) == true)
-						{
-							((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(card.spellType, xPos, zPos);
-							((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
-							gm.useAction();
-						}
-						else
-						{
-							gm.ShowTBMessage("Spells can only be played on occupied tiles");
-						}
-					}
-					else
-					{
-						print ("Invalid move");
-					}
+                    else if (card.Type == 1)
+                    {
+                        if (gm.CheckOccupy(xPos, zPos) == true)
+                        {
+                            ((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(card.spellType, xPos, zPos);
+                            ((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
+                        }
+                        else
+                        {
+                            gm.ShowTBMessage("Spells can only be played on occupied tiles");
+                        }
+                    }
+                    else
+                    {
+                        print("Invalid move");
+                    }
 
 				}
-				else
+				else if (gm.CheckActions() <= 0)
 				{
-					print ("Space " + xPos + ", " + zPos + " is occupied or a card is not selected.");
+					gm.ShowTBMessage("You ran out of action points");
 				}
-
             }
-
         }
     }
-
 }

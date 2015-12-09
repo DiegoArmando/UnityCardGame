@@ -101,9 +101,9 @@ public class HandScript : MonoBehaviour {
 		cardArt [0] [0] = new string[5];
 		cardArt [0] [0] [0] = "staroreguardcard";
 		cardArt [0] [0] [1] = "starorebrutecard";
-		cardArt [0] [0] [2] = "staroreexcavatorcard";
+        cardArt[0][0][2] = "staroreelevatorcard"; 
 		cardArt [0] [0] [3] = "starorescoutcard";
-		cardArt [0] [0] [4] = "staroreelevatorcard";
+        cardArt[0][0][4] = "staroreexcavatorcard";
 
 		//StarOre Spells
 		cardArt [0] [1] = new string[4];
@@ -117,9 +117,9 @@ public class HandScript : MonoBehaviour {
 		cardArt [1] [0] = new string[5];
         cardArt[1][0][0] = "torisguardcard"; 
 		cardArt [1] [0] [1] = "torisbrutecard";
-        cardArt[1][0][2] = "torisexcavatorcard"; 
+        cardArt[1][0][2] = "toriselevatorcard";
         cardArt[1][0][3] = "torisscoutcard";
-        cardArt[1][0][4] = "toriselevatorcard";
+        cardArt[1][0][4] = "torisexcavatorcard"; 
 
 		//Toris Spells
 		cardArt [1] [1] = new string[4];

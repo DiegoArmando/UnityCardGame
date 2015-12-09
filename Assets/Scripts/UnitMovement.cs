@@ -36,18 +36,28 @@ public class UnitMovement : MonoBehaviour {
     void OnMouseOver() {
         if (Input.GetMouseButtonDown(0))
         {
-            if (gm.GetWhoseTurn() != playerID) { gm.ShowTBMessage("This unit is not yours"); }
-            else if (selected) { selected = false; }
-            else if (!selected) 
+            HandScript hand = ((HandScript)gm.currentHand.GetComponent("HandScript"));
+            if (!hand.hasSelected)
             {
-                GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
-                foreach (GameObject unit in units)
+                if (gm.GetWhoseTurn() != playerID) { gm.ShowTBMessage("This unit is not yours"); }
+                else if (selected) { selected = false; }
+                else if (!selected)
                 {
-                    ((UnitMovement)unit.GetComponent("UnitMovement")).Deselect();
+                    GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
+                    foreach (GameObject unit in units)
+                    {
+                        ((UnitMovement)unit.GetComponent("UnitMovement")).Deselect();
+                    }
+                    selected = true;
+                    menuPosX = (int)Input.mousePosition.x;
+                    menuPosY = (int)(Screen.height - Input.mousePosition.y);
                 }
-                selected = true;
-                menuPosX = (int)Input.mousePosition.x;
-                menuPosY = (int)(Screen.height - Input.mousePosition.y);
+            }
+            else
+            {
+                CardScript card = ((CardScript)hand.selected.GetComponent("CardScript"));
+                ((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(card.spellType, unit_X, unit_Y);
+                ((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
             }
         }
     }
