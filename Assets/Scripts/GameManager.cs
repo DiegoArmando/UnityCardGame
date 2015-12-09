@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour {
     private int[,] gridHeight = new int[gridSize,gridSize];
     private bool[,] gridOccupided = new bool[gridSize, gridSize];
     private int[,] gridOwner = new int[gridSize, gridSize];
-    public int selectionMode = 0; //0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace; 
+
+    public int selectionMode = 0; // 0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace; 
+    public int playerTurn = 0; // 0 = neither; 1 = player1; 2 = player2
 
 	// Use this for initialization
 	void Start () {
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour {
         if (Time.time - showTimeStart > 2.0f) { showTB = false; }
 	}
 
+    void OnKey
     void OnGUI()
     {
         if (showTB)
@@ -99,6 +102,7 @@ public class GameManager : MonoBehaviour {
 
     // Change the Owner of block at grid position [x,y] to o
     // o must be either 0, 1, or 2
+    // 0 = neither; 1 = player1; 2 = player2
     public bool ChangeOwner(int x, int y, int o)
     {
         if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) { return false; }
@@ -115,6 +119,7 @@ public class GameManager : MonoBehaviour {
 
     // Change the Selection mode to s
     // s must be either 0, 1, 2, or 3
+    // 0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace;
     public bool ChangeSelectMode(int s)
     {
         if (s < 0 || s > 3) { return false; }
@@ -129,5 +134,20 @@ public class GameManager : MonoBehaviour {
         textboxMessage = message;
         showTB = true;
         showTimeStart = Time.time;
+    }
+
+    // Get the which player's turn it is
+    // 0 = neither; 1 = player1; 2 = player2
+    public int GetWhoseTurn()
+    {
+        return playerTurn;
+    }
+
+    // Switches the player's turn; t = whose turn it is
+    // 0 = neither(Start/End Game); 1 = player1; 2 = player2
+    public void SwitchTurn(int t)
+    {
+        playerTurn = t;
+        ShowTBMessage("It is player " + t + "'s turn.");
     }
 }
