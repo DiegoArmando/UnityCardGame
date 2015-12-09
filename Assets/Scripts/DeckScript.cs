@@ -11,6 +11,9 @@ public class DeckScript : MonoBehaviour {
 	//information about the instance of the player's hand
 	public GameObject playerHand;
 	private HandScript playerScript;
+
+	//array of inputs to create deck
+	int[] cards = {0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4};
 	
 	private List<GameObject> _deck = new List<GameObject> ();
 	private List<GameObject> _discard = new List<GameObject> ();
@@ -32,11 +35,11 @@ public class DeckScript : MonoBehaviour {
 			//set cardObject's texture
 			Texture img = (Texture)Resources.Load("CardBack");
 			temp.GetComponent<Renderer>().material.mainTexture = img;
-			cardScript.setCard(0, Random.Range(0, 5));
+			cardScript.setCard(0, cards[i]);
 			_deck.Add (temp);
 		}
 		//shuffle the deck
-		Shuffle ();
+		//Shuffle ();
 	}
 	
 	void Update() {
@@ -46,9 +49,6 @@ public class DeckScript : MonoBehaviour {
 			int i = _deck.Count-1;
 			GameObject card = _deck[i];
 			_deck.RemoveAt(i);
-			//deselects card, if it was accidentally selected before
-			cardScript = card.GetComponent<CardScript> ();
-			cardScript.is_selected = false;
 			playerScript.drawCard(card);
 		}
 	}

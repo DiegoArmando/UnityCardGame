@@ -11,11 +11,19 @@ public class CardScript : MonoBehaviour {
 	public int spellType;
 	
 	//bool determines if card is selected
+	public bool in_hand;
 	public bool is_selected;
 
-	
+	//this gameObject's renderer component
+	private Renderer rend;
+
+	//this gameObject's position in hand
+	private Vector3 handPos;
+
+
 	void Start() {
 		is_selected = false;
+		rend = gameObject.GetComponent<Renderer> ();
 	}
 	
 	public void setCard(int type, int unitorspell){
@@ -26,19 +34,30 @@ public class CardScript : MonoBehaviour {
 		else
 			spellType = unitorspell;
 	}
-	
+
 	void OnMouseEnter(){
-		//highlights when mouse hovers over ****COSMETIC****
-		//mat.SetColor("_Emission", Color.grey);
+		//card moves toward camera when hovered over
+		if (in_hand) {
+			handPos = gameObject.transform.position;
+			gameObject.transform.position = gameObject.transform.position + (Camera.main.transform.forward * -2);
+		}
 	}
+
 	void OnMouseExit(){
-		//removes highlight when exiting ****COSMETIC****
-		//mat.SetColor ("_Emission", Color.black);
+		//card returns to normal hand position when hoverover is done
+		if (in_hand) {
+			gameObject.transform.position = handPos;
+		}
 	}
 	
 	void OnMouseDown(){
 		//	sets card as selected; will be picked up by the hand script
-		is_selected = true;
+		if (in_hand) {
+			is_selected = true;
+			Material mat = rend.material;
+			Color basecolor = Color.white;
+			Color finalcolor = basecolor * Mathf.LinearToGammaSpace(1.0f);
+			mat.SetColor ("_EmissionColor", finalcolor);
+		}
 	}
-	
 }

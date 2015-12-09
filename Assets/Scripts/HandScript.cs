@@ -9,8 +9,11 @@ public class HandScript : MonoBehaviour {
 	public GameObject playerDeck;
 	private DeckScript playerDeckScript;
 
+	//int denotes player number
+	int player = 0;
+
 	//array of arrays of card artwork
-	private string[][] cardArt = new string[2][];
+	private string[][][] cardArt = new string[2][][];
 
 	//List for the hand
 	private List<GameObject> _hand = new List<GameObject> ();
@@ -35,10 +38,10 @@ public class HandScript : MonoBehaviour {
 			j = card.GetComponent<CardScript> ().unitType;
 		else
 			j = card.GetComponent<CardScript> ().spellType;
-		Debug.Log (j);
-		string file = cardArt [i] [j];
+		string file = cardArt [player] [i] [j];
 		Texture img = (Texture)Resources.Load (file);
 		card.GetComponent<Renderer> ().material.mainTexture = img;
+		card.GetComponent<CardScript> ().in_hand = true; /////////////////////////*
 		return card;
 	}
 	
@@ -59,6 +62,7 @@ public class HandScript : MonoBehaviour {
 			CardScript cardScript = card.GetComponent<CardScript>();
 			if(cardScript.is_selected){
 				_hand.RemoveAt(i);
+				cardScript.in_hand = false;
 				playerDeckScript.discard(card);
 				manageHand();
 			}
@@ -66,11 +70,38 @@ public class HandScript : MonoBehaviour {
 	}
 	
 	void setArt(){
-		cardArt[0] = new string[5];
-		cardArt [0] [0] = "starorescoutcard";
-		cardArt [0] [1] = "starorebrutecard";
-		cardArt [0] [2] = "staroreelevatorcard";
-		cardArt [0] [3] = "staroreexcavatorcard";
-		cardArt [0] [4] = "staroreguardcard";
+		cardArt[0] = new string[2][];
+		//StarOre Units
+		cardArt [0] [0] = new string[5];
+		cardArt [0] [0] [0] = "starorescoutcard";
+		cardArt [0] [0] [1] = "starorebrutecard";
+		cardArt [0] [0] [2] = "staroreelevatorcard";
+		cardArt [0] [0] [3] = "staroreexcavatorcard";
+		cardArt [0] [0] [4] = "staroreguardcard";
+
+		//waiting for art for StarOre Spells
+		cardArt [0] [1] = new string[5];
+		cardArt [0] [1] [0] = "CardBack";
+		cardArt [0] [1] [1] = "CardBack";
+		cardArt [0] [1] [2] = "CardBack";
+		cardArt [0] [1] [3] = "CardBack";
+		cardArt [0] [1] [4] = "CardBack";
+
+		cardArt [1] = new string[2][];
+		//and Units
+		cardArt [1] [0] = new string[5];
+		cardArt [1] [0] [0] = "CardBack";
+		cardArt [1] [0] [1] = "CardBack";
+		cardArt [1] [0] [2] = "CardBack";
+		cardArt [1] [0] [3] = "CardBack";
+		cardArt [1] [0] [4] = "CardBack";
+
+		//and spells
+		cardArt [1] [1] = new string[5];
+		cardArt [1] [1] [0] = "CardBack";
+		cardArt [1] [1] [1] = "CardBack";
+		cardArt [1] [1] [2] = "CardBack";
+		cardArt [1] [1] [3] = "CardBack";
+		cardArt [1] [1] [4] = "CardBack";
 	}
 }
