@@ -88,15 +88,10 @@ public class Tile : MonoBehaviour {
 					print ("Setting the unit's position to " + xPos + ", " + zPos);
 
 					//Set the unit's properties here
-<<<<<<< HEAD
 
-					moveScript.playerID = ((HandScript)gm.currentHand.GetComponent("HandScript")).playerID;
-
-
-					((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
-=======
                     moveScript.setPlayerID(gm.GetWhoseTurn());
->>>>>>> 8fa0f4153a454fc26da9de5e4a3b81b8706f430b
+					((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
+
 				}
 				else
 				{
