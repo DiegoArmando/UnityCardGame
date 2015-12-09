@@ -152,9 +152,21 @@ public class UnitMovement : MonoBehaviour {
     // set the unit type to u
     // u must be 0, 1, 2, or 3
     // 0 = Dummy; 1 = Brute; 2 = Miner; 3 = Scout
-    public void setUnitType(int u)
+    public bool setUnitType(int u)
     {
+        if (u < 0 || u > 3) {return false;}
         unitType = u;
+        return true;
+    }
+
+    // set the player id (owner) to p
+    // p must be 1 or 2
+    // 1 = player1; 2 = player2
+    public bool setPlayerID(int p)
+    {
+        if (p < 1 || p > 2) { return false; }
+        playerID = p;
+        return true;
     }
 
 }

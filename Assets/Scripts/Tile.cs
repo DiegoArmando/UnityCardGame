@@ -95,6 +95,7 @@ public class Tile : MonoBehaviour {
 
 
 					//Set the unit's properties here
+                    moveScript.setPlayerID(gm.GetWhoseTurn());
 				}
 				else
 				{
