@@ -190,7 +190,7 @@ public class GameManager : MonoBehaviour {
     // check the number of actions remaining for player
     public int CheckActions()
     {
-        if (actions <= 0) { ShowTBMessage("You've ran out of actions"); }
+        if (actions <= 0) { ShowTBMessage("You've ran out of action points"); }
         return actions;
     }
 

@@ -34,7 +34,6 @@ public class UnitMovement : MonoBehaviour {
         this.transform.position = new Vector3(unit_X * 1.05f, 1.5f + height/2.0f, unit_Y * 1.05f);
         if (!gm.CheckOccupy(unit_X, unit_Y)) { gm.ChangeOccupy(unit_X,unit_Y,true); }
         gm.ChangeOwner(unit_X, unit_Y, playerID);
-        print("(" + unit_X + "," + unit_Y + "):" + gm.CheckOwner(unit_X, unit_Y));
 	}
 
     void OnMouseOver() {
@@ -135,6 +134,23 @@ public class UnitMovement : MonoBehaviour {
             { gm.ShowTBMessage("Unit cannot move off the board"); }
             else if (gm.CheckOccupy(new_x, new_y))
             { gm.ShowTBMessage("Unit cannot move to an occupied space"); }
+            else if (gm.CheckHeight(unit_X, unit_Y) < gm.CheckHeight(new_x, new_y))
+            {
+                if (gm.CheckActions() < 2) { 
+                    selected = false;
+                    gm.ShowTBMessage("You do not have enough action points to climb up terrain");
+                }
+                else
+                {
+                    selected = false;
+                    gm.ChangeOccupy(unit_X, unit_Y, false);
+                    unit_X = new_x;
+                    unit_Y = new_y;
+                    gm.ChangeOccupy(unit_X, unit_Y, true);
+                    gm.useAction();
+                    gm.useAction();
+                }
+            }
             else
             {
                 selected = false;
@@ -142,8 +158,8 @@ public class UnitMovement : MonoBehaviour {
                 unit_X = new_x;
                 unit_Y = new_y;
                 gm.ChangeOccupy(unit_X, unit_Y, true);
+                gm.useAction();
             }
-            gm.useAction();
         }
         else { selected = false; }
     }
