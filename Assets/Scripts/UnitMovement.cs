@@ -23,9 +23,6 @@ public class UnitMovement : MonoBehaviour {
 
 
 	void Start () {
-        
-		print ("I have been created");
-
 	}
 	
 	// Update is called once per frame
