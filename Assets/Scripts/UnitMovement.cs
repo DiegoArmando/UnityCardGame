@@ -39,7 +39,8 @@ public class UnitMovement : MonoBehaviour {
     void OnMouseOver() {
         if (Input.GetMouseButtonDown(0))
         {
-            if (selected) { selected = false; }
+            if (gm.GetWhoseTurn() != playerID) { gm.ShowTBMessage("This unit is not yours"); }
+            else if (selected) { selected = false; }
             else if (!selected) 
             {
                 GameObject[] units = GameObject.FindGameObjectsWithTag("Unit");
