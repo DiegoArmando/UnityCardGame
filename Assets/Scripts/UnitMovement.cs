@@ -59,64 +59,123 @@ public class UnitMovement : MonoBehaviour {
         // Left button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) - buttonSize, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Left"))
         {
-            PositionUpdate(unit_X - 1, unit_Y);
+            if (gm.CheckActions() > 0)
+            { 
+                PositionUpdate(unit_X - 1, unit_Y);
+                gm.useAction();
+            }
+            else { selected = false; }
         }
         // Left x2 button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) - buttonSize * 2, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Left\nx2"))
         {
-            PositionUpdate(unit_X - 2, unit_Y);
+            if (gm.CheckActions() > 0)
+            {
+                PositionUpdate(unit_X - 2, unit_Y);
+                gm.useAction();
+            }
+            else { selected = false; }
         }
         // Right button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) + buttonSize, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Right"))
         {
-
-            PositionUpdate(unit_X + 1, unit_Y);
+            if (gm.CheckActions() > 0)
+            {
+                PositionUpdate(unit_X + 1, unit_Y);
+                gm.useAction();
+            }
+            else { selected = false; }
         }
         // Right x2 button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) + buttonSize * 2, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Right\nx2"))
         {
-            PositionUpdate(unit_X + 2, unit_Y);
+            if (gm.CheckActions() > 0)
+            {
+                PositionUpdate(unit_X + 2, unit_Y);
+                gm.useAction();
+            }
+            else { selected = false; }
         }
         // Up button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2), (menuPosY - buttonSize / 2) - buttonSize, buttonSize, buttonSize), "Up"))
         {
-            PositionUpdate(unit_X, unit_Y + 1);
+            if (gm.CheckActions() > 0)
+            {
+                PositionUpdate(unit_X, unit_Y + 1);
+                gm.useAction();
+            }
+            else { selected = false; }
         }
         // Up x2 button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2), (menuPosY - buttonSize / 2) - buttonSize * 2, buttonSize, buttonSize), "Up\nx2"))
         {
-            PositionUpdate(unit_X, unit_Y + 2);
+            if (gm.CheckActions() > 0)
+            {
+                PositionUpdate(unit_X, unit_Y + 2);
+                gm.useAction();
+            }
+            else { selected = false; }
 
         }
         // Down button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2), (menuPosY - buttonSize / 2) + buttonSize, buttonSize, buttonSize), "Down"))
         {
-            PositionUpdate(unit_X, unit_Y - 1);
+            if (gm.CheckActions() > 0)
+            {
+                PositionUpdate(unit_X, unit_Y - 1);
+                gm.useAction();
+            }
+            else { selected = false; }
         }
         // Down x2 button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2), (menuPosY - buttonSize / 2) + buttonSize * 2, buttonSize, buttonSize), "Down\nx2"))
         {
-            PositionUpdate(unit_X, unit_Y - 2);
+            if (gm.CheckActions() > 0)
+            {
+                PositionUpdate(unit_X, unit_Y - 2);
+                gm.useAction();
+            }
+            else { selected = false; }
         }
         // UpLeft button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) - buttonSize, (menuPosY - buttonSize / 2) - buttonSize, buttonSize, buttonSize), "Up\nLeft"))
         {
-            PositionUpdate(unit_X - 1, unit_Y + 1);
+            if (gm.CheckActions() > 0)
+            {
+                PositionUpdate(unit_X - 1, unit_Y + 1);
+                gm.useAction();
+            }
+            else { selected = false; }
         }
         // UpRight button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) + buttonSize, (menuPosY - buttonSize / 2) - buttonSize, buttonSize, buttonSize), "Up\nRight"))
         {
-            PositionUpdate(unit_X + 1, unit_Y + 1);
+            if (gm.CheckActions() > 0)
+            {
+                PositionUpdate(unit_X + 1, unit_Y + 1);
+                gm.useAction();
+            }
+            else { selected = false; }
         }
         // DownLeft button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) - buttonSize, (menuPosY - buttonSize / 2) + buttonSize, buttonSize, buttonSize), "Down\nLeft"))
         {
-            PositionUpdate(unit_X - 1, unit_Y - 1);
+            if (gm.CheckActions() > 0)
+            {
+                PositionUpdate(unit_X - 1, unit_Y - 1);
+                gm.useAction();
+            }
+            else { selected = false; }
         }
         // DownRight button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) + buttonSize, (menuPosY - buttonSize / 2) + buttonSize, buttonSize, buttonSize), "Down\nRight"))
         {
-            PositionUpdate(unit_X + 1, unit_Y - 1);
+            if (gm.CheckActions() > 0)
+            {
+                PositionUpdate(unit_X + 1, unit_Y - 1);
+                gm.useAction();
+            }
+            else { selected = false; }
         }
     }
 
@@ -140,7 +199,6 @@ public class UnitMovement : MonoBehaviour {
         { gm.ShowTBMessage("Unit cannot move to an occupied space"); }
         else
         {
-
             selected = false;
             gm.ChangeOccupy(unit_X, unit_Y, false);
             unit_X = new_x;
