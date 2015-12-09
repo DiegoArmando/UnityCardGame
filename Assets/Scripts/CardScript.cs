@@ -20,6 +20,8 @@ public class CardScript : MonoBehaviour {
 	//this gameObject's position in hand
 	private Vector3 handPos;
 
+	public GameObject highlight;
+
 
 	void Start() {
 		is_selected = false;
@@ -54,10 +56,10 @@ public class CardScript : MonoBehaviour {
 		//	sets card as selected; will be picked up by the hand script
 		if (in_hand) {
 			is_selected = true;
-			Material mat = rend.material;
-			Color basecolor = Color.white;
-			Color finalcolor = basecolor * Mathf.LinearToGammaSpace(1.0f);
-			mat.SetColor ("_EmissionColor", finalcolor);
+			GameObject temp;
+			temp = (GameObject)Instantiate(highlight);
+			Vector3 offset = new Vector3(0, 0.01f, 0);
+			temp.transform.position = gameObject.transform.position + offset;
 		}
 	}
 }

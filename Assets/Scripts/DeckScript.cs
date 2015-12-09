@@ -39,7 +39,7 @@ public class DeckScript : MonoBehaviour {
 			_deck.Add (temp);
 		}
 		//shuffle the deck
-		//Shuffle ();
+		Shuffle ();
 	}
 	
 	void Update() {
