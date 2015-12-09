@@ -442,6 +442,10 @@ Prefab:
       propertyPath: playerID
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2302288, guid: 5f56ffedc4e6243459bbcd9d62f749d9, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e5bad81b6f320e04c9c2ee1fa4151b13, type: 2}
     m_RemovedComponents:
     - {fileID: 11412148, guid: 5f56ffedc4e6243459bbcd9d62f749d9, type: 2}
     - {fileID: 11429916, guid: 5f56ffedc4e6243459bbcd9d62f749d9, type: 2}
