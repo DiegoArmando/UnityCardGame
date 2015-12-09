@@ -14,7 +14,7 @@ public class HandScript : MonoBehaviour {
 	public int playerID;
 	
 	//array of arrays of card artwork
-	private string[][] cardArt = new string[2][];
+	private string[][][] cardArt = new string[2][][];
 
 	private List<GameObject> _hand = new List<GameObject> ();
 	int removeIndex;
@@ -33,6 +33,9 @@ public class HandScript : MonoBehaviour {
 		hasSelected = false;
 	
 		setArt();
+        
+        if (this.name.Equals("P1Hand")) { playerID = 1; }
+        else if (this.name.Equals("P2Hand")) { playerID = 2; }
 	}
 
 
@@ -51,10 +54,10 @@ public class HandScript : MonoBehaviour {
 			j = card.GetComponent<CardScript> ().unitType;
 		else
 			j = card.GetComponent<CardScript> ().spellType;
-		Debug.Log (j);
-		string file = cardArt [i] [j];
+		string file = cardArt [playerID] [i] [j];
 		Texture img = (Texture)Resources.Load (file);
 		card.GetComponent<Renderer> ().material.mainTexture = img;
+		card.GetComponent<CardScript> ().in_hand = true;
 		return card;
 	}
 
@@ -90,12 +93,37 @@ public class HandScript : MonoBehaviour {
 	}
 
 	void setArt(){
-		cardArt[0] = new string[5];
-		cardArt [0] [0] = "starorescoutcard";
-		cardArt [0] [1] = "starorebrutecard";
-		cardArt [0] [2] = "staroreelevatorcard";
-		cardArt [0] [3] = "staroreexcavatorcard";
-		cardArt [0] [4] = "staroreguardcard";
+		cardArt[0] = new string[2][];
+		//StarOre Units
+		cardArt [0] [0] = new string[5];
+		cardArt [0] [0] [0] = "starorescoutcard";
+		cardArt [0] [0] [1] = "starorebrutecard";
+		cardArt [0] [0] [2] = "staroreelevatorcard";
+		cardArt [0] [0] [3] = "staroreexcavatorcard";
+		cardArt [0] [0] [4] = "staroreguardcard";
+
+		//StarOre Spells
+		cardArt [0] [1] = new string[4];
+		cardArt [0] [1] [0] = "starorefistcard";
+		cardArt [0] [1] [1] = "starorelevelcard";
+		cardArt [0] [1] [2] = "staroresinkholecard";
+		cardArt [0] [1] [3] = "staroreevelatecard";
+
+		cardArt [1] = new string[2][];
+		//Toris Units
+		cardArt [1] [0] = new string[5];
+		cardArt [1] [0] [0] = "torisscoutcard";
+		cardArt [1] [0] [1] = "torisbrutecard";
+		cardArt [1] [0] [2] = "toriselevatorcard";
+		cardArt [1] [0] [3] = "torisexcavatorcard";
+		cardArt [1] [0] [4] = "torisguardcard";
+
+		//Toris Spells
+		cardArt [1] [1] = new string[4];
+		cardArt [1] [1] [0] = "torisfistcard";
+		cardArt [1] [1] [1] = "torislevelcard";
+		cardArt [1] [1] [2] = "torissinkholecard";
+		cardArt [1] [1] [3] = "torisevelatecard";
 	}
 
     // hides the hand

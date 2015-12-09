@@ -13,16 +13,19 @@ public class CardScript : MonoBehaviour {
 	public int spellType;
 
 	//bool determines if card is selected
+	public bool in_hand;
 	public bool is_selected;
 
-	//return functions
-	//public bool Selected { get { return is_selected; } }	
+	//this gameObject's position in hand
+	private Vector3 handPos;
+
+	public GameObject highlight;
 
 
 	void Start() {
 
-		rend = GetComponent<Renderer>();
-		mat = rend.material;
+		//rend = GetComponent<Renderer>();
+		//mat = rend.material;
 		is_selected = false;
 	}
 
@@ -41,20 +44,28 @@ public class CardScript : MonoBehaviour {
 	}
 
 	void OnMouseEnter(){
-		//highlights when mouse hovers over ****COSMETIC****
-		//Debug.Log ("AHHH");
-		//mat.SetColor("_EmissionColor", Color.grey);
+		//card moves toward camera when hovered over
+		if (in_hand) {
+			handPos = gameObject.transform.position;
+			gameObject.transform.position = gameObject.transform.position + (Camera.main.transform.forward * -2);
+		}
 	}
+	
 	void OnMouseExit(){
-		//removes highlight when exiting ****COSMETIC****
-		//Debug.Log ("ah");
-		//mat.SetColor ("_EmissionColor", Color.black);
+		//card returns to normal hand position when hoverover is done
+		if (in_hand) {
+			gameObject.transform.position = handPos;
+		}
 	}
-
+	
 	void OnMouseDown(){
-	//	sets card as selected; will be picked up by the hand script
-		GameManager gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
-		((HandScript)gm.currentHand.GetComponent ("HandScript")).deselect();
-		is_selected = true;
+		//	sets card as selected; will be picked up by the hand script
+		if (in_hand) {
+			is_selected = true;
+			GameObject temp;
+			temp = (GameObject)Instantiate(highlight);
+			Vector3 offset = new Vector3(0, 0.01f, 0);
+			temp.transform.position = gameObject.transform.position + offset;
+		}
 	}
 }

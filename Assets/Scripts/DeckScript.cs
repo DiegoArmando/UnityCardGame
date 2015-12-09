@@ -11,6 +11,10 @@ public class DeckScript : MonoBehaviour {
 	public GameObject playerHand;
 	private HandScript playerScript;
 	
+		//array of inputs to create deck
+	int[] cardCategories = {0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1};
+	int[] cardTypes = {0,0,1,1,2,2,3,3,4,4,0,0,0,1,1,2,2,2,3,3};
+	
 	private List<GameObject> _deck = new List<GameObject> ();
 	private List<GameObject> _discard = new List<GameObject> ();
 
@@ -22,30 +26,29 @@ public class DeckScript : MonoBehaviour {
     void Awake()
     {
         gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
+		//grab playerHand's Handscript component
+		cardScript = cardObject.GetComponent<CardScript> ();
+		playerScript = playerHand.GetComponent<HandScript> ();
+
+		GameObject temp;
+
+		for (int i=0; i<20; i++) {
+			//instantiate a card object and give it its unique properties
+			temp = (GameObject)Instantiate(cardObject);
+			//set cardObject's texture
+			Texture img = (Texture)Resources.Load("CardBack");
+			temp.GetComponent<Renderer>().material.mainTexture = img;
+			cardScript.setCard(cardCategories[i], cardTypes[i]);
+			_deck.Add (temp);
+		}
+
+		//shuffle the deck
+		Shuffle ();
 
         oldPos = this.transform.position;
 
         if (this.name.Equals("P1Deck")) { playerID = 1; }
         else if (this.name.Equals("P2Deck")) { playerID = 2; }
-
-        //grab playerHand's Handscript component
-        cardScript = cardObject.GetComponent<CardScript>();
-        playerScript = playerHand.GetComponent<HandScript>();
-
-        GameObject temp;
-
-        for (int i = 0; i < 20; i++)
-        {
-            //instantiate a card object and give it its unique properties
-            temp = (GameObject)Instantiate(cardObject);
-            //set cardObject's texture
-            Texture img = (Texture)Resources.Load("CardBack");
-            temp.GetComponent<Renderer>().material.mainTexture = img;
-            cardScript.setCard(0, Random.Range(0, 5));
-            _deck.Add(temp);
-        }
-        //shuffle the deck
-        Shuffle();
     }
 
     void Start(){
