@@ -39,8 +39,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8172c6012b40fb642917b0a7fc2eb4a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   cardObject: {fileID: 137962, guid: 12ab345a0873a6144a365c69f4ed1146, type: 2}
   playerHand: {fileID: 0}
+=======
+  cardObject: {fileID: 135154, guid: c563d8d4d8a7b6f4c9a40d3d813e8b7c, type: 2}
+  playerHand: {fileID: 137962, guid: 12ab345a0873a6144a365c69f4ed1146, type: 2}
+>>>>>>> 78383f6f3422edb9e1be4f0ca89c0b169cb94671
   playerID: 1
 --- !u!1001 &100100000
 Prefab:
@@ -51,6 +56,10 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: cardObject
+      value: 
+      objectReference: {fileID: 135154, guid: c563d8d4d8a7b6f4c9a40d3d813e8b7c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: playerHand
       value: 
       objectReference: {fileID: 137962, guid: 12ab345a0873a6144a365c69f4ed1146, type: 2}
     - target: {fileID: 0}
