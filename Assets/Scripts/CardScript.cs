@@ -49,12 +49,12 @@ public class CardScript : MonoBehaviour {
 	void OnMouseEnter(){
 		//highlights when mouse hovers over ****COSMETIC****
 		//Debug.Log ("AHHH");
-		mat.SetColor("_EmissionColor", Color.grey);
+		//mat.SetColor("_EmissionColor", Color.grey);
 	}
 	void OnMouseExit(){
 		//removes highlight when exiting ****COSMETIC****
 		//Debug.Log ("ah");
-		mat.SetColor ("_EmissionColor", Color.black);
+		//mat.SetColor ("_EmissionColor", Color.black);
 	}
 
 	void OnMouseDown(){

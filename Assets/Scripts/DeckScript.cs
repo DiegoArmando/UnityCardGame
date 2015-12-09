@@ -23,12 +23,21 @@ public class DeckScript : MonoBehaviour {
 		Vector3 pos;
 		float offset;
 
+		//create a deck of 20 cards
 		for (int i=0; i<20; i++) {
 			offset = (float)i * 0.025f;
 			pos = new Vector3(0, offset , 0);
+			//instantiate a card object and give it its unique properties
 			temp = (GameObject)Instantiate(cardObject);
-			//temp.transform.parent = this.transform;
+			//set cardObject's texture
+			Texture img;
+			if(i<10){
+				img = (Texture)Resources.Load("starorescoutcard");
+			}
+			else img = (Texture)Resources.Load("starorebrutecard");
+			temp.GetComponent<Renderer>().material.mainTexture = img;
 			temp.transform.position = this.transform.position + pos;
+			temp.transform.rotation = this.transform.rotation;
 			_deck.Add (temp);
 		}
 	}
@@ -47,12 +56,21 @@ public class DeckScript : MonoBehaviour {
 		float voffset = _discard.Count * 0.025f;
 		Vector3 offset = new Vector3 (0, voffset, 2.0f);
 		card.transform.position = this.transform.position + offset;
+		card.transform.rotation = this.transform.rotation;
 		_discard.Add (card);
 		return card;
 	}
 
 	public void Shuffle(){
-	
+		//called during initialization, shuffles the cardObjects in decklist
+		List<GameObject> temp = new List<GameObject> ();
+		while (_deck.Count != 0) {
+			int i = Random.Range (0, _deck.Count);
+			GameObject card = _deck[i];
+			_deck.RemoveAt(i);
+			temp.Add(card);
+		}
+		_deck = temp;
 	}
 	
 }
