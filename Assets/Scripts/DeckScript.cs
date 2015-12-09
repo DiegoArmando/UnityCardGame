@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class DeckScript : MonoBehaviour {
 
 	public GameObject cardObject;
+	private CardScript cardScript;
 	public GameObject playerHand;
 	private HandScript playerScript;
 	
@@ -17,37 +18,22 @@ public class DeckScript : MonoBehaviour {
 	//initialize deck
 	void Start(){
 		//grab playerHand's Handscript component
+		cardScript = cardObject.GetComponent<CardScript> ();
 		playerScript = playerHand.GetComponent<HandScript> ();
 
 		GameObject temp;
-		Vector3 pos;
-		float offset;
 
-		//create a deck of 20 cards
 		for (int i=0; i<20; i++) {
-			offset = (float)i * 0.025f;
-			pos = new Vector3(0, offset , 0);
 			//instantiate a card object and give it its unique properties
 			temp = (GameObject)Instantiate(cardObject);
 			//set cardObject's texture
-			Texture img;
-			if(i<10){
-				img = (Texture)Resources.Load("starorescoutcard");
-				((CardScript)temp.GetComponent("CardScript")).Type = 0;
-				((CardScript)temp.GetComponent("CardScript")).unitType = 0;
-			}
-			else if(i == 18)
-			{
-				img = (Texture)Resources.Load("elevate");
-				((CardScript)temp.GetComponent("CardScript")).Type = 1;
-				((CardScript)temp.GetComponent("CardScript")).spellType = 0;
-			}
-			else img = (Texture)Resources.Load("starorebrutecard");
+			Texture img = (Texture)Resources.Load("CardBack");
 			temp.GetComponent<Renderer>().material.mainTexture = img;
-			temp.transform.position = this.transform.position + pos;
-			temp.transform.rotation = this.transform.rotation;
+			cardScript.setCard(0, Random.Range(0, 5));
 			_deck.Add (temp);
 		}
+		//shuffle the deck
+		Shuffle ();
 	}
 
 	void Update() {
@@ -56,6 +42,8 @@ public class DeckScript : MonoBehaviour {
 			int i = _deck.Count-1;
 			GameObject card = _deck[i];
 			_deck.RemoveAt(i);
+			cardScript = card.GetComponent<CardScript> ();
+			cardScript.is_selected = false;
 			playerScript.drawCard(card);
 		}
 	}
@@ -69,14 +57,23 @@ public class DeckScript : MonoBehaviour {
 		return card;
 	}
 
-	public void Shuffle(){
+	private void Shuffle(){
 		//called during initialization, shuffles the cardObjects in decklist
 		List<GameObject> temp = new List<GameObject> ();
+		int i = 0;
 		while (_deck.Count != 0) {
-			int i = Random.Range (0, _deck.Count);
-			GameObject card = _deck[i];
-			_deck.RemoveAt(i);
+			int rand = Random.Range (0, _deck.Count);
+			GameObject card = _deck[rand];
+			_deck.RemoveAt(rand);
 			temp.Add(card);
+
+			Vector3 pos;
+			float offset;
+			offset = (float)i * 0.025f;
+			pos = new Vector3(0, offset , 0);
+			card.transform.position = this.transform.position + pos;
+			card.transform.rotation = this.transform.rotation;
+			i++;
 		}
 		_deck = temp;
 	}
