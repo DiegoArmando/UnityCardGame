@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b8ac30e53a06245a2d1d807c32f8c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 175574, guid: 5f56ffedc4e6243459bbcd9d62f749d9, type: 2}
+  unit: {fileID: 134336, guid: 5f56ffedc4e6243459bbcd9d62f749d9, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -102,7 +102,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: unit
       value: 
-      objectReference: {fileID: 175574, guid: 5f56ffedc4e6243459bbcd9d62f749d9, type: 2}
+      objectReference: {fileID: 134336, guid: 5f56ffedc4e6243459bbcd9d62f749d9, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 105694}

@@ -69,27 +69,39 @@ public class Tile : MonoBehaviour {
     {
         if(Input.GetMouseButton(0))
         {
-            if (totalTime > halfSec && gm.GetSelectMode() == 2)
+            if (totalTime > halfSec/* && gm.GetSelectMode() == 2*/)
             {
 				//gm.currentHand.GetComponent("HandScript").
                 //transform.position = transform.position + new Vector3(0.0f, 0.5f, 0.0f);
                 halfSec = totalTime + 0.5f;
                 // Increase height at xPos,zPos by 1
-<<<<<<< HEAD
-				if(gm.CheckOccupy(xPos, zPos) == false)
+
+				if(gm.CheckOccupy(xPos, zPos) == false && ((HandScript)gm.currentHand.GetComponent("HandScript")).hasSelected)
 				{
 					print ("Space " + xPos + ", " + zPos + " is unoccupied.");
 					GameObject newUnit = Instantiate(unit);
-					UnitMovement moveScript = (UnitMovement)newUnit.GetComponent("Capsule").GetComponent("UnitMovement");
-					//moveScript.
-					moveScript.PositionUpdate(xPos, zPos);
+					//newUnit.SetActive(true);
+
+					UnitMovement moveScript = (UnitMovement)newUnit.GetComponent("UnitMovement");
+					if(moveScript == null)
+					{
+						print ("The unit doesn't exist yet");
+					}
+					else
+					{
+						moveScript.PositionUpdate(xPos, zPos);
+						print ("Setting the unit's position to " + xPos + ", " + zPos);
+					}
+
 
 					//Set the unit's properties here
 				}
+				else
+				{
+					print ("Space " + xPos + ", " + zPos + " is occupied or a card is not selected.");
+				}
                 //gm.ChangeHeight(xPos, zPos, 1);
-=======
-                gm.ChangeHeight(xPos, zPos, 1);
->>>>>>> origin/NewUnits
+
             }
             /*
 			else
@@ -103,17 +115,11 @@ public class Tile : MonoBehaviour {
         {
             if (totalTime > halfSec && gm.GetSelectMode() == 2)
             {
-<<<<<<< HEAD
                 //transform.position = transform.position + new Vector3(0.0f, -0.5f, 0.0f);
                 //halfSec = totalTime + 0.5f;
                 // Decrease height at xPos,zPos by 1
                 //gm.ChangeHeight(xPos, zPos, -1);
-=======
-                transform.position = transform.position + new Vector3(0.0f, -0.5f, 0.0f);
-                halfSec = totalTime + 0.5f;
-                // Decrease height at xPos,zPos by 1
-                gm.ChangeHeight(xPos, zPos, -1);
->>>>>>> origin/NewUnits
+
             }
         }
     }

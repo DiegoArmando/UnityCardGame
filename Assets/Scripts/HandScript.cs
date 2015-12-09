@@ -42,7 +42,7 @@ public class HandScript : MonoBehaviour {
 			if(cardScript.Selected){
 				selected = cardScript.gameObject;
 				hasSelected = true;
-				print("Selected card");
+				//print("Selected card");
 				//_hand.RemoveAt(i);
 				//playerDeckScript.discard(card);
 				//manageHand();

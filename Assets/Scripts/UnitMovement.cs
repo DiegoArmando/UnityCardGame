@@ -16,25 +16,24 @@ public class UnitMovement : MonoBehaviour {
     
 
 	// Use this for initialization
+	void Awake()
+	{
+		gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
+	}
+
+
 	void Start () {
-        gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
-<<<<<<< HEAD
-	
-=======
->>>>>>> origin/NewUnits
+        
+		print ("I have been created");
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
         int height = gm.CheckHeight(unit_X, unit_Y);
-<<<<<<< HEAD
-        this.transform.position = new Vector3(unit_X, 2 + (float)height/2, unit_Y);
-
-=======
         this.transform.position = new Vector3(unit_X * 1.05f, 1.5f + height/2.0f, unit_Y * 1.05f);
         if (!gm.CheckOccupy(unit_X, unit_Y)) { gm.ChangeOccupy(unit_X,unit_Y,true); }
         gm.ChangeOwner(unit_X, unit_Y, playerID);
->>>>>>> origin/NewUnits
 	}
 
     void OnMouseOver() {
@@ -55,45 +54,6 @@ public class UnitMovement : MonoBehaviour {
         }
     }
 
-<<<<<<< HEAD
-    // Deselect the unit
-    void Deselect()
-    {
-        if (selected) { selected = false; };
-    }
-
-    // Update unit Position to (new_x, new_y)
-    public void PositionUpdate(int new_x, int new_y)
-    {
-        unit_X = new_x;
-        unit_Y = new_y;
-    }
-
-    void OnGUI()
-    {
-        // Left button
-        if (selected && GUI.Button(new Rect((menuPosX - buttonSize/2) - buttonSize, (menuPosY - buttonSize/2), buttonSize, buttonSize), "Left")) 
-        {
-            if (unit_X - 1 < 0) 
-            {
-                print("Unit cannot move off the board");
-            }
-            else if (gm.CheckHeight(unit_X - 1, unit_Y) > gm.CheckHeight(unit_X, unit_Y))
-            {
-                print("Unit cannot move to higher heights");
-            }
-            else if (gm.CheckOccupy(unit_X-1,unit_Y)) 
-            {
-                print("Unit cannot move to an occupied space");
-            }
-            else 
-            {
-                this.transform.position += (new Vector3(-1.0f, 0.0f, 0.0f));
-                selected = false;
-                unit_X--;
-            }
-
-=======
     void OnGUI()
     {
         // Left button
@@ -105,69 +65,28 @@ public class UnitMovement : MonoBehaviour {
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) - buttonSize * 2, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Left\nx2"))
         {
             PositionUpdate(unit_X - 2, unit_Y);
->>>>>>> origin/NewUnits
         }
         // Right button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) + buttonSize, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Right"))
         {
-<<<<<<< HEAD
-            if (unit_X + 1 > gm.GetBoardSize()) 
-            {
-                print("Unit cannot move off the board");
-            }
-            else if (gm.CheckHeight(unit_X + 1, unit_Y) > gm.CheckHeight(unit_X, unit_Y))
-            {
-                print("Unit cannot move to higher heights");
-            }
-            else if (gm.CheckOccupy(unit_X + 1, unit_Y))
-            {
-                print("Unit cannot move to an occupied space");
-            }
-            else
-            {
-                this.transform.position += (new Vector3(1.0f, 0.0f, 0.0f));
-                selected = false;
-                unit_X++;
-            }
-=======
+
             PositionUpdate(unit_X + 1, unit_Y);
         }
         // Right x2 button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2) + buttonSize * 2, (menuPosY - buttonSize / 2), buttonSize, buttonSize), "Right\nx2"))
         {
             PositionUpdate(unit_X + 2, unit_Y);
->>>>>>> origin/NewUnits
         }
         // Up button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2), (menuPosY - buttonSize / 2) - buttonSize, buttonSize, buttonSize), "Up"))
         {
-<<<<<<< HEAD
-            if (unit_Y + 1 > gm.GetBoardSize())
-            {
-                print("Unit cannot move off the board");
-            }
-            else if (gm.CheckHeight(unit_X, unit_Y + 1) > gm.CheckHeight(unit_X, unit_Y))
-            {
-                print("Unit cannot move to higher heights");
-            }
-            else if (gm.CheckOccupy(unit_X, unit_Y + 1))
-            {
-                print("Unit cannot move to an occupied space");
-            }
-            else
-            {
-                this.transform.position += (new Vector3(0.0f, 0.0f, 1.0f));
-                selected = false;
-                unit_Y++;
-            }
-=======
             PositionUpdate(unit_X, unit_Y + 1);
         }
         // Up x2 button (scout only)
         if (unitType == 3 && selected && GUI.Button(new Rect((menuPosX - buttonSize / 2), (menuPosY - buttonSize / 2) - buttonSize * 2, buttonSize, buttonSize), "Up\nx2"))
         {
             PositionUpdate(unit_X, unit_Y + 2);
->>>>>>> origin/NewUnits
+
         }
         // Down button
         if (selected && GUI.Button(new Rect((menuPosX - buttonSize / 2), (menuPosY - buttonSize / 2) + buttonSize, buttonSize, buttonSize), "Down"))
@@ -210,38 +129,23 @@ public class UnitMovement : MonoBehaviour {
     // Update unit Position to (new_x, new_y)
     public void PositionUpdate(int new_x, int new_y)
     {
+		/*if (gm == null)
+		{
+			print ("Game Manager doesn't exist yet");
+			gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
+		}*/
         if (new_x < 0 || new_x >= gm.GetBoardSize() || new_y < 0 || new_y >= gm.GetBoardSize())
         { gm.ShowTBMessage("Unit cannot move off the board"); }
         else if (gm.CheckOccupy(new_x, new_y))
         { gm.ShowTBMessage("Unit cannot move to an occupied space"); }
         else
         {
-<<<<<<< HEAD
-            if (unit_Y - 1 < 0)
-            {
-                print("Unit cannot move off the board");
-            }
-            else if (gm.CheckHeight(unit_X, unit_Y - 1) > gm.CheckHeight(unit_X, unit_Y))
-            {
-                print("Unit cannot move to higher heights");
-            }
-            else if (gm.CheckOccupy(unit_X, unit_Y - 1))
-            {
-                print("Unit cannot move to an occupied space");
-            }
-            else
-            {
-                this.transform.position += (new Vector3(0.0f, 0.0f, -1.0f));
-                selected = false;
-                unit_Y--;
-            }
-=======
+
             selected = false;
             gm.ChangeOccupy(unit_X, unit_Y, false);
             unit_X = new_x;
             unit_Y = new_y;
             gm.ChangeOccupy(unit_X, unit_Y, true);
->>>>>>> origin/NewUnits
         }
     }
 

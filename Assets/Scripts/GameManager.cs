@@ -15,10 +15,9 @@ public class GameManager : MonoBehaviour {
 
     public int[,] gridHeight = new int[gridSize,gridSize];
     public bool[,] gridOccupided = new bool[gridSize, gridSize];
-    private int[,] gridHeight = new int[gridSize,gridSize];
-    private bool[,] gridOccupided = new bool[gridSize, gridSize];
     private int[,] gridOwner = new int[gridSize, gridSize];
     public int selectionMode = 0; //0 = none; 1 = unitMove; 2 = spellTarget; 3 = unitPlace; 
+	//public bool hasSelection = false;
 
 	public GameObject currentHand;
 
@@ -34,6 +33,7 @@ public class GameManager : MonoBehaviour {
                 gridOwner[i, j] = 0;
             }
         }
+		currentHand = GameObject.Find ("P1Hand");
 	}
 	
 	// Update is called once per frame
@@ -88,30 +88,20 @@ public class GameManager : MonoBehaviour {
     // Check Occupancy of grid postion [x,y]
     public bool CheckOccupy(int x, int y)
     {
-<<<<<<< HEAD
-        if (x < 0 || x > gridSize || y < 0 || y > gridSize) { return true; }
-=======
+
         if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) { return true; }
->>>>>>> origin/NewUnits
         return gridOccupided[x, y];
     }
 
     // Change Occupancy of grid position [x,y] to value of b
     public bool ChangeOccupy(int x, int y, bool b)
     {
-<<<<<<< HEAD
-        if (x < 0 || x > gridSize || y < 0 || y > gridSize) { return false; }
-=======
         if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) { return false; }
->>>>>>> origin/NewUnits
         gridOccupided[x, y] = b;
         return true;
     }
 
-<<<<<<< HEAD
-    // Acessor fnction to get board size
-    public int GetBoardSize() { return gridSize; }
-=======
+
     // Check the Owner of block at grid position [x,y]
     public int CheckOwner(int x, int y)
     {
@@ -152,5 +142,5 @@ public class GameManager : MonoBehaviour {
         showTB = true;
         showTimeStart = Time.time;
     }
->>>>>>> origin/NewUnits
+
 }
