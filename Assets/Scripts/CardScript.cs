@@ -15,6 +15,7 @@ public class CardScript : MonoBehaviour {
 	//bool determines if card is selected
 	public bool in_hand;
 	public bool is_selected;
+    public bool discarded = false;
 
 	//this gameObject's position in hand
 	private Vector3 handPos;
@@ -29,6 +30,10 @@ public class CardScript : MonoBehaviour {
 		is_selected = false;
         gm = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
 	}
+
+    void Update()
+    {
+    }
 
 	public void setCard(int sentType, int which){
 		Type = sentType;
@@ -47,27 +52,37 @@ public class CardScript : MonoBehaviour {
 	void OnMouseEnter(){
 		//card moves toward camera when hovered over
 		if (in_hand) {
-			handPos = gameObject.transform.position;
-			gameObject.transform.position = gameObject.transform.position + (Camera.main.transform.forward * -2) + new Vector3(0,0,1.5f);
-            gm.ShowDBMessage(Type, unitType, spellType);
+            gameObject.transform.position += new Vector3(0, 0.1f, 0);
 		}
 	}
 	
 	void OnMouseExit(){
 		//card returns to normal hand position when hoverover is done
 		if (in_hand) {
-			gameObject.transform.position = handPos;
+            gameObject.transform.position -=  new Vector3(0, 0.1f, 0);
 		}
 	}
 	
 	void OnMouseDown(){
 		//	sets card as selected; will be picked up by the hand script
-		if (in_hand) {
-			is_selected = true;
-			/*GameObject temp;
-			temp = (GameObject)Instantiate(highlight);
-			Vector3 offset = new Vector3(0, 0.01f, 0);
-			temp.transform.position = gameObject.transform.position + offset;*/
-		}
+        if (in_hand && !discarded)
+        {
+            HandScript hand = (HandScript)GameObject.Find("P"+gm.GetWhoseTurn()+"Hand").GetComponent("HandScript");
+            if (!is_selected)
+            {
+                hand.deselect();
+                is_selected = true;
+                handPos = gameObject.transform.position;
+                gameObject.transform.position = gameObject.transform.position + (Camera.main.transform.forward * -2) + new Vector3(0, 0, 1.5f);
+                gm.ShowDBMessage(Type, unitType, spellType);
+            }
+            else if (is_selected)
+            {
+                is_selected = false;
+                gameObject.transform.position = handPos;
+                handPos = gameObject.transform.position;
+                gm.HideDBMessage();
+            }
+        }
 	}
 }

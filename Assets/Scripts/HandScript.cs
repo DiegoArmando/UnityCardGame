@@ -101,9 +101,9 @@ public class HandScript : MonoBehaviour {
 		cardArt [0] [0] = new string[5];
 		cardArt [0] [0] [0] = "staroreguardcard";
 		cardArt [0] [0] [1] = "starorebrutecard";
-        cardArt[0][0][2] = "staroreexcavatorcard"; 
+        cardArt[0][0][2] = "staroreelevatorcard"; 
 		cardArt [0] [0] [3] = "starorescoutcard";
-        cardArt[0][0][4] = "staroreelevatorcard"; 
+        cardArt[0][0][4] = "staroreexcavatorcard"; 
 
 		//StarOre Spells
 		cardArt [0] [1] = new string[4];
@@ -161,6 +161,8 @@ public class HandScript : MonoBehaviour {
 			GameObject card = _hand[i];
 			CardScript cardScript = card.GetComponent<CardScript>();
 			cardScript.is_selected = false;
+            Vector3 offset = new Vector3(i * 2.5f, 0, 0);
+            card.transform.position = this.transform.position + offset;
 		}
 	}
 

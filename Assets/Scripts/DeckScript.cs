@@ -73,6 +73,7 @@ public class DeckScript : MonoBehaviour {
 		Vector3 offset = new Vector3 (0, voffset, 4.0f);
 		card.transform.position = this.transform.position + offset;
 		card.transform.rotation = this.transform.rotation;
+        ((CardScript)card.GetComponent("CardScript")).discarded = true;
 		_discard.Add (card);
 		return card;
 	}

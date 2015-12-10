@@ -108,8 +108,11 @@ public class UnitMovement : MonoBehaviour {
                 CardScript card = ((CardScript)hand.selected.GetComponent("CardScript"));
                 if (card.Type == 1)
                 {
-                    ((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(card.spellType, unit_X, unit_Y);
-                    ((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
+                    if (gm.CheckActions() > 0)
+                    {
+                        ((MakeGrid)GameObject.Find("GameManager").GetComponent("MakeGrid")).doSpell(card.spellType, unit_X, unit_Y);
+                        ((HandScript)gm.currentHand.GetComponent("HandScript")).Discard();
+                    }
                 }
             }
         }
@@ -193,7 +196,7 @@ public class UnitMovement : MonoBehaviour {
             if (new_x < 0 || new_x >= gm.GetBoardSize() || new_y < 0 || new_y >= gm.GetBoardSize())
             { gm.ShowTBMessage("Unit cannot move off the board"); }
             else if (gm.CheckOccupy(new_x, new_y))
-            { gm.ShowTBMessage("Unit cannot move to an occupied space"); }
+            { gm.ShowTBMessage("Unit cannot move to\nan occupied space"); }
             else if (gm.CheckHeight(unit_X, unit_Y) < gm.CheckHeight(new_x, new_y))
             {
                 if (gm.CheckActions() < 2) { 

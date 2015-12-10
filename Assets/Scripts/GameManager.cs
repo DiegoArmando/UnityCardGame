@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour {
 
     private string description = "";
     private bool showDB = false;
-    private float showDBTimeStart;
 
     private const int scoreboxWidth = 225;
     private const int scoreboxHeight = 25;
@@ -66,12 +65,12 @@ public class GameManager : MonoBehaviour {
         calcScore();
 
         if (Time.time - showTimeStart > 2.0f) { showTB = false; }
-        if (Time.time - showDBTimeStart > 1.0f) { showDB = false; }
 
         if (Input.GetKeyDown(KeyCode.T))
         {
             GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("deselect");
             GameObject.Find("P2Hand").GetComponent("HandScript").SendMessage("deselect");
+            HideDBMessage();
             if (!hiddenCards)
             {
                 GameObject.Find("P1Hand").GetComponent("HandScript").SendMessage("hideHand");
@@ -289,13 +288,13 @@ public class GameManager : MonoBehaviour {
                     case 1:
                         description = "StarOre Brute\n-UNIT-\n-Regular unit\n-Master Buford Beauregarde\nthe first, former member of\nthe Royal Guard.";
                         break;
-                    case 2:
+                    case 4:
                         description = "StarOre Excavator\n-UNIT-\n-Descends the tile he's\nstanding on\n-The Honorable Quincy James\nMatthews the fourth.\nAn expert in excavation magic.";
                         break;
                     case 3:
                         description = "StareOre Scout\n-UNIT-\n-Can move farther\n-Sir Horace Pennyweather.\nMiss Meredith’s\npersonal bodyguard.";
                         break;
-                    case 4:
+                    case 2:
                         description = "StarOre Elevator\n-UNIT-\n-Ascends the tile she's\nstanding on\n-Lady Elizabeth Hillridge.\nAn expert in elevation magic.";
                         break;
                     default:
@@ -309,15 +308,15 @@ public class GameManager : MonoBehaviour {
                         description = "Tori's Guard\n-UNIT-\n-Regular unit\n\n-Jackie Porter.\nTori’s old college roommate.";
                         break;
                     case 1:
-                        description = "Tori's Brute\n-Regular unit\n\n-Jason McHenry. Jackie’s rich neighbor.";
+                        description = "Tori's Brute\n-UNIT-\n-Regular unit\n\n-Jason McHenry.\nJackie’s rich neighbor.";
                         break;
-                    case 2:
+                    case 4:
                         description = "Tori's Excavator\n-UNIT-\n-Descends the tile she's\nstanding on\n\n-Rebecca Jordan.\nTori’s college best friend.";
                         break;
                     case 3:
                         description = "Tori's Scout\n-UNIT-\n-Can move farther\n\n-Harrison Bennett.\nTori’s neighbor.";
                         break;
-                    case 4:
+                    case 2:
                         description = "Tori's Elevator\n-UNIT-\n-Ascends the tile he's\nstanding on\n\n-Lenny Brotelli.\nRebecca’s boyfriend.";
                         break;
                     default:
@@ -328,10 +327,10 @@ public class GameManager : MonoBehaviour {
         else if (type == 1) {
             switch (spellType)
             {
-                case 0:
+                case 1:
                     description = "Sinkhole\n-SPELL-\n-Descends the tile targeted.";
                     break;
-                case 1:
+                case 0:
                     description = "Elevate\n-SPELL-\n-Ascends the tile targeted.";
                     break;
                 case 2:
@@ -345,6 +344,10 @@ public class GameManager : MonoBehaviour {
             }
         }
         showDB = true;
-        showDBTimeStart = Time.time;
+    }
+
+    public void HideDBMessage()
+    {
+        showDB = false;
     }
 }
